@@ -59,6 +59,15 @@ The build writes the installer, the portable zip and the checksums to `dist\`.
 - [Profiles](docs/LOCAL_PROFILES.md), [diagnostics](docs/DIAGNOSTICS.md), [phishing list](docs/phishing-feed.md)
 - [Changelog](CHANGELOG.md)
 
+## Code signing policy
+
+Free code signing provided by [SignPath.io](https://about.signpath.io/), certificate by [SignPath Foundation](https://signpath.org/). Until signing is active, Windows builds are unsigned.
+
+- Committers and reviewers: [NacreDev](https://github.com/nacrebrowser)
+- Approvers: [NacreDev](https://github.com/nacrebrowser)
+
+Signed builds are produced by GitHub Actions from this repository. What Nacre stores and sends over the network is described in the [privacy policy](PRIVACY.md).
+
 ## Support Nacre
 
 Nacre is free and has no ads or tracking. If it is useful to you, you can support its development with a [donation on PayPal](https://paypal.me/donNacre).

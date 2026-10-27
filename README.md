@@ -30,15 +30,15 @@ See [PRIVACY.md](PRIVACY.md) for exactly what is stored and what goes over the n
 
 ## Install
 
-Download `Nacre Setup 1.0.0.exe` from the [releases page](https://github.com/nacrebrowser/nacre/releases) and run it. You can choose the install folder and whether Tor is on by default.
+Download `Nacre.Setup.1.0.0.exe` from the [releases page](https://github.com/nacrebrowser/nacre/releases) and run it. You can choose the install folder and whether Tor is on by default.
 
 Windows will say "Windows protected your PC" because the installer is not signed yet. Click **More info**, then **Run anyway**. You can check the file against `SHA256SUMS-1.0.0.txt`:
 
 ```powershell
-Get-FileHash "Nacre Setup 1.0.0.exe"
+Get-FileHash .\Nacre.Setup.1.0.0.exe
 ```
 
-A portable version is also available: unzip `Nacre 1.0.0 Portable.zip` and run `Nacre Portable.cmd`. Your data stays in the `NacreData` folder next to it.
+A portable version is also available: unzip `Nacre.1.0.0.Portable.zip` and run `Nacre Portable.cmd`. Your data stays in the `NacreData` folder next to it.
 
 ## Build from source
 

@@ -38,8 +38,6 @@ node scripts/verify-diagnostics-runtime.cjs
 
 The fixture builds the real `main.cjs`, opens `nacre://leak-tests/`, runs the local and external paths against an intercepted HTTPS endpoint, and asserts the rendered `data-status` values, the build rows, consent behaviour and raw-JSON collapse. It uses a disposable profile and prints the environment limitation for `--no-sandbox`.
 
-## Development release checks
+## Release checks
 
-Development release checks can be run with `npm run verify:release`. This combines the Node suite, audit/canvas/fingerprint checks, hardening and Tor-control fixtures, workspace isolation, continuation regressions and packaged-source checks. It needs a source checkout, development dependencies and a current `dist/win-unpacked`; it is not embedded in the setup. Its components can create temporary profiles and windows. It does not replace a real Tor/network capture or a Windows install/uninstall check.
-
-Publication hygiene: `node scripts/audit-publication.cjs` scans tracked and nonignored text files for local profile paths and selected credential formats, reporting locations without copying suspicious values. It is not a complete secret detector or a scan of image metadata, ignored build folders or every historical Git object. Historical objects can still contain removed material, so publishing the existing repository history requires a separate review or a clean export. No Git history was rewritten.
+The full set of release checks, and how the bundled report is produced, is described in [RELEASE_VALIDATION.md](RELEASE_VALIDATION.md).

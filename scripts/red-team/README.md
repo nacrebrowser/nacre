@@ -1,23 +1,33 @@
-# Nacre red-team fixtures (development only)
+# Attack tests (development only)
 
-Run from the repository root with `corepack pnpm exec node scripts/net-audit.cjs` and `node scripts/red-team/mutation-check.cjs`. These tools target only the local Electron fixture, loopback listeners, `.invalid` hostnames and reserved documentation IP literals. They do not target public hosts. NetLog artifacts are written to `.cache/net-audit/`; do not share raw logs because NetLog can contain sensitive data.
+These tools try to break Nacre's defences on purpose. They only target local fixtures, loopback servers, `.invalid` hostnames and reserved documentation addresses, never public hosts.
 
-## Findings ledger
+```powershell
+node scripts/net-audit.cjs
+node scripts/red-team/mutation-check.cjs
+```
 
-| Hypothesis / PoC | Result | Evidence | Regression / status |
-|---|---|---|---|
-| Hostile `nacre://` traversal using dot segments, encoded separators, double encoding, backslashes, NUL and malformed escapes reaches another asset | BLOCKED | `scripts/red-team/fixtures/protocol-paths.test.cjs`; canonical `/settings.js` accepted and hostile paths rejected by navigation and request validators | Test runs in `pnpm test` |
-| Hostile web document fetches internal pages or opens/navigates a child frame/window to `nacre://` | BLOCKED in fixture | Electron fixture report records blocked `fetch`, denied `window.open`, internal navigation denials and zero internal asset hits | `scripts/net-audit.cjs`; this is a limited fixture, not a full Nacre UI attack replay |
-| Web page's `fetch`, XHR, worker and redirect requests bypass configured SOCKS or resolve names outside the proxy | INCONCLUSIVE / BLOCKED | Latest NetLog report: SOCKS stub receives eight HTTP requests and preserves test hostnames; no DNS transactions observed. The full run exits `2` because Chromium logs `UDP_CONNECT`/`SOCKET_CONNECT` to `[2001:4860:4860::8888]:443` in proxy and closed-proxy modes | Keep result blocked until Windows packet capture can tell whether packets are emitted; no allowlist is inferred from NetLog alone |
-| Local SOCKS proxy failure falls back to direct page traffic | BLOCKED in fixture for requested destinations; overall containment INCONCLUSIVE | Closed local port gets connection attempts and SOCKS receives zero destination requests. IPv6 reachability socket events persist. Direct-mode negative canary is received and found in NetLog, proving the harness detects this path | Full app and installed build not captured |
-| Direct HTTP canary is invisible to harness | BLOCKED (negative control detected as expected) | HTTP loopback server received `/canary`; matching NetLog endpoint found | Required harness control |
-| Cookie policy blocks third-party cookies when initiator metadata is missing | BLOCKED by helper policy | `test/network-security.test.cjs` covers worker, redirect, subframe, script, XHR, fetch, stylesheet, image and other request kinds; top-level main-frame navigation remains permitted | Electron runtime cookie matrix is UNVERIFIED |
-| Mutating fail-closed proxy, IPC sender guard, internal-response CSP, permission deny, Tor hash check, download TLS validation, missing-initiator cookie rule or filename sanitizer escapes its test | BLOCKED | `node scripts/red-team/mutation-check.cjs`: 8/8 mutations detected in a disposable `.cache` source copy | Mutation tool automatically restores and removes its scratch copy |
-| Hostile page navigates or opens `file:`, UNC share paths, OS protocol handlers, `javascript:`, or internal `nacre://` pages | BLOCKED (helper level) | `scripts/red-team/fixtures/navigation-attacks.test.cjs`; the navigation validator refuses every target except canonical internal tab URLs | Live Electron navigation not replayed |
-| Page-triggered download of a code-running type is opened automatically | BLOCKED after fix (was SUCCEEDED in the earlier build, per commit e9b8b01) | `scripts/red-team/fixtures/payload-attacks.test.cjs`; risky types are never auto-opened and more code-running types are flagged | Mutation check covers the auto-open guard |
-| Site-permission write with host key `__proto__` or `constructor` lands on an inherited Object key | SUCCEEDED before, BLOCKED after (commit 421c148) | `scripts/red-team/fixtures/permission-pollution.test.cjs`; `permissionModeFor` and `setPermissionPolicy` use own-property checks | Mutation check covers the inherited-key guard |
-| Bidi control characters in filenames, trailing-dot filter hosts and extra bridge options | Fixed (commit fe9dc53) | `test/security-regressions.test.cjs` and the payload fixtures | Unit-level only |
+The tests in `fixtures/` also run with `pnpm test`.
 
-## Scope limits
+## What is tested
 
-The fixture is not the full Nacre app and does not exercise Tor itself, external-site behavior, packet emission on Windows, actual private-profile forensics, installer ACLs, browser fingerprint websites, browser external-protocol dialogs or every IPC argument through a live Electron process. Those are not marked as passed. See [the threat model](../../docs/security/THREAT_MODEL.md) for validation limits and `scripts/capture-windows-security.ps1` for the manual Windows capture workflow.
+| Attack | Result | Test |
+|---|---|---|
+| Reach another internal file through `nacre://` with dot segments, encoded or double-encoded separators, backslashes or NUL | Blocked | `fixtures/protocol-paths.test.cjs` |
+| A web page fetches, frames or opens a `nacre://` page | Blocked in the fixture | `scripts/net-audit.cjs` |
+| A page navigates or opens `file:`, UNC paths, OS protocol handlers, `javascript:` or internal pages | Blocked | `fixtures/navigation-attacks.test.cjs` |
+| A page-triggered download of a code-running file type opens automatically | Blocked | `fixtures/payload-attacks.test.cjs` |
+| A site permission saved under `__proto__` or `constructor` pollutes inherited keys | Blocked | `fixtures/permission-pollution.test.cjs` |
+| Bidi control characters in file names, trailing-dot hosts, extra bridge options | Blocked | `test/security-regressions.test.cjs` |
+| Third-party cookies sent when the request initiator is missing | Blocked | `test/network-security.test.cjs` |
+| Page requests bypass the configured SOCKS proxy, or a closed proxy falls back to direct traffic | No requested destination bypassed the proxy | `scripts/net-audit.cjs` |
+
+`mutation-check.cjs` deliberately breaks eight safeguards (fail-closed proxy, IPC sender check, internal CSP, permission deny, Tor hash check, download TLS check, cookie rule, file name sanitiser) in a throwaway copy of the source, and checks that the tests catch each one.
+
+## Limits
+
+In the network fixture, Chromium still attempts an IPv6 UDP connection outside the proxy. NetLog records the attempt, but it does not show whether a packet actually left the machine. A Windows packet capture of the full app is still needed.
+
+These fixtures are not the full app: they do not cover Tor itself, real websites, fingerprinting sites, installer permissions or every IPC call in a live Electron process. See the [threat model](../../docs/security/THREAT_MODEL.md).
+
+NetLog files are written to `.cache/net-audit/`. Don't share them: they can contain sensitive network details.

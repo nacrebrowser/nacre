@@ -6,6 +6,12 @@ Nacre routes your browsing through Tor by default, blocks ads and trackers, and 
 
 **Status: beta (1.0.0).** It works for everyday browsing, but the installer is not signed yet and some protections are partial. Don't use it for anything where your safety depends on anonymity: use [Tor Browser](https://www.torproject.org/) for that.
 
+![Nacre home page](docs/screenshots/home.png)
+
+| Site protection | Network and Tor settings | Menu |
+|---|---|---|
+| ![Site protection panel](docs/screenshots/protection.png) | ![Network and Tor settings](docs/screenshots/settings.png) | ![Main menu](docs/screenshots/menu.png) |
+
 ## Features
 
 - **Tor built in**, on by default, with bridge support. Direct mode and manual proxies are available too.

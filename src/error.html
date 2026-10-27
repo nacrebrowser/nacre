@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title data-i18n="error.pageTitle">Page unavailable — Nacre</title>
+  <link rel="stylesheet" href="error.css">
+</head>
+<body>
+  <main>
+    <div class="mark" aria-hidden="true">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+    </div>
+    <p class="eyebrow" data-i18n="error.eyebrow">NETWORK SECURITY · NACRE</p>
+    <h1 id="title" data-i18n="error.title">This page is not responding</h1>
+    <p id="message" class="message" data-i18n="error.message">Check your network connection, Tor relay, or address, then try again.</p>
+    <code id="target" class="target"></code>
+    <p id="code" class="code"></p>
+    <div class="actions">
+      <button id="retry" class="primary" type="button" data-i18n="error.retry">Try again</button>
+      <button id="home" type="button" data-i18n="error.home">New tab</button>
+      <button id="fix-dns" class="primary" type="button" data-i18n="error.dnsUseAutomatic" hidden>Use automatic DNS</button>
+      <button id="offline" type="button" data-i18n="error.offline">Offline help</button>
+    </div>
+    <p id="note" class="note" data-i18n="error.note">Nacre never disables certificate verification. If this warning reports an invalid certificate, do not send sensitive information.</p>
+  </main>
+  <script src="error.js"></script>
+</body>
+</html>

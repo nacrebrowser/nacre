@@ -1,0 +1,100 @@
+@import url('pages.css');
+
+.back { color: var(--muted); font-size: .8125rem; }
+.eyebrow { margin-top: 28px; }
+section { margin: 16px 0; padding: 20px 22px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
+section p { color: var(--muted); }
+section a { display: inline-block; margin: 4px 18px 2px 0; font-weight: 600; }
+.manual { border-color: color-mix(in srgb, var(--warn) 45%, transparent); }
+.notes textarea { min-height: 120px; }
+footer { padding: 16px 0; color: var(--faint); font-size: .75rem; }
+
+.diagnostics-panel { border-color: color-mix(in srgb, var(--accent) 30%, var(--line)); }
+.diagnostics-panel > h2 { margin-top: 0; }
+.diagnostics-panel > p { max-width: 76ch; }
+.diagnostics-external { display: flex; align-items: flex-start; gap: 10px; margin: 14px 0; color: var(--text); line-height: 1.45; cursor: pointer; }
+.diagnostics-external input { flex: 0 0 auto; width: 16px; height: 16px; margin: 2px 0 0; accent-color: var(--accent); }
+#diagnostics-run { min-height: 42px; }
+.diagnostics-status { min-height: 1.5em; margin: 14px 0 8px; color: var(--muted); }
+
+/* Overall verdict */
+.diagnostics-overview { display: flex; align-items: center; gap: 16px; margin: 10px 0 12px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); }
+.diagnostics-overview h3 { margin: 0 0 2px; font-size: 1.0625rem; font-weight: 650; color: var(--text); }
+.diagnostics-overview p { margin: 0; max-width: 70ch; color: var(--muted); font-size: .875rem; line-height: 1.5; }
+.diagnostics-overview-icon { display: grid; place-items: center; flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; font-size: 1.375rem; font-weight: 700; line-height: 1; }
+.diagnostics-overview[data-tone="ok"] { border-color: color-mix(in srgb, var(--status-shield) 40%, var(--line)); background: color-mix(in srgb, var(--status-shield) 8%, var(--surface-2)); }
+.diagnostics-overview[data-tone="ok"] .diagnostics-overview-icon { color: #fff; background: var(--status-shield); }
+.diagnostics-overview[data-tone="fail"] { border-color: color-mix(in srgb, var(--danger) 45%, var(--line)); background: var(--danger-bg); }
+.diagnostics-overview[data-tone="fail"] .diagnostics-overview-icon { color: #fff; background: var(--danger); }
+.diagnostics-overview[data-tone="partial"] { border-color: color-mix(in srgb, var(--warn) 45%, var(--line)); background: var(--warn-bg); }
+.diagnostics-overview[data-tone="partial"] .diagnostics-overview-icon { color: #fff; background: var(--warn); }
+
+.diagnostics-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+.diagnostics-chip { padding: 3px 11px; border-radius: 999px; background: var(--surface-3); color: var(--muted); font-size: .8125rem; font-variant-numeric: tabular-nums; }
+.diagnostics-chip--pass { color: var(--status-shield); background: var(--status-shield-subtle); }
+.diagnostics-chip--fail { color: var(--danger-text); background: var(--danger-bg); }
+.diagnostics-chip--not-started,
+.diagnostics-chip--limited { color: var(--warn-text); background: var(--warn-bg); }
+
+/* Result groups */
+.diagnostics-groups { display: grid; gap: 10px; margin-top: 4px; }
+.diagnostics-group { border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.diagnostics-group > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; color: var(--text); font-size: .9375rem; font-weight: 650; cursor: pointer; list-style: none; border-radius: 14px; }
+.diagnostics-group > summary::-webkit-details-marker { display: none; }
+.diagnostics-group > summary::before { content: '›'; flex: 0 0 auto; width: 1em; color: var(--muted); transition: transform .12s; }
+.diagnostics-group[open] > summary::before { transform: rotate(90deg); }
+.diagnostics-group > summary > span:first-child { flex: 1; }
+.diagnostics-group-count { min-width: 24px; padding: 1px 8px; border-radius: 999px; background: var(--surface-3); color: var(--muted); font-size: .75rem; font-weight: 600; text-align: center; }
+.diagnostics-group-note { margin: 0; padding: 0 16px 8px; color: var(--muted); font-size: .8125rem; line-height: 1.55; max-width: 76ch; }
+.diagnostics-group-list { display: grid; gap: 1px; padding: 0 8px 8px; }
+
+
+.diagnostics-results { display: grid; gap: 8px; margin-top: 10px; }
+.diagnostics-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 3px 12px; align-items: center; padding: 10px 10px; border-radius: 10px; }
+.diagnostics-group-list .diagnostics-row:hover { background: var(--hover); }
+.diagnostics-results .diagnostics-row { border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); padding: 12px 14px; }
+.diagnostics-row h3 { margin: 0; color: var(--text); font-size: .9375rem; font-weight: 600; }
+.diagnostics-row p { grid-column: 2 / -1; margin: 0; color: var(--muted); font-size: .8125rem; line-height: 1.5; overflow-wrap: anywhere; }
+.diagnostics-icon { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font-size: .8125rem; font-weight: 700; line-height: 1; background: var(--surface-3); color: var(--muted); }
+.diagnostics-icon--pass { color: #fff; background: var(--status-shield); }
+.diagnostics-icon--fail { color: #fff; background: var(--danger); }
+.diagnostics-icon--not-started,
+.diagnostics-icon--incomplete,
+.diagnostics-icon--limited { color: #fff; background: var(--warn); }
+.diagnostics-icon--measured { color: #fff; background: var(--status-tor); }
+
+.diagnostics-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 84px; padding: 3px 10px; border-radius: 999px; font-size: .75rem; font-weight: 650; text-align: center; white-space: nowrap; }
+.diagnostics-badge--pass { color: var(--status-shield); background: var(--status-shield-subtle); }
+.diagnostics-badge--fail { color: var(--danger-text); background: var(--danger-bg); }
+.diagnostics-badge--unverified,
+.diagnostics-badge--not-started,
+.diagnostics-badge--not-run { color: var(--warn-text); background: var(--warn-bg); }
+.diagnostics-badge--limited,
+.diagnostics-badge--incomplete { color: var(--warn-text); background: var(--warn-bg); }
+.diagnostics-badge--measured,
+.diagnostics-badge--not-applicable { color: var(--status-tor); background: var(--status-tor-subtle); }
+
+/* Recorded build validation: developer evidence, collapsed by default */
+.diagnostics-build { margin-top: 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.diagnostics-build > summary { display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; list-style: none; }
+.diagnostics-build > summary::-webkit-details-marker { display: none; }
+.diagnostics-build > summary::before { content: '›'; width: 1em; color: var(--muted); transition: transform .12s; }
+.diagnostics-build[open] > summary::before { transform: rotate(90deg); }
+.diagnostics-build h3 { flex: 1; margin: 0; font-size: .9375rem; font-weight: 650; }
+.diagnostics-build > p,
+.diagnostics-build > .diagnostics-results { margin-inline: 16px; }
+.diagnostics-build > p { margin-block: 6px; font-size: .8125rem; }
+.diagnostics-build > .diagnostics-results { margin-bottom: 16px; }
+.diagnostics-build-meta { color: var(--faint); overflow-wrap: anywhere; }
+.diagnostics-build .diagnostics-row { background: var(--surface-2); }
+
+.diagnostics-raw { margin-top: 14px; padding: 4px 16px 12px; border: 1px solid var(--line); border-radius: 14px; }
+.diagnostics-raw summary { padding: 8px 0; color: var(--muted); cursor: pointer; font-weight: 600; }
+.diagnostics-raw-note { margin: 4px 0 0; font-size: .8125rem; }
+.diagnostics-raw pre { max-height: 24rem; overflow: auto; margin: 12px 0 0; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); color: var(--text); font: .75rem/1.5 ui-monospace, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; }
+
+@media (max-width: 600px) {
+  .diagnostics-row { grid-template-columns: auto minmax(0, 1fr); }
+  .diagnostics-badge { grid-column: 2; justify-self: start; }
+  .diagnostics-row p { grid-column: 2; }
+}

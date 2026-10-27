@@ -1,0 +1,88 @@
+'use strict';
+const fs = require('node:fs');
+const path = require('node:path');
+const { launch } = require(process.env.NACRE_ELECTRON_FIXTURE_HELPER || path.join(__dirname, 'test-support/electron-fixture.cjs'));
+const root = path.resolve(__dirname, '..');
+const scratchRoot = path.join(root, '.cache/hardening-electron');
+fs.mkdirSync(scratchRoot, { recursive: true });
+if (!process.versions.electron) {
+  const scratch = fs.mkdtempSync(path.join(scratchRoot, 'profile-'));
+  const entry = path.join(scratch, 'runtime.cjs');
+  fs.copyFileSync(__filename, entry);
+  const env = { ...process.env, NACRE_SMOKE_ROOT: root, NACRE_SMOKE_PROFILE: scratch, NACRE_ELECTRON_FIXTURE_HELPER: path.join(__dirname, 'test-support', 'electron-fixture.cjs') };
+  const result = launch([entry], { env, cwd: root, encoding: 'utf8', timeout: 60000 });
+  process.stdout.write(result.stdout || ''); process.stderr.write(result.stderr || '');
+  process.exit(result.status ?? 1);
+}
+const assert = require('node:assert/strict');
+const Module = require('node:module');
+const http = require('node:http');
+const { app, BrowserWindow, safeStorage } = require('electron');
+app.commandLine.appendSwitch('host-resolver-rules', 'MAP third.test 127.0.0.1');
+const project = process.env.NACRE_SMOKE_ROOT, profile = process.env.NACRE_SMOKE_PROFILE;
+app.setPath('userData', profile); app.setPath('appData', profile); app.setPath('sessionData', path.join(profile, 'session'));
+BrowserWindow.prototype.show = function () {};
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+const until = async (fn, label) => { for (let i = 0; i < 200; i++) { if (await fn()) return; await wait(30); } throw new Error('Timed out: ' + label); };
+const server = http.createServer((req, res) => {
+  if (req.url === '/auth' && req.headers.authorization !== 'Basic ' + Buffer.from('tester:secret').toString('base64')) { res.writeHead(401, { 'WWW-Authenticate': 'Basic realm="Nacre smoke"' }); res.end('Auth required'); return; }
+  res.setHeader('content-type', 'text/html');
+  res.end('<!doctype html><title>Smoke</title><body>local fixture</body>');
+});
+let nacre;
+app.whenReady().then(() => {
+  require(path.join(project, 'src/profile-integrity.cjs')).createProfileIntegrity(profile, safeStorage).write(path.join(profile, 'settings.json'), 'settings', { directMode: true, torCountry: '', httpsOnly: false, clearOnQuit: true, adBlockEnabled: false, antiFingerprint: false, cookiePolicy: 'block-all' });
+});
+const filename = path.join(project, 'src/main.cjs');
+const main = new Module(filename, module); main.filename = filename; main.paths = Module._nodeModulePaths(path.dirname(filename));
+main._compile(fs.readFileSync(filename, 'utf8') + '\nmodule.exports={tabs,createTab,closeTab,navigateTab,settings:()=>settings,chrome:()=>chromeView};', filename);
+nacre = main.exports;
+async function run() {
+  const results = [];
+  await app.whenReady();
+  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+  const url = 'http://127.0.0.1:' + server.address().port;
+  await until(() => nacre.chrome() && nacre.tabs.size > 0, 'startup');
+  const id = await nacre.createTab(url + '/');
+  const tab = nacre.tabs.get(id), contents = tab.pageView.webContents;
+  await until(() => !contents.isLoading() && contents.getURL() === url + '/', 'web page');
+  const cookies = await contents.executeJavaScript("document.cookie='blocked=value'; ({cookie:document.cookie, store:typeof cookieStore, api:typeof window.nacre})");
+  assert.deepEqual(cookies, { cookie: '', store: 'undefined', api: 'undefined' });
+  results.push('blocked document.cookie and CookieStore; privileged API absent');
+  await contents.session.cookies.set({ url, name: 'native-write', value: 'blocked' });
+  await until(async () => !(await contents.session.cookies.get({ url })).length, 'cookie jar purge');
+  results.push('native cookie changed purge');
+  nacre.settings().cookiePolicy = 'block-third-party';
+  await contents.loadURL(url + '/?third-party-test');
+  await contents.executeJavaScript("document.cookie='first=allowed'; const frame=document.createElement('iframe'); frame.src=" + JSON.stringify('http://third.test:' + server.address().port + '/') + "; document.body.append(frame);");
+  await until(() => contents.mainFrame.frames.some(frame => frame.url.startsWith('http://third.test:')), 'third party frame');
+  const thirdFrame = contents.mainFrame.frames.find(frame => frame.url.startsWith('http://third.test:'));
+  const frameCookies = await thirdFrame.executeJavaScript("document.cookie='third=blocked'; ({cookie:document.cookie,store:typeof cookieStore})");
+  assert.deepEqual(frameCookies, { cookie: '', store: 'undefined' });
+  assert.equal(await thirdFrame.executeJavaScript('typeof require + ":" + typeof process'), 'undefined:undefined');
+  assert.equal(contents.getLastWebPreferences().sandbox, true);
+  assert.equal(contents.getLastWebPreferences().nodeIntegration, false);
+  assert.match(await contents.executeJavaScript('document.cookie'), /first=allowed/);
+  results.push('third-party iframe JS cookies blocked; first-party cookies remain usable');
+  const internalId = await nacre.createTab('nacre://settings/');
+  const internal = nacre.tabs.get(internalId);
+  await until(() => !internal.pageView.webContents.isLoading(), 'settings');
+  const previous = internal.pageView.webContents;
+  await previous.executeJavaScript('location.href=' + JSON.stringify(url + '/escape')).catch(() => {});
+  await until(() => internal.pageView.webContents !== previous && internal.pageView.webContents.getURL() === url + '/escape' && !internal.pageView.webContents.isLoading(), 'privilege transition');
+  assert.equal(internal.hasPreload, false);
+  assert.equal(await internal.pageView.webContents.executeJavaScript('typeof window.nacre'), 'undefined');
+  results.push('internal-to-web navigation recreates view without privileged preload');
+  nacre.settings().cookiePolicy = 'allow';
+  const authIdPromise = nacre.createTab(url + '/auth');
+  await authIdPromise;
+  await until(() => BrowserWindow.getAllWindows().some(window => window.webContents.getURL() === 'nacre://auth/'), 'HTTP auth prompt');
+  const prompt = BrowserWindow.getAllWindows().find(window => window.webContents.getURL() === 'nacre://auth/');
+  await until(() => !prompt.webContents.isLoading(), 'HTTP auth form');
+  await prompt.webContents.executeJavaScript("document.querySelector('#username').value='tester';document.querySelector('#password').value='secret';document.querySelector('form').requestSubmit();");
+  const authId = await authIdPromise;
+  await until(async () => { const wc = nacre.tabs.get(authId).pageView.webContents; return !wc.isLoading() && (await wc.executeJavaScript('document.title')) === 'Smoke'; }, 'authenticated page');
+  results.push('HTTP Basic authentication via bounded origin-bound prompt');
+  console.log('HARDENING_RUNTIME_RESULT ' + JSON.stringify({ status: 'PASS', electron: process.versions.electron, results }));
+}
+run().then(() => { server.close(); app.exit(0); }, error => { console.error(error); server.close(); app.exit(1); });

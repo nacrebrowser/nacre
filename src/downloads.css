@@ -1,0 +1,13 @@
+@import url('pages.css');
+
+.list { display: grid; gap: 10px; }
+.download { padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
+.download-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.name { font-weight: 600; word-break: break-word; }
+.state { color: var(--muted); font-size: .8125rem; }
+.meta { margin-top: 6px; color: var(--muted); font-size: .8125rem; }
+.track { height: 6px; margin: 14px 0; overflow: hidden; border-radius: 99px; background: var(--surface-3); }
+.track i { display: block; height: 100%; border-radius: 99px; background: var(--accent); transition: width .2s; }
+.download .actions { margin: 0; }
+.download button { min-height: 32px; padding: 0 12px; font-size: .8125rem; }
+.private { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 10px; color: var(--priv); background: color-mix(in srgb, var(--priv) 16%, transparent); font-size: .6875rem; font-weight: 600; }

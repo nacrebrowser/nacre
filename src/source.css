@@ -1,0 +1,5 @@
+@import url('downloads.css');
+
+body > main { max-width: none; margin: 28px; }
+pre { margin: 20px 0; padding: 20px; overflow: auto; border: 1px solid var(--line); border-radius: 14px; color: var(--text); background: var(--field); font: .8125rem/1.6 Consolas, "Cascadia Code", monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+#source-status { color: var(--muted); font-size: .8125rem; }

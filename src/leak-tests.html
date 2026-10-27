@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self';script-src 'self';style-src 'self';object-src 'none';base-uri 'none'">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title data-i18n="ui.leaktestshtml.text8fc8c6b271">Leak tests — Nacre</title>
+  <link rel="stylesheet" href="leak-tests.css">
+</head>
+<body>
+  <main>
+    <a class="back" href="nacre://settings/"><span data-i18n="siteControls.back">← Settings</span></a>
+    <p class="eyebrow"><span data-i18n="ui.leaktestshtml.text74f7e825cf">VERIFICATION TOOLS</span></p>
+    <h1><span data-i18n="ui.leaktestshtml.text0b92e11524">Check Nacre</span></h1>
+    <p class="lead"><span data-i18n="ui.leaktestshtml.textb71a39d59f">Third-party testing sites receive their requests and the information they test, including IP address, browser and fingerprint characteristics. Nacre does not collect or certify their results. The notes below remain on this page and disappear when you close it.</span></p>
+
+    <section class="diagnostics-panel" aria-labelledby="diagnostics-title">
+      <h2 id="diagnostics-title" data-i18n="diagnostics.title">Diagnostic results</h2>
+      <p data-i18n="diagnostics.scope">Internal checks measure this page. The optional Tor Project check contacts one external endpoint only after a separate native confirmation.</p>
+      <label class="diagnostics-external" for="diagnostics-external">
+        <input id="diagnostics-external" type="checkbox" checked>
+        <span data-i18n="diagnostics.externalLabel">Also check the Tor Project endpoint (a separate confirmation will appear)</span>
+      </label>
+      <button id="diagnostics-run" class="primary" type="button" data-i18n="diagnostics.run">Run all local diagnostics</button>
+      <p id="diagnostics-status" class="diagnostics-status" role="status" aria-live="polite" data-i18n="diagnostics.ready">Ready to run.</p>
+      <div id="diagnostics-overview" class="diagnostics-overview" data-tone="ok" hidden>
+        <span id="diagnostics-overview-icon" class="diagnostics-overview-icon" aria-hidden="true"></span>
+        <div>
+          <h3 id="diagnostics-headline"></h3>
+          <p id="diagnostics-headline-detail"></p>
+        </div>
+      </div>
+      <div id="diagnostics-summary" class="diagnostics-chips" hidden></div>
+      <div id="diagnostics-results" class="diagnostics-groups" role="group" aria-label="Diagnostic results" data-i18n-attr="aria-label:diagnostics.resultsLabel"></div>
+
+      <details id="diagnostics-build" class="diagnostics-build">
+        <summary>
+          <h3 id="diagnostics-build-title" data-i18n="diagnostics.buildTitle">Release validation recorded for this build</h3>
+          <span id="diagnostics-build-badge"></span>
+        </summary>
+        <p id="diagnostics-build-note" data-i18n="diagnostics.buildNote">These checks were recorded during the build. They were not rerun on this device.</p>
+        <p id="diagnostics-build-meta" class="diagnostics-build-meta"></p>
+        <div id="diagnostics-build-results" class="diagnostics-results" role="list"></div>
+      </details>
+
+      <details class="diagnostics-raw">
+        <summary data-i18n="diagnostics.rawTitle">Raw diagnostic data (JSON)</summary>
+        <p class="diagnostics-raw-note" data-i18n="diagnostics.rawNote">Your public IP address is partly hidden in this copy, so you can paste it into a bug report.</p>
+        <pre id="diagnostics-json" role="status" aria-live="polite"></pre>
+      </details>
+    </section>
+
+    <section>
+      <h2><span data-i18n="ui.leaktestshtml.text5fb47d1dd9">Tor network and IP address</span></h2>
+      <p><span data-i18n="ui.leaktestshtml.text240e0af28c">Turn on Tor before testing. The official test should confirm that Tor is in use. Compare the exit address with the one displayed in the Tor menu.</span></p>
+      <a href="https://check.torproject.org/" target="_blank" rel="noreferrer"><span data-i18n="ui.leaktestshtml.text25ce598ba4">check.torproject.org ↗</span></a>
+      <a href="https://browserleaks.com/ip" target="_blank" rel="noreferrer"><span data-i18n="ui.leaktestshtml.textb4d0fb5cc6">BrowserLeaks · IP ↗</span></a>
+    </section>
+    <section>
+      <h2><span data-i18n="ui.leaktestshtml.textdb042e64a3">WebRTC and network</span></h2>
+      <p><span data-i18n="ui.leaktestshtml.textd8e91c95ed">Check that no unexpected real or local IP addresses appear. RTCPeerConnection may remain available; Nacre enforces the Chromium policy that blocks unrelayed UDP when Tor is active.</span></p>
+      <a href="https://browserleaks.com/webrtc" target="_blank" rel="noreferrer"><span data-i18n="ui.leaktestshtml.textc2d8ebde00">WebRTC ↗</span></a>
+      <a href="https://browserleaks.com/dns" target="_blank" rel="noreferrer"><span data-i18n="ui.leaktestshtml.textb109c857fb">DNS ↗</span></a>
+    </section>
+    <section>
+      <h2><span data-i18n="ui.leaktestshtml.text3f54b45c89">Fingerprint: JavaScript, language and time zone</span></h2>
+      <p><span data-i18n="ui.leaktestshtml.text6e22febf35">Opens browserleaks.com/javascript with Tor active. In the page and iframes, expected: navigator.language en-US, navigator.languages en-US/en, Intl locale en-US, timeZone UTC, Coordinated Universal Time, offset 0, and Date formats in US English. The Chromium smoke confirms Date/Intl/UTC in the three workers tested, but navigator.languages still differs: Worker en-US/fr-FR; SharedWorker and ServiceWorker en-US only. Retest after installation and consider the list of worker languages as a known limit.</span></p>
+      <a href="https://browserleaks.com/javascript" target="_blank" rel="noreferrer"><span data-i18n="ui.leaktestshtml.text2701ae878c">BrowserLeaks · JavaScript ↗</span></a>
+    </section>
+    <section>
+      <h2><span data-i18n="ui.leaktestshtml.text723e307778">Fingerprint: WebGL and graphics card</span></h2>
+      <p><span data-i18n="ui.leaktestshtml.text7eac89bfbd">Open browserleaks.com/webgl after installation then restart Nacre. Expected result: WebGL and WebGL 2 unavailable, and no card brand or model. Smoke runtime Electron 44.7.0 / Chromium 152 checked for absence of context WebGL in page, iframe, Worker, SharedWorker and ServiceWorker. The BrowserLeaks site has not yet been replayed on this installer: validate the result here after installation. 3D sites may no longer work.</span></p>
+      <a href="https://browserleaks.com/webgl" target="_blank" rel="noreferrer"><span data-i18n="ui.leaktestshtml.textb11015599e">BrowserLeaks · WebGL ↗</span></a>
+    </section>
+    <section>
+      <h2><span data-i18n="ui.leaktestshtml.text32e9bdf196">Fingerprint: Canvas and Audio</span></h2>
+      <p><span data-i18n="ui.leaktestshtml.text689b4ec389">Open browserleaks.com/canvas. Partial coverage: OffscreenCanvas, workers and certain frame contexts are not protected. This setting does not certify effective Canvas protection. On supported surfaces, the Canvas hash remains the same when repeating the test in the same domain and session; it should vary on another domain and after restarting Nacre. The mechanism creates a random secret per session, derives it per registrable domain with HMAC-SHA256, and adds deterministic noise to the serialized pixels. Automated tests check simulated buffers, not the score of this third party site; Canvas/Audio/WebGL variations may disrupt applications.</span></p>
+      <a href="https://browserleaks.com/canvas" target="_blank" rel="noreferrer"><span data-i18n="ui.leaktestshtml.text58b2d70fe9">BrowserLeaks · Canvas ↗</span></a>
+    </section>
+    <section>
+      <h2><span data-i18n="ui.leaktestshtml.text92bebef13f">Fingerprint: fonts and PDF plugins</span></h2>
+      <p><span data-i18n="ui.leaktestshtml.text0cfc3966ba">Open browserleaks.com/fonts and compare the results with your stable Chrome from the same PC, on the same system profile. Nacre does not forge a PDF list: Chromium itself provides navigator.plugins and mimeTypes, with PDF reader support enabled. Expected result: no Nacre list invented; Values reflect on-board Chromium and may differ from your Chrome. The exact console outputs announced in the request were not included (the received text only contained a placeholder), and therefore were not checked for equality.</span></p>
+      <a href="https://browserleaks.com/fonts" target="_blank" rel="noreferrer"><span data-i18n="ui.leaktestshtml.textc87aabc08f">BrowserLeaks · Fonts ↗</span></a>
+    </section>
+    <section>
+      <h2><span data-i18n="ui.leaktestshtml.text3b8c441fe9">Network and HTTPS-only browsing</span></h2>
+      <p><span data-i18n="ui.leaktestshtml.text906e95443f">In a new profile, manually enter a known address in http://: Nacre must display the local warning before navigation. Cancel, then choose “Continue Anyway” to check for the one-time exception. An HTTP redirect should also show the warning. With Tor enabled, stop tor.exe: pages should fail and no sessions should return to direct connection. Automated configuration test simulates closed proxy route; only real traffic testing on Windows can verify Chromium processes and transports as a whole.</span></p>
+    </section>
+    <section>
+      <h2><span data-i18n="ui.leaktestshtml.textec5a486e3b">Fingerprint and User-Agent</span></h2>
+      <p><span data-i18n="ui.leaktestshtml.texta4d8519940">Open Cover Your Tracks and compare it to real Chrome installed on the same PC. The expected User-Agent is standard Chrome reduced to Chrome/&lt;major&gt;.0.0.0; it must not contain Nacre or Electron. Client Hints should include Google Chrome, formFactors Desktop, and navigator.languages should display en-US then en. PDF plugins now come from the embedded Chromium, not from a list invented by Nacre. Score and uniqueness vary with other features; a good result does not prove anonymity.</span></p>
+      <a href="https://coveryourtracks.eff.org/" target="_blank" rel="noreferrer"><span data-i18n="ui.leaktestshtml.textb6ead924f3">EFF · Cover Your Tracks ↗</span></a>
+    </section>
+    <section>
+      <h2><span data-i18n="ui.leaktestshtml.textdf1150e7e3">Ad and tracker blocker</span></h2>
+      <p><span data-i18n="ui.leaktestshtml.text02b2722e28">Enable the blocker, then open the tests in Comfort mode. Compare blocked requests and hidden elements; scores vary with filter lists, tests and their scripts.</span></p>
+      <ol>
+        <li><span data-i18n="ui.leaktestshtml.textf04568262b">Open</span> <a href="https://d3ward.github.io/toolz/adblock.html" target="_blank" rel="noreferrer"><span data-i18n="ui.leaktestshtml.text4062f1db7e">d3ward adblock test</span></a>.</li>
+        <li><span data-i18n="ui.leaktestshtml.text995e606bcd">Try</span> <a href="https://adblock-tester.com/" target="_blank" rel="noreferrer"><span data-i18n="ui.leaktestshtml.texta7380db813">Adblock Tester</span></a>.</li>
+        <li><span data-i18n="ui.leaktestshtml.text995e606bcd">Try</span> <a href="https://canyoublockit.com/" target="_blank" rel="noreferrer"><span data-i18n="ui.leaktestshtml.text04a951641b">Can You Block It</span></a>.</li>
+        <li><span data-i18n="ui.leaktestshtml.texte718105277">Test a French news site and YouTube, then repeat after manually updating the lists with Tor connected.</span></li>
+      </ol>
+      <p><span data-i18n="ui.leaktestshtml.text0f56a77810">Expected result: the majority of common network tests covered by the filters should succeed; I don't give an honest target percentage without running every test in this version and its current lists. The three testers change and measure different things. Snapshot 0.4.0 contains EasyList, EasyPrivacy, uBlock filters provided by Ghostery and Peter Lowe. The FR + EasyList list is activated in the settings but only downloaded on the first successful Tor update. Nacre does not guarantee the blocking of YouTube advertisements: Google is evolving ads and anti-adblock; the logged in account, ads served from the site domain and page changes may resist. Cosmetic filters/scriptlets can also break the video. Strict and custom filters can break other sites.</span></p>
+      <p><span data-i18n="ui.leaktestshtml.text6dc53473f8">Test requests go to third-party testers via the configured route. Nacre does not send any result report.</span></p>
+    </section>
+    <section class="notes">
+      <h2><span data-i18n="ui.leaktestshtml.textc61ee1f3c6">My test notes</span></h2>
+      <p><span data-i18n="ui.leaktestshtml.text8573c8bca9">This field is temporary; copy important results elsewhere if you want to keep them.</span></p>
+      <textarea aria-label="Leak test notes" rows="7" placeholder="Date, Tor mode, IP / DNS / WebRTC / Canvas / WebGL / fonts results…" data-i18n-attr="aria-label:ui.leaktestshtml.text7826ce7978;placeholder:ui.leaktestshtml.texta45d7da1c3"></textarea>
+    </section>
+    <section class="manual">
+      <h2><span data-i18n="ui.leaktestshtml.text0982cfa600">Protection regression checklist</span></h2>
+      <ol>
+        <li><b><span data-i18n="ui.leaktestshtml.text33f389279a">Kill switch:</span></b> <span data-i18n="ui.leaktestshtml.text2bf772f8dd">Connect Tor, load an HTTPS page, stop tor.exe and reload. Expected result: a Nacre error page or network failure, with no direct access. After reconnecting, the requested page can resume.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.text43aa753e24">DNS:</span></b> <span data-i18n="ui.leaktestshtml.text4fe66df589">With Tor connected, test browserleaks.com/dns. Resolvers should not reveal your ISP. Without Tor, Quad9 DoH is used by default, depending on the profile.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.text69fbde93d8">WebRTC:</span></b> <span data-i18n="ui.leaktestshtml.textc2641466ce">browserleaks.com/webrtc should not show the real IP; RTCPeerConnection may exist. The policy blocks unproxied UDP. Also checks camera/microphone refused without authorization.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.text200c9b45b4">Certificates:</span></b> <span data-i18n="ui.leaktestshtml.text017a9a664b">Open a test site with an invalid certificate. Nacre should display an error without offering a bypass.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.text781128bc4e">Tor isolation:</span></b> <span data-i18n="ui.leaktestshtml.texte0cdc27d0b">Open two private tabs on different domains; each must use separate SOCKS credentials. Close a tab, then use “New Identity”: Tor can create new circuits, but a different exit IP is not guaranteed.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.texte763ba8c54">Permissions:</span></b> <span data-i18n="ui.leaktestshtml.texta8f7a9c293">a site that requests a camera, microphone, geolocation or notifications must be refused by default. Check for an “Allow” exception, then reset it.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.text4e71f9a99a">Blocker updates:</span></b> <span data-i18n="ui.leaktestshtml.text0aadc02197">With Tor stopped, updating should fail while keeping the active lists. It must never switch to a direct connection. Each list server receives the request through the Tor exit IP.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.textb682b7b33f">Private browsing:</span></b> <span data-i18n="ui.leaktestshtml.text2c6cc56263">Close the last private tab, then reopen the same site. The temporary session should not reuse cookies or storage. Files you saved remain on disk.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.text200866ad86">WebGL:</span></b> <span data-i18n="ui.leaktestshtml.textc9a1495390">BrowserLeaks must confirm the status described in section WebGL above; this result remains to be verified on the current installation.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.textdee9a1146f">Tor bridges:</span></b> <span data-i18n="ui.leaktestshtml.text1d35ae4e7c">Choose obfs4 or Snowflake, connect Tor and check its status. If the bridge fails, Nacre should identify the transport and a likely cause. Pages must remain blocked without a direct route.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.text313aad23e5">Version check:</span></b> <span data-i18n="ui.leaktestshtml.texte8ad3f6e66">Checks are available only when Tor is connected. GitHub receives the requested repository name and Tor exit address, not your history, bookmarks, or visited URLs. Nothing downloads or installs automatically.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.text19d6d0dc7d">Bookmarks:</span></b> <span data-i18n="ui.leaktestshtml.textdb1d89278b">Add a bookmark, export it, then import a test file and confirm the result. Non-HTTP(S) URLs should be rejected.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.text3dea591a58">Downloads:</span></b> <span data-i18n="ui.leaktestshtml.textff662872f0">Download a test file and check the sanitized filename and folder choice. An executable must require confirmation before downloading or opening. Nacre pages must not receive the absolute path.</span></li>
+        <li><b><span data-i18n="ui.leaktestshtml.text721c829aa4">Filters:</span></b> <span data-i18n="ui.leaktestshtml.texta594232297">Enable the blocker, check its counter and add a site exception. Report a broken site and confirm that the report is copied locally without being sent.</span></li>
+      </ol>
+    </section>
+    <section class="manual">
+      <h2><span data-i18n="ui.leaktestshtml.textd337639c38">Kill switch · manual test</span></h2>
+      <ol>
+        <li><span data-i18n="ui.leaktestshtml.textd3f8c04f9e">Connect Tor, open an HTTPS page and wait for it to be displayed.</span></li>
+        <li><span data-i18n="ui.leaktestshtml.text0d966f8e24">Stop</span> <code>tor.exe</code> <span data-i18n="ui.leaktestshtml.textaf2f1a95f9">in Task Manager.</span></li>
+        <li><span data-i18n="ui.leaktestshtml.text69e146cdd2">Reload: the page must fail and no direct connection must replace Tor.</span></li>
+      </ol>
+    </section>
+    <footer><span data-i18n="ui.leaktestshtml.text33701a401b">A series of tests does not prove the general absence of leaks. Redo them after updating Nacre, Electron or Tor.</span></footer>
+  </main>
+<script src="diagnostic-verdicts.js"></script>
+<script src="diagnostics.js"></script>
+</body>
+</html>

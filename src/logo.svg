@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="tile" x1="64" y1="24" x2="448" y2="488" gradientUnits="userSpaceOnUse"><stop stop-color="#245e50"/><stop offset="1" stop-color="#102e2a"/></linearGradient>
+    <linearGradient id="pearl" x1="146" y1="116" x2="358" y2="382" gradientUnits="userSpaceOnUse"><stop stop-color="#f0fff7"/><stop offset=".5" stop-color="#c2eadb"/><stop offset="1" stop-color="#83bda8"/></linearGradient>
+  </defs>
+  <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#tile)"/>
+  <rect x="17" y="17" width="478" height="478" rx="111" stroke="#ffffff" stroke-opacity=".12" stroke-width="2"/>
+  <path d="M128 372V140c0-13.3 10.7-24 24-24h44l120 174V140c0-13.3 10.7-24 24-24h44v232c0 13.3-10.7 24-24 24h-44L196 198v150c0 13.3-10.7 24-24 24h-44Z" fill="url(#pearl)"/>
+  <path d="m196 116 120 174v82L196 198v-82Z" fill="#ffffff" fill-opacity=".18"/>
+</svg>

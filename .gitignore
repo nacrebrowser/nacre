@@ -1,0 +1,15 @@
+node_modules/
+dist/
+dist-*/
+release/
+.cache/
+.validation-tmp/
+*.log
+translation-work/
+translation-work.zip
+/vendor/tor/tor.exe
+/vendor/tor/geoip
+/vendor/tor/geoip6
+/vendor/tor/pluggable_transports/lyrebird.exe
+/vendor/tor/pluggable_transports/conjure-client.exe
+/vendor/tor/pt_config.json

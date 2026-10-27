@@ -1,0 +1,6679 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "serialNumber": "urn:uuid:36bd2939-b251-4682-9913-2c2cb5ef8498",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-10-27T16:30:57.208Z",
+    "component": {
+      "type": "application",
+      "name": "nacre-browser",
+      "version": "1.0.0"
+    }
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "abbrev",
+      "version": "4.0.0",
+      "purl": "pkg:npm/abbrev@4.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@ghostery",
+      "name": "adblocker-content",
+      "version": "2.20.1",
+      "purl": "pkg:npm/%40ghostery/adblocker-content@2.20.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ghostery/adblocker#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@ghostery",
+      "name": "adblocker-electron-preload",
+      "version": "2.20.1",
+      "purl": "pkg:npm/%40ghostery/adblocker-electron-preload@2.20.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ghostery/adblocker#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@ghostery",
+      "name": "adblocker-electron",
+      "version": "2.20.1",
+      "purl": "pkg:npm/%40ghostery/adblocker-electron@2.20.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "direct-runtime"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ghostery/adblocker#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@ghostery",
+      "name": "adblocker-extended-selectors",
+      "version": "2.20.1",
+      "purl": "pkg:npm/%40ghostery/adblocker-extended-selectors@2.20.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ghostery/adblocker#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@ghostery",
+      "name": "adblocker",
+      "version": "2.20.1",
+      "purl": "pkg:npm/%40ghostery/adblocker@2.20.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ghostery/adblocker#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "agent-base",
+      "version": "7.1.4",
+      "purl": "pkg:npm/agent-base@7.1.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ajv",
+      "version": "8.20.0",
+      "purl": "pkg:npm/ajv@8.20.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://ajv.js.org"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ansi-regex",
+      "version": "5.0.1",
+      "purl": "pkg:npm/ansi-regex@5.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ansi-styles",
+      "version": "4.3.0",
+      "purl": "pkg:npm/ansi-styles@4.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "app-builder-lib",
+      "version": "26.17.0",
+      "purl": "pkg:npm/app-builder-lib@26.17.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron-userland/electron-builder"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "argparse",
+      "version": "2.0.1",
+      "purl": "pkg:npm/argparse@2.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "Python-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@electron",
+      "name": "asar",
+      "version": "3.4.1",
+      "purl": "pkg:npm/%40electron/asar@3.4.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron/asar"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@peculiar",
+      "name": "asn1-schema",
+      "version": "2.10.0",
+      "purl": "pkg:npm/%40peculiar/asn1-schema@2.10.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/PeculiarVentures/asn1-schema/tree/master/packages/schema#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "asn1js",
+      "version": "3.0.10",
+      "purl": "pkg:npm/asn1js@3.0.10",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "async-exit-hook",
+      "version": "2.0.1",
+      "purl": "pkg:npm/async-exit-hook@2.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "async",
+      "version": "3.2.6",
+      "purl": "pkg:npm/async@3.2.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://caolan.github.io/async/"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "asynckit",
+      "version": "0.4.0",
+      "purl": "pkg:npm/asynckit@0.4.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/alexindigo/asynckit#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "at-least-node",
+      "version": "1.0.0",
+      "purl": "pkg:npm/at-least-node@1.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/RyanZim/at-least-node#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "aws4",
+      "version": "1.13.2",
+      "purl": "pkg:npm/aws4@1.13.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "balanced-match",
+      "version": "1.0.2",
+      "purl": "pkg:npm/balanced-match@1.0.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/juliangruber/balanced-match"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "balanced-match",
+      "version": "4.0.4",
+      "purl": "pkg:npm/balanced-match@4.0.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "base64-js",
+      "version": "1.5.1",
+      "purl": "pkg:npm/base64-js@1.5.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/beatgammit/base64-js"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "bluebird",
+      "version": "3.7.2",
+      "purl": "pkg:npm/bluebird@3.7.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/petkaantonov/bluebird"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "boolean",
+      "version": "3.2.0",
+      "purl": "pkg:npm/boolean@3.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "brace-expansion",
+      "version": "1.1.21",
+      "purl": "pkg:npm/brace-expansion@1.1.21",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/juliangruber/brace-expansion"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "brace-expansion",
+      "version": "2.1.7",
+      "purl": "pkg:npm/brace-expansion@2.1.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/juliangruber/brace-expansion"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "brace-expansion",
+      "version": "5.0.12",
+      "purl": "pkg:npm/brace-expansion@5.0.12",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "buffer-from",
+      "version": "1.1.2",
+      "purl": "pkg:npm/buffer-from@1.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "builder-util-runtime",
+      "version": "9.7.0",
+      "purl": "pkg:npm/builder-util-runtime@9.7.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron-userland/electron-builder"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "builder-util",
+      "version": "26.16.0",
+      "purl": "pkg:npm/builder-util@26.16.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron-userland/electron-builder"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "bytestreamjs",
+      "version": "2.0.1",
+      "purl": "pkg:npm/bytestreamjs@2.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "cacheable-lookup",
+      "version": "5.0.4",
+      "purl": "pkg:npm/cacheable-lookup@5.0.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/szmarczak/cacheable-lookup#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@types",
+      "name": "cacheable-request",
+      "version": "6.0.3",
+      "purl": "pkg:npm/%40types/cacheable-request@6.0.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/cacheable-request"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "cacheable-request",
+      "version": "7.0.4",
+      "purl": "pkg:npm/cacheable-request@7.0.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "call-bind-apply-helpers",
+      "version": "1.0.2",
+      "purl": "pkg:npm/call-bind-apply-helpers@1.0.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ljharb/call-bind-apply-helpers#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "chalk",
+      "version": "4.1.2",
+      "purl": "pkg:npm/chalk@4.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "chownr",
+      "version": "3.0.0",
+      "purl": "pkg:npm/chownr@3.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BlueOak-1.0.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "chromium-pickle-js",
+      "version": "0.2.0",
+      "purl": "pkg:npm/chromium-pickle-js@0.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ci-info",
+      "version": "4.3.1",
+      "purl": "pkg:npm/ci-info@4.3.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/watson/ci-info"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ci-info",
+      "version": "4.4.0",
+      "purl": "pkg:npm/ci-info@4.4.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/watson/ci-info"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "cliui",
+      "version": "8.0.1",
+      "purl": "pkg:npm/cliui@8.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "clone-response",
+      "version": "1.0.3",
+      "purl": "pkg:npm/clone-response@1.0.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "color-convert",
+      "version": "2.0.1",
+      "purl": "pkg:npm/color-convert@2.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "color-name",
+      "version": "1.1.4",
+      "purl": "pkg:npm/color-name@1.1.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/colorjs/color-name"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "combined-stream",
+      "version": "1.0.8",
+      "purl": "pkg:npm/combined-stream@1.0.8",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/felixge/node-combined-stream"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "commander",
+      "version": "5.1.0",
+      "purl": "pkg:npm/commander@5.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "commander",
+      "version": "9.5.0",
+      "purl": "pkg:npm/commander@9.5.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "compare-version",
+      "version": "0.1.2",
+      "purl": "pkg:npm/compare-version@0.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "concat-map",
+      "version": "0.0.1",
+      "purl": "pkg:npm/concat-map@0.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "Conjure client",
+      "version": "15.0.25",
+      "licenses": [
+        {
+          "license": {
+            "name": "Multiple; see vendor/tor/licenses/conjure.txt"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6d3bca367226caf0cd065ced8b031b482b5cd5c3889bce886f2e903197b9b43b"
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:file",
+          "value": "vendor/tor/pluggable_transports/conjure-client.exe"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "core-util-is",
+      "version": "1.0.3",
+      "purl": "pkg:npm/core-util-is@1.0.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "cross-dirname",
+      "version": "0.1.0",
+      "purl": "pkg:npm/cross-dirname@0.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@malept",
+      "name": "cross-spawn-promise",
+      "version": "2.0.0",
+      "purl": "pkg:npm/%40malept/cross-spawn-promise@2.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "cross-spawn",
+      "version": "7.0.6",
+      "purl": "pkg:npm/cross-spawn@7.0.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/moxystudio/node-cross-spawn"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@types",
+      "name": "debug",
+      "version": "4.1.13",
+      "purl": "pkg:npm/%40types/debug@4.1.13",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/debug"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "debug",
+      "version": "4.4.3",
+      "purl": "pkg:npm/debug@4.4.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "decompress-response",
+      "version": "6.0.0",
+      "purl": "pkg:npm/decompress-response@6.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "defer-to-connect",
+      "version": "2.0.1",
+      "purl": "pkg:npm/defer-to-connect@2.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/szmarczak/defer-to-connect#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "define-data-property",
+      "version": "1.1.4",
+      "purl": "pkg:npm/define-data-property@1.1.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ljharb/define-data-property#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "define-properties",
+      "version": "1.2.1",
+      "purl": "pkg:npm/define-properties@1.2.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "delayed-stream",
+      "version": "1.0.0",
+      "purl": "pkg:npm/delayed-stream@1.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/felixge/node-delayed-stream"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "detect-node",
+      "version": "2.1.0",
+      "purl": "pkg:npm/detect-node@2.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/iliakan/detect-node"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "dir-compare",
+      "version": "4.2.0",
+      "purl": "pkg:npm/dir-compare@4.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "dmg-builder",
+      "version": "26.17.0",
+      "purl": "pkg:npm/dmg-builder@26.17.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron-userland/electron-builder"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "dotenv-expand",
+      "version": "11.0.7",
+      "purl": "pkg:npm/dotenv-expand@11.0.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "dotenv",
+      "version": "16.6.1",
+      "purl": "pkg:npm/dotenv@16.6.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/motdotla/dotenv#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "dunder-proto",
+      "version": "1.0.1",
+      "purl": "pkg:npm/dunder-proto@1.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/es-shims/dunder-proto#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "duplexer2",
+      "version": "0.1.4",
+      "purl": "pkg:npm/duplexer2@0.1.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "EasyList",
+      "version": "snapshot-60ecdf7894e0",
+      "licenses": [
+        {
+          "license": {
+            "expression": "GPL-3.0-or-later OR CC-BY-SA-3.0"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/easylist/easylist.txt"
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:snapshot-sha256",
+          "value": "60ecdf7894e09b7f893dd6f68630370dfdf9182a7fdd0d08efb8688a164fc443"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "EasyPrivacy",
+      "version": "snapshot-60ecdf7894e0",
+      "licenses": [
+        {
+          "license": {
+            "expression": "GPL-3.0-or-later OR CC-BY-SA-3.0"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/easylist/easyprivacy.txt"
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:snapshot-sha256",
+          "value": "60ecdf7894e09b7f893dd6f68630370dfdf9182a7fdd0d08efb8688a164fc443"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ejs",
+      "version": "3.1.10",
+      "purl": "pkg:npm/ejs@3.1.10",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/mde/ejs"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "electron-builder-squirrel-windows",
+      "version": "26.17.0",
+      "purl": "pkg:npm/electron-builder-squirrel-windows@26.17.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron-userland/electron-builder"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "electron-builder",
+      "version": "26.17.0",
+      "purl": "pkg:npm/electron-builder@26.17.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "direct-build"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron-userland/electron-builder"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "electron-publish",
+      "version": "26.16.0",
+      "purl": "pkg:npm/electron-publish@26.16.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron-userland/electron-builder"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "electron-winstaller",
+      "version": "5.4.0",
+      "purl": "pkg:npm/electron-winstaller@5.4.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "electron",
+      "version": "44.9.3",
+      "purl": "pkg:npm/electron@44.9.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "direct-build"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "emoji-regex",
+      "version": "8.0.0",
+      "purl": "pkg:npm/emoji-regex@8.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://mths.be/emoji-regex"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "end-of-stream",
+      "version": "1.4.5",
+      "purl": "pkg:npm/end-of-stream@1.4.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/mafintosh/end-of-stream"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "env-paths",
+      "version": "2.2.1",
+      "purl": "pkg:npm/env-paths@2.2.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "env-paths",
+      "version": "3.0.0",
+      "purl": "pkg:npm/env-paths@3.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "err-code",
+      "version": "2.0.3",
+      "purl": "pkg:npm/err-code@2.0.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "es-define-property",
+      "version": "1.0.1",
+      "purl": "pkg:npm/es-define-property@1.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ljharb/es-define-property#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "es-errors",
+      "version": "1.3.0",
+      "purl": "pkg:npm/es-errors@1.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ljharb/es-errors#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "es-object-atoms",
+      "version": "1.1.2",
+      "purl": "pkg:npm/es-object-atoms@1.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ljharb/es-object-atoms#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "es-set-tostringtag",
+      "version": "2.1.0",
+      "purl": "pkg:npm/es-set-tostringtag@2.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/es-shims/es-set-tostringtag#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "es6-error",
+      "version": "4.1.1",
+      "purl": "pkg:npm/es6-error@4.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/bjyoungblood/es6-error"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "escalade",
+      "version": "3.2.0",
+      "purl": "pkg:npm/escalade@3.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "escape-string-regexp",
+      "version": "4.0.0",
+      "purl": "pkg:npm/escape-string-regexp@4.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "exponential-backoff",
+      "version": "3.1.3",
+      "purl": "pkg:npm/exponential-backoff@3.1.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/coveooss/exponential-backoff#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@electron-internal",
+      "name": "extract-zip",
+      "version": "1.0.5",
+      "purl": "pkg:npm/%40electron-internal/extract-zip@1.0.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fast-deep-equal",
+      "version": "3.1.3",
+      "purl": "pkg:npm/fast-deep-equal@3.1.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/epoberezkin/fast-deep-equal#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fast-uri",
+      "version": "3.1.8",
+      "purl": "pkg:npm/fast-uri@3.1.8",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/fastify/fast-uri"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fast-uri",
+      "version": "3.1.9",
+      "purl": "pkg:npm/fast-uri@3.1.9",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/fastify/fast-uri"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fdir",
+      "version": "6.5.0",
+      "purl": "pkg:npm/fdir@6.5.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/thecodrr/fdir#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "filelist",
+      "version": "1.0.6",
+      "purl": "pkg:npm/filelist@1.0.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/mde/filelist"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "Filter data snapshot",
+      "version": "2026-10-11",
+      "licenses": [
+        {
+          "license": {
+            "name": "Mixed/uncertain; see THIRD_PARTY_NOTICES.md"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "60ecdf7894e09b7f893dd6f68630370dfdf9182a7fdd0d08efb8688a164fc443"
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:file",
+          "value": "vendor/filters/engine.bin"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@malept",
+      "name": "flatpak-bundler",
+      "version": "0.4.0",
+      "purl": "pkg:npm/%40malept/flatpak-bundler@0.4.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/malept/flatpak-bundler#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "form-data",
+      "version": "4.0.6",
+      "purl": "pkg:npm/form-data@4.0.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fs-extra",
+      "version": "10.1.0",
+      "purl": "pkg:npm/fs-extra@10.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/jprichardson/node-fs-extra"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fs-extra",
+      "version": "11.3.1",
+      "purl": "pkg:npm/fs-extra@11.3.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/jprichardson/node-fs-extra"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fs-extra",
+      "version": "11.4.1",
+      "purl": "pkg:npm/fs-extra@11.4.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/jprichardson/node-fs-extra"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fs-extra",
+      "version": "7.0.1",
+      "purl": "pkg:npm/fs-extra@7.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/jprichardson/node-fs-extra"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fs-extra",
+      "version": "8.1.0",
+      "purl": "pkg:npm/fs-extra@8.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/jprichardson/node-fs-extra"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@types",
+      "name": "fs-extra",
+      "version": "9.0.13",
+      "purl": "pkg:npm/%40types/fs-extra@9.0.13",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/fs-extra"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fs-extra",
+      "version": "9.1.0",
+      "purl": "pkg:npm/fs-extra@9.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/jprichardson/node-fs-extra"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@isaacs",
+      "name": "fs-minipass",
+      "version": "4.0.1",
+      "purl": "pkg:npm/%40isaacs/fs-minipass@4.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "fs.realpath",
+      "version": "1.0.0",
+      "purl": "pkg:npm/fs.realpath@1.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "function-bind",
+      "version": "1.1.2",
+      "purl": "pkg:npm/function-bind@1.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/Raynos/function-bind"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@electron",
+      "name": "fuses",
+      "version": "1.8.0",
+      "purl": "pkg:npm/%40electron/fuses@1.8.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "direct-build"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron/fuses#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "get-caller-file",
+      "version": "2.0.5",
+      "purl": "pkg:npm/get-caller-file@2.0.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/stefanpenner/get-caller-file#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "get-intrinsic",
+      "version": "1.3.0",
+      "purl": "pkg:npm/get-intrinsic@1.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ljharb/get-intrinsic#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "get-proto",
+      "version": "1.0.1",
+      "purl": "pkg:npm/get-proto@1.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ljharb/get-proto#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "get-stream",
+      "version": "5.2.0",
+      "purl": "pkg:npm/get-stream@5.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@electron",
+      "name": "get",
+      "version": "3.1.0",
+      "purl": "pkg:npm/%40electron/get@3.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@electron",
+      "name": "get",
+      "version": "5.1.0",
+      "purl": "pkg:npm/%40electron/get@5.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "glob",
+      "version": "7.2.3",
+      "purl": "pkg:npm/glob@7.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "global-agent",
+      "version": "3.0.0",
+      "purl": "pkg:npm/global-agent@3.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "globalthis",
+      "version": "1.0.4",
+      "purl": "pkg:npm/globalthis@1.0.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "gopd",
+      "version": "1.2.0",
+      "purl": "pkg:npm/gopd@1.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ljharb/gopd#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "got",
+      "version": "11.8.6",
+      "purl": "pkg:npm/got@11.8.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "graceful-fs",
+      "version": "4.2.11",
+      "purl": "pkg:npm/graceful-fs@4.2.11",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@remusao",
+      "name": "guess-url-type",
+      "version": "2.1.0",
+      "purl": "pkg:npm/%40remusao/guess-url-type@2.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/remusao/mono#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "has-flag",
+      "version": "4.0.0",
+      "purl": "pkg:npm/has-flag@4.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "has-property-descriptors",
+      "version": "1.0.2",
+      "purl": "pkg:npm/has-property-descriptors@1.0.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/inspect-js/has-property-descriptors#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "has-symbols",
+      "version": "1.1.0",
+      "purl": "pkg:npm/has-symbols@1.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/ljharb/has-symbols#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "has-tostringtag",
+      "version": "1.0.2",
+      "purl": "pkg:npm/has-tostringtag@1.0.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/inspect-js/has-tostringtag#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@noble",
+      "name": "hashes",
+      "version": "1.8.0",
+      "purl": "pkg:npm/%40noble/hashes@1.8.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://paulmillr.com/noble/"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "hasown",
+      "version": "2.0.4",
+      "purl": "pkg:npm/hasown@2.0.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/inspect-js/hasOwn#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "hosted-git-info",
+      "version": "4.1.0",
+      "purl": "pkg:npm/hosted-git-info@4.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/npm/hosted-git-info"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@types",
+      "name": "http-cache-semantics",
+      "version": "4.2.0",
+      "purl": "pkg:npm/%40types/http-cache-semantics@4.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/http-cache-semantics"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "http-cache-semantics",
+      "version": "4.3.0",
+      "purl": "pkg:npm/http-cache-semantics@4.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "http-proxy-agent",
+      "version": "7.0.2",
+      "purl": "pkg:npm/http-proxy-agent@7.0.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@szmarczak",
+      "name": "http-timer",
+      "version": "4.0.6",
+      "purl": "pkg:npm/%40szmarczak/http-timer@4.0.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/szmarczak/http-timer#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "http2-wrapper",
+      "version": "1.0.3",
+      "purl": "pkg:npm/http2-wrapper@1.0.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/szmarczak/http2-wrapper#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "https-proxy-agent",
+      "version": "7.0.6",
+      "purl": "pkg:npm/https-proxy-agent@7.0.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "inflight",
+      "version": "1.0.6",
+      "purl": "pkg:npm/inflight@1.0.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/isaacs/inflight"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "inherits",
+      "version": "2.0.4",
+      "purl": "pkg:npm/inherits@2.0.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "is-fullwidth-code-point",
+      "version": "3.0.0",
+      "purl": "pkg:npm/is-fullwidth-code-point@3.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@sindresorhus",
+      "name": "is",
+      "version": "4.6.0",
+      "purl": "pkg:npm/%40sindresorhus/is@4.6.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "isarray",
+      "version": "1.0.0",
+      "purl": "pkg:npm/isarray@1.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/juliangruber/isarray"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "isbinaryfile",
+      "version": "4.0.10",
+      "purl": "pkg:npm/isbinaryfile@4.0.10",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "isbinaryfile",
+      "version": "5.0.7",
+      "purl": "pkg:npm/isbinaryfile@5.0.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "isexe",
+      "version": "2.0.0",
+      "purl": "pkg:npm/isexe@2.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/isaacs/isexe#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "isexe",
+      "version": "3.1.5",
+      "purl": "pkg:npm/isexe@3.1.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "BlueOak-1.0.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "isexe",
+      "version": "4.0.0",
+      "purl": "pkg:npm/isexe@4.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BlueOak-1.0.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "jake",
+      "version": "10.9.4",
+      "purl": "pkg:npm/jake@10.9.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "jiti",
+      "version": "2.7.0",
+      "purl": "pkg:npm/jiti@2.7.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "js-yaml",
+      "version": "4.3.2",
+      "purl": "pkg:npm/js-yaml@4.3.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "json-buffer",
+      "version": "3.0.1",
+      "purl": "pkg:npm/json-buffer@3.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/dominictarr/json-buffer"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "json-schema-traverse",
+      "version": "1.0.0",
+      "purl": "pkg:npm/json-schema-traverse@1.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/epoberezkin/json-schema-traverse#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@peculiar",
+      "name": "json-schema",
+      "version": "1.1.12",
+      "purl": "pkg:npm/%40peculiar/json-schema@1.1.12",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/PeculiarVentures/json-schema#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "json-stringify-safe",
+      "version": "5.0.1",
+      "purl": "pkg:npm/json-stringify-safe@5.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/isaacs/json-stringify-safe"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "json5",
+      "version": "2.2.3",
+      "purl": "pkg:npm/json5@2.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "http://json5.org/"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "jsonfile",
+      "version": "4.0.0",
+      "purl": "pkg:npm/jsonfile@4.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "jsonfile",
+      "version": "6.2.1",
+      "purl": "pkg:npm/jsonfile@6.2.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@types",
+      "name": "keyv",
+      "version": "3.1.4",
+      "purl": "pkg:npm/%40types/keyv@3.1.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/keyv"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "keyv",
+      "version": "4.5.4",
+      "purl": "pkg:npm/keyv@4.5.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/jaredwray/keyv"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lazy-val",
+      "version": "1.0.5",
+      "purl": "pkg:npm/lazy-val@1.0.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/develar/lazy-val"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lodash",
+      "version": "4.18.1",
+      "purl": "pkg:npm/lodash@4.18.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://lodash.com/"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lowercase-keys",
+      "version": "2.0.0",
+      "purl": "pkg:npm/lowercase-keys@2.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "lru-cache",
+      "version": "6.0.0",
+      "purl": "pkg:npm/lru-cache@6.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "Lyrebird transports (obfs4/Snowflake)",
+      "version": "15.0.25",
+      "licenses": [
+        {
+          "license": {
+            "name": "Multiple; see vendor/tor/licenses/lyrebird.txt"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "6e218e85f9a7ae2481f5402ded822471a9a9d0c7e66b05db3842b93fa5c1f02e"
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:file",
+          "value": "vendor/tor/pluggable_transports/lyrebird.exe"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "matcher",
+      "version": "3.0.0",
+      "purl": "pkg:npm/matcher@3.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "math-intrinsics",
+      "version": "1.1.0",
+      "purl": "pkg:npm/math-intrinsics@1.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/es-shims/math-intrinsics#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "mime-db",
+      "version": "1.52.0",
+      "purl": "pkg:npm/mime-db@1.52.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "mime-types",
+      "version": "2.1.35",
+      "purl": "pkg:npm/mime-types@2.1.35",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "mime",
+      "version": "2.6.0",
+      "purl": "pkg:npm/mime@2.6.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "mimic-response",
+      "version": "1.0.1",
+      "purl": "pkg:npm/mimic-response@1.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "mimic-response",
+      "version": "3.1.0",
+      "purl": "pkg:npm/mimic-response@3.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "minimatch",
+      "version": "10.2.6",
+      "purl": "pkg:npm/minimatch@10.2.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "BlueOak-1.0.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "minimatch",
+      "version": "3.1.5",
+      "purl": "pkg:npm/minimatch@3.1.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "minimatch",
+      "version": "5.1.9",
+      "purl": "pkg:npm/minimatch@5.1.9",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "minimatch",
+      "version": "9.0.9",
+      "purl": "pkg:npm/minimatch@9.0.9",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "minimist",
+      "version": "1.2.8",
+      "purl": "pkg:npm/minimist@1.2.8",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/minimistjs/minimist"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "minipass",
+      "version": "7.1.3",
+      "purl": "pkg:npm/minipass@7.1.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "BlueOak-1.0.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "minizlib",
+      "version": "3.1.0",
+      "purl": "pkg:npm/minizlib@3.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "mkdirp",
+      "version": "0.5.6",
+      "purl": "pkg:npm/mkdirp@0.5.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@types",
+      "name": "ms",
+      "version": "2.1.0",
+      "purl": "pkg:npm/%40types/ms@2.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/ms"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "ms",
+      "version": "2.1.3",
+      "purl": "pkg:npm/ms@2.1.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "node-abi",
+      "version": "4.37.0",
+      "purl": "pkg:npm/node-abi@4.37.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron/node-abi#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "node-api-version",
+      "version": "0.2.1",
+      "purl": "pkg:npm/node-api-version@0.2.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "node-gyp",
+      "version": "12.4.0",
+      "purl": "pkg:npm/node-gyp@12.4.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "node-int64",
+      "version": "0.4.0",
+      "purl": "pkg:npm/node-int64@0.4.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@types",
+      "name": "node",
+      "version": "24.19.2",
+      "purl": "pkg:npm/%40types/node@24.19.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@types",
+      "name": "node",
+      "version": "26.6.5",
+      "purl": "pkg:npm/%40types/node@26.6.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/node"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "nopt",
+      "version": "9.0.0",
+      "purl": "pkg:npm/nopt@9.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "normalize-url",
+      "version": "6.1.0",
+      "purl": "pkg:npm/normalize-url@6.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@electron",
+      "name": "notarize",
+      "version": "2.5.0",
+      "purl": "pkg:npm/%40electron/notarize@2.5.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron/notarize#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "object-keys",
+      "version": "1.1.1",
+      "purl": "pkg:npm/object-keys@1.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "once",
+      "version": "1.4.0",
+      "purl": "pkg:npm/once@1.4.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@electron",
+      "name": "osx-sign",
+      "version": "1.3.3",
+      "purl": "pkg:npm/%40electron/osx-sign@1.3.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron/osx-sign"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "p-cancelable",
+      "version": "2.1.1",
+      "purl": "pkg:npm/p-cancelable@2.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "p-limit",
+      "version": "3.1.0",
+      "purl": "pkg:npm/p-limit@3.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "path-is-absolute",
+      "version": "1.0.1",
+      "purl": "pkg:npm/path-is-absolute@1.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "path-key",
+      "version": "3.1.1",
+      "purl": "pkg:npm/path-key@3.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pe-library",
+      "version": "0.4.1",
+      "purl": "pkg:npm/pe-library@0.4.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/jet2jet/pe-library-js"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "Peter Lowe's list",
+      "version": "snapshot-60ecdf7894e0",
+      "licenses": [
+        {
+          "license": {
+            "name": "McRae General Public License v4.r53; redistribution review required"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/peter-lowe/serverlist.txt"
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:snapshot-sha256",
+          "value": "60ecdf7894e09b7f893dd6f68630370dfdf9182a7fdd0d08efb8688a164fc443"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "picocolors",
+      "version": "1.1.1",
+      "purl": "pkg:npm/picocolors@1.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "picomatch",
+      "version": "4.0.7",
+      "purl": "pkg:npm/picomatch@4.0.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/micromatch/picomatch"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pkijs",
+      "version": "3.4.1",
+      "purl": "pkg:npm/pkijs@3.4.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "plist",
+      "version": "3.1.0",
+      "purl": "pkg:npm/plist@3.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "postject",
+      "version": "1.0.0-alpha.6",
+      "purl": "pkg:npm/postject@1.0.0-alpha.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/nodejs/postject#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "proc-log",
+      "version": "6.1.0",
+      "purl": "pkg:npm/proc-log@6.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "process-nextick-args",
+      "version": "2.0.1",
+      "purl": "pkg:npm/process-nextick-args@2.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/calvinmetcalf/process-nextick-args"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "progress",
+      "version": "2.0.3",
+      "purl": "pkg:npm/progress@2.0.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "promise-retry",
+      "version": "2.0.1",
+      "purl": "pkg:npm/promise-retry@2.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "proper-lockfile",
+      "version": "4.1.2",
+      "purl": "pkg:npm/proper-lockfile@4.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/moxystudio/node-proper-lockfile"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pump",
+      "version": "3.0.4",
+      "purl": "pkg:npm/pump@3.0.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pvtsutils",
+      "version": "1.3.6",
+      "purl": "pkg:npm/pvtsutils@1.3.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/PeculiarVentures/pvtsutils#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "pvutils",
+      "version": "1.2.0",
+      "purl": "pkg:npm/pvutils@1.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "quick-lru",
+      "version": "5.1.1",
+      "purl": "pkg:npm/quick-lru@5.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "read-binary-file-arch",
+      "version": "1.0.6",
+      "purl": "pkg:npm/read-binary-file-arch@1.0.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/samuelmaddock/read-binary-file-arch#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "readable-stream",
+      "version": "2.3.8",
+      "purl": "pkg:npm/readable-stream@2.3.8",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@electron",
+      "name": "rebuild",
+      "version": "4.2.1",
+      "purl": "pkg:npm/%40electron/rebuild@4.2.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron/rebuild"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "require-directory",
+      "version": "2.1.1",
+      "purl": "pkg:npm/require-directory@2.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/troygoode/node-require-directory/"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "require-from-string",
+      "version": "2.0.2",
+      "purl": "pkg:npm/require-from-string@2.0.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "resedit",
+      "version": "1.7.2",
+      "purl": "pkg:npm/resedit@1.7.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/jet2jet/resedit-js"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "resolve-alpn",
+      "version": "1.2.1",
+      "purl": "pkg:npm/resolve-alpn@1.2.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/szmarczak/resolve-alpn#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@types",
+      "name": "responselike",
+      "version": "1.0.3",
+      "purl": "pkg:npm/%40types/responselike@1.0.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/responselike"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "responselike",
+      "version": "2.0.1",
+      "purl": "pkg:npm/responselike@2.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "retry",
+      "version": "0.12.0",
+      "purl": "pkg:npm/retry@0.12.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/tim-kos/node-retry"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "rimraf",
+      "version": "2.6.3",
+      "purl": "pkg:npm/rimraf@2.6.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "roarr",
+      "version": "2.15.4",
+      "purl": "pkg:npm/roarr@2.15.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "safe-buffer",
+      "version": "5.1.2",
+      "purl": "pkg:npm/safe-buffer@5.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/feross/safe-buffer"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "sanitize-filename",
+      "version": "1.6.4",
+      "purl": "pkg:npm/sanitize-filename@1.6.4",
+      "licenses": [
+        {
+          "license": {
+            "expression": "WTFPL OR ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "sax",
+      "version": "1.6.1",
+      "purl": "pkg:npm/sax@1.6.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "BlueOak-1.0.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "semver-compare",
+      "version": "1.0.0",
+      "purl": "pkg:npm/semver-compare@1.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/substack/semver-compare"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "semver",
+      "version": "5.7.2",
+      "purl": "pkg:npm/semver@5.7.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "semver",
+      "version": "6.3.1",
+      "purl": "pkg:npm/semver@6.3.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "semver",
+      "version": "7.7.4",
+      "purl": "pkg:npm/semver@7.7.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "semver",
+      "version": "7.8.5",
+      "purl": "pkg:npm/semver@7.8.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "serialize-error",
+      "version": "7.0.1",
+      "purl": "pkg:npm/serialize-error@7.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "shebang-command",
+      "version": "2.0.0",
+      "purl": "pkg:npm/shebang-command@2.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "shebang-regex",
+      "version": "3.0.0",
+      "purl": "pkg:npm/shebang-regex@3.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "signal-exit",
+      "version": "3.0.7",
+      "purl": "pkg:npm/signal-exit@3.0.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/tapjs/signal-exit"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "simple-update-notifier",
+      "version": "2.0.0",
+      "purl": "pkg:npm/simple-update-notifier@2.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/alexbrazier/simple-update-notifier.git"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@remusao",
+      "name": "small",
+      "version": "2.1.0",
+      "purl": "pkg:npm/%40remusao/small@2.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/remusao/mono#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@remusao",
+      "name": "smaz-compress",
+      "version": "2.2.0",
+      "purl": "pkg:npm/%40remusao/smaz-compress@2.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/remusao/mono#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@remusao",
+      "name": "smaz-decompress",
+      "version": "2.2.0",
+      "purl": "pkg:npm/%40remusao/smaz-decompress@2.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/remusao/mono#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@remusao",
+      "name": "smaz",
+      "version": "2.2.0",
+      "purl": "pkg:npm/%40remusao/smaz@2.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/remusao/mono#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "source-map-support",
+      "version": "0.5.21",
+      "purl": "pkg:npm/source-map-support@0.5.21",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "source-map",
+      "version": "0.6.1",
+      "purl": "pkg:npm/source-map@0.6.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/mozilla/source-map"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "sprintf-js",
+      "version": "1.1.3",
+      "purl": "pkg:npm/sprintf-js@1.1.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-3-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "stat-mode",
+      "version": "1.0.0",
+      "purl": "pkg:npm/stat-mode@1.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/TooTallNate/stat-mode"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "string_decoder",
+      "version": "1.1.1",
+      "purl": "pkg:npm/string_decoder@1.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/nodejs/string_decoder"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "string-width",
+      "version": "4.2.3",
+      "purl": "pkg:npm/string-width@4.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "strip-ansi",
+      "version": "6.0.1",
+      "purl": "pkg:npm/strip-ansi@6.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "sumchecker",
+      "version": "3.0.1",
+      "purl": "pkg:npm/sumchecker@3.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "Apache-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/malept/sumchecker#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "supports-color",
+      "version": "7.2.0",
+      "purl": "pkg:npm/supports-color@7.2.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tar",
+      "version": "7.5.22",
+      "purl": "pkg:npm/tar@7.5.22",
+      "licenses": [
+        {
+          "license": {
+            "id": "BlueOak-1.0.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "temp-file",
+      "version": "3.4.0",
+      "purl": "pkg:npm/temp-file@3.4.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/develar/temp-file"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "temp",
+      "version": "0.9.4",
+      "purl": "pkg:npm/temp@0.9.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tiny-async-pool",
+      "version": "1.3.0",
+      "purl": "pkg:npm/tiny-async-pool@1.3.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tinyglobby",
+      "version": "0.2.17",
+      "purl": "pkg:npm/tinyglobby@0.2.17",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://superchupu.dev/tinyglobby"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tldts-core",
+      "version": "7.4.18",
+      "purl": "pkg:npm/tldts-core@7.4.18",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/remusao/tldts#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tldts-experimental",
+      "version": "7.4.18",
+      "purl": "pkg:npm/tldts-experimental@7.4.18",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "direct-runtime"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/remusao/tldts#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tmp-promise",
+      "version": "3.0.3",
+      "purl": "pkg:npm/tmp-promise@3.0.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tmp",
+      "version": "0.2.7",
+      "purl": "pkg:npm/tmp@0.2.7",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "http://github.com/raszi/node-tmp"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "Tor GeoIP IPv4 data",
+      "version": "15.0.25",
+      "licenses": [
+        {
+          "license": {
+            "name": "Tor bundle notices"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "3099e91a4c8c87a1e6ab8a0b1e7407aea0314a2d8d048d654b4087b9ae103d9f"
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:file",
+          "value": "vendor/tor/geoip"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "Tor GeoIP IPv6 data",
+      "version": "15.0.25",
+      "licenses": [
+        {
+          "license": {
+            "name": "Tor bundle notices"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "10f50daba4156a5b1ae782c0db0478b4584901b1ed72cd619cddd4b9f2b03d6a"
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:file",
+          "value": "vendor/tor/geoip6"
+        }
+      ]
+    },
+    {
+      "type": "application",
+      "name": "Tor",
+      "version": "15.0.25",
+      "licenses": [
+        {
+          "license": {
+            "name": "BSD-3-Clause; notices bundled"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8c38513b3c4584154158e7c584f4144849dc679a64cd679553d72dad28230c54"
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:file",
+          "value": "vendor/tor/tor.exe"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@remusao",
+      "name": "trie",
+      "version": "2.1.0",
+      "purl": "pkg:npm/%40remusao/trie@2.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/remusao/mono#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "truncate-utf8-bytes",
+      "version": "1.0.2",
+      "purl": "pkg:npm/truncate-utf8-bytes@1.0.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "WTFPL"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/parshap/truncate-utf8-bytes#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "tslib",
+      "version": "2.8.1",
+      "purl": "pkg:npm/tslib@2.8.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "0BSD"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://www.typescriptlang.org/"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "type-fest",
+      "version": "0.13.1",
+      "purl": "pkg:npm/type-fest@0.13.1",
+      "licenses": [
+        {
+          "license": {
+            "expression": "(MIT OR CC0-1.0)"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "file",
+      "name": "uBlock Origin uAssets",
+      "version": "snapshot-60ecdf7894e0",
+      "licenses": [
+        {
+          "license": {
+            "id": "GPL-3.0-or-later"
+          }
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/ublock-origin/badware.txt"
+        },
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/ublock-origin/filters-2020.txt"
+        },
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/ublock-origin/filters-2021.txt"
+        },
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/ublock-origin/filters-2022.txt"
+        },
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/ublock-origin/filters-2023.txt"
+        },
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/ublock-origin/filters-2024.txt"
+        },
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/ublock-origin/filters.txt"
+        },
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/ublock-origin/quick-fixes.txt"
+        },
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/ublock-origin/resource-abuse.txt"
+        },
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/ublock-origin/unbreak.txt"
+        },
+        {
+          "type": "distribution",
+          "url": "https://raw.githubusercontent.com/ghostery/adblocker/master/packages/adblocker/assets/ublock-origin/privacy.txt"
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:snapshot-sha256",
+          "value": "60ecdf7894e09b7f893dd6f68630370dfdf9182a7fdd0d08efb8688a164fc443"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "undici-types",
+      "version": "7.24.6",
+      "purl": "pkg:npm/undici-types@7.24.6",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://undici.nodejs.org"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "undici-types",
+      "version": "8.9.0",
+      "purl": "pkg:npm/undici-types@8.9.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://undici.nodejs.org"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "undici",
+      "version": "6.29.0",
+      "purl": "pkg:npm/undici@6.29.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://undici.nodejs.org"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "undici",
+      "version": "6.29.1",
+      "purl": "pkg:npm/undici@6.29.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://undici.nodejs.org"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "undici",
+      "version": "7.30.0",
+      "purl": "pkg:npm/undici@7.30.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://undici.nodejs.org"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "undici",
+      "version": "7.30.1",
+      "purl": "pkg:npm/undici@7.30.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://undici.nodejs.org"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@electron",
+      "name": "universal",
+      "version": "2.0.3",
+      "purl": "pkg:npm/%40electron/universal@2.0.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "universalify",
+      "version": "0.1.2",
+      "purl": "pkg:npm/universalify@0.1.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/RyanZim/universalify#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "universalify",
+      "version": "2.0.1",
+      "purl": "pkg:npm/universalify@2.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/RyanZim/universalify#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "unzipper",
+      "version": "0.12.5",
+      "purl": "pkg:npm/unzipper@0.12.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@ghostery",
+      "name": "url-parser",
+      "version": "1.3.1",
+      "purl": "pkg:npm/%40ghostery/url-parser@1.3.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MPL-2.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "utf8-byte-length",
+      "version": "1.0.5",
+      "purl": "pkg:npm/utf8-byte-length@1.0.5",
+      "licenses": [
+        {
+          "license": {
+            "expression": "(WTFPL OR MIT)"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/parshap/utf8-byte-length#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "util-deprecate",
+      "version": "1.0.2",
+      "purl": "pkg:npm/util-deprecate@1.0.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/TooTallNate/util-deprecate"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@peculiar",
+      "name": "utils",
+      "version": "2.0.3",
+      "purl": "pkg:npm/%40peculiar/utils@2.0.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/PeculiarVentures/pvtsutils#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "webcrypto-core",
+      "version": "1.9.2",
+      "purl": "pkg:npm/webcrypto-core@1.9.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/PeculiarVentures/webcrypto-core#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@peculiar",
+      "name": "webcrypto",
+      "version": "1.7.1",
+      "purl": "pkg:npm/%40peculiar/webcrypto@1.7.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/PeculiarVentures/webcrypto#readme"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "which",
+      "version": "2.0.2",
+      "purl": "pkg:npm/which@2.0.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "which",
+      "version": "5.0.0",
+      "purl": "pkg:npm/which@5.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "which",
+      "version": "6.0.1",
+      "purl": "pkg:npm/which@6.0.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@electron",
+      "name": "windows-sign",
+      "version": "1.2.2",
+      "purl": "pkg:npm/%40electron/windows-sign@1.2.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "BSD-2-Clause"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/electron/windows-sign"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "wrap-ansi",
+      "version": "7.0.0",
+      "purl": "pkg:npm/wrap-ansi@7.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "wrappy",
+      "version": "1.0.2",
+      "purl": "pkg:npm/wrappy@1.0.2",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/npm/wrappy"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "xmlbuilder",
+      "version": "15.1.1",
+      "purl": "pkg:npm/xmlbuilder@15.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "http://github.com/oozcitak/xmlbuilder-js"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "group": "@xmldom",
+      "name": "xmldom",
+      "version": "0.8.15",
+      "purl": "pkg:npm/%40xmldom/xmldom@0.8.15",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/xmldom/xmldom"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "y18n",
+      "version": "5.0.8",
+      "purl": "pkg:npm/y18n@5.0.8",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://github.com/yargs/y18n"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "yallist",
+      "version": "4.0.0",
+      "purl": "pkg:npm/yallist@4.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "yallist",
+      "version": "5.0.0",
+      "purl": "pkg:npm/yallist@5.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "BlueOak-1.0.0"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "yargs-parser",
+      "version": "21.1.1",
+      "purl": "pkg:npm/yargs-parser@21.1.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "yargs",
+      "version": "17.7.3",
+      "purl": "pkg:npm/yargs@17.7.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "website",
+          "url": "https://yargs.js.org/"
+        }
+      ]
+    },
+    {
+      "type": "library",
+      "name": "yocto-queue",
+      "version": "0.1.0",
+      "purl": "pkg:npm/yocto-queue@0.1.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "properties": [
+        {
+          "name": "nacre:dependency-role",
+          "value": "transitive-or-tooling"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+@import url('pages.css');
+
+body > header .brand {
+  color: var(--text);
+  font-weight: 600;
+}
+
+body > header .brand span {
+  color: var(--faint);
+  font-size: .7rem;
+  letter-spacing: .08em;
+}
+
+.shield-mark {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-pill);
+  color: var(--danger);
+  background: var(--danger-bg);
+}
+
+.shield-mark svg {
+  width: 18px;
+  height: 18px;
+}
+
+main {
+  width: min(760px, calc(100vw - 40px));
+  margin: 0 auto;
+  padding: 56px 0 80px;
+}
+
+.warning-card {
+  padding: 30px;
+  border: 1px solid color-mix(in srgb, var(--danger) 38%, var(--line));
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.warning-card h1 {
+  max-width: 22ch;
+  color: var(--text);
+}
+
+.target-label {
+  margin: 22px 0 4px;
+  color: var(--faint);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+.reasons {
+  margin: 20px 0 24px;
+  padding-left: 1.25em;
+  color: var(--muted);
+}
+
+.reasons li {
+  margin: .45em 0;
+  padding-left: 2px;
+}
+
+.reasons li::marker {
+  color: var(--danger);
+}
+
+.warning-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.danger-outline {
+  border-color: color-mix(in srgb, var(--danger) 45%, transparent);
+  color: var(--danger);
+  background: transparent;
+}
+
+.danger-outline:hover {
+  background: var(--danger-bg);
+}
+
+#continue.is-armed {
+  border-color: var(--danger);
+  color: #fff;
+  background: var(--danger);
+}
+
+#unavailable-back {
+  margin-top: 16px;
+}
+
+@media (max-width: 620px) {
+  .warning-card { padding: 22px; }
+  .warning-actions button { flex: 1 1 100%; }
+}

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title data-i18n="dashboard.pageTitle">Privacy dashboard — Nacre</title>
+  <link rel="stylesheet" href="protection.css">
+</head>
+<body>
+  <main>
+    <nav class="page-links" aria-label="Privacy" data-i18n-attr="aria-label:dashboard.navigation">
+      <a class="back" href="nacre://settings/#adblock" data-i18n="dashboard.settings">← Protection settings</a>
+      <a href="nacre://leak-tests/" data-i18n="dashboard.diagnostics">Open privacy tests</a>
+    </nav>
+    <header>
+      <div>
+        <p class="eyebrow" data-i18n="dashboard.eyebrow">NACRE · CURRENT SESSION</p>
+        <h1 data-i18n="dashboard.title">Privacy dashboard</h1>
+        <p data-i18n="dashboard.intro">Your network route, protection settings and blocked requests in one place.</p>
+      </div>
+      <button id="clear" type="button" disabled data-i18n="dashboard.clear">Clear counters</button>
+    </header>
+    <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+
+    <section class="panel route-panel" aria-labelledby="route-title">
+      <div class="section-heading">
+        <h2 id="route-title" data-i18n="dashboard.routeTitle">Network route</h2>
+        <span id="route-status" class="status" role="status" aria-live="polite" aria-atomic="true"><span data-i18n="dashboard.unknown">Unknown</span></span>
+      </div>
+      <p id="route-detail" class="note"><span data-i18n="dashboard.waiting">Waiting for the session state.</span></p>
+      <dl class="route-facts">
+        <div><dt data-i18n="dashboard.exitRequested">Requested Tor exit</dt><dd id="tor-country"><span data-i18n="ui.protectionhtml.textbda050585a">—</span></dd></div>
+        <div><dt data-i18n="dashboard.exitObserved">Last observed Tor IP</dt><dd id="tor-ip"><span data-i18n="ui.protectionhtml.textbda050585a">—</span></dd></div>
+        <div><dt data-i18n="dashboard.circuits">Tor circuits</dt><dd id="tor-circuits"><span data-i18n="ui.protectionhtml.textbda050585a">—</span></dd></div>
+      </dl>
+      <p class="scope-note" data-i18n="dashboard.routeScope">A requested country is not a verified exit location. This status does not prove the absence of IP, DNS or WebRTC leaks.</p>
+    </section>
+
+    <section class="summary" aria-label="Session counters" data-i18n-attr="aria-label:dashboard.counters">
+      <article><span data-i18n="dashboard.blockedTitle">Blocked requests</span><strong id="total"><span data-i18n="ui.protectionhtml.textbda050585a">—</span></strong><small data-i18n="dashboard.blockedDetail">Network requests matched by loaded rules, not unique trackers.</small></article>
+      <article><span data-i18n="dashboard.sitesTitle">Sites with blocked requests</span><strong id="sites-count"><span data-i18n="ui.protectionhtml.textbda050585a">—</span></strong><small data-i18n="dashboard.sitesDetail">Distinct site hostnames in the available session counters.</small></article>
+      <article><span data-i18n="dashboard.engineTitle">Filter engine</span><strong id="engine" class="text-metric"><span data-i18n="dashboard.unknown">Unknown</span></strong><small id="engine-detail"><span data-i18n="dashboard.waiting">Waiting for the session state.</span></small></article>
+    </section>
+
+    <section class="panel activity-panel" aria-labelledby="activity-title">
+      <div class="section-heading"><h2 id="activity-title" data-i18n="transparency.title">Protection explained</h2><span id="activity-count" class="status">0</span></div>
+      <p class="note" data-i18n="transparency.intro">See the companies associated with observed activity, how Nacre handled it and why.</p>
+      <div class="activity-controls">
+        <label class="activity-search"><span data-i18n="activity.searchLabel">Search activity</span><input id="activity-search" type="search" maxlength="100" data-i18n-attr="placeholder:activity.searchPlaceholder" placeholder="Company, cookie or domain…" autocomplete="off"></label>
+        <label class="activity-filter"><span data-i18n="transparency.decision">Decision</span><select id="activity-decision"><option value="all" data-i18n="transparency.all">All decisions</option><option value="blocked" data-i18n="dashboard.routeBlocked">Blocked</option><option value="allowed" data-i18n="dashboard.cookieAllowed">Allowed</option><option value="modified" data-i18n="transparency.modified">Modified</option></select></label>
+        <label class="activity-filter"><span data-i18n="transparency.company">Company</span><select id="activity-company"><option value="" data-i18n="transparency.allCompanies">All companies</option></select></label>
+      </div>
+      <div id="activity-companies" class="activity-companies"></div>
+      <p id="activity-retained" class="note activity-retained" role="status" aria-live="polite"></p>
+      <div id="cookie-activity" class="activity-list"></div>
+      <button id="activity-more" class="activity-more" type="button" hidden data-i18n="transparency.more">Show more</button>
+      <div class="activity-report">
+        <button id="copy-transparency-report" type="button" disabled aria-describedby="transparency-report-note" data-i18n="transparency.export">Copy transparency report</button>
+        <p id="transparency-report-note" class="note" data-i18n="transparency.reportNote">Copies all retained entries in this session, including those hidden by filters or pagination, with hostnames and cookie names.</p>
+        <p id="transparency-report-feedback" class="feedback" role="status" aria-live="polite"></p>
+      </div>
+      <p class="scope-note" data-i18n="transparency.scope">Up to 200 recent grouped decisions, kept only in this session. No cookie values or full URLs. An allowed request does not prove a completed connection or tracking. Some JavaScript activity cannot be observed.</p>
+      <p class="note activity-uncertainty" data-i18n="transparency.uncertainty">A blocked cookie or an allowed request alone does not establish tracking.</p>
+      <p id="activity-private-scope" class="note" data-i18n="activity.scopePrivate" hidden>This private tab only · in memory, without cookie values or full URLs. Cleared when the tab closes and kept separate from normal browsing.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="protections-title">
+      <div class="section-heading"><h2 id="protections-title" data-i18n="dashboard.protectionsTitle">Protection configuration</h2><a href="nacre://settings/#privacy" data-i18n="dashboard.manage">Manage</a></div>
+      <p class="note" data-i18n="dashboard.protectionsDetail">Settings describe the configured policy. Coverage limits are shown beside each protection.</p>
+      <div id="protections" class="protection-list"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="types-title">
+      <h2 id="types-title" data-i18n="dashboard.typesTitle">By request type</h2>
+      <p class="note" data-i18n="dashboard.typesDetail">Resource types come from Chromium. A rule match does not always distinguish advertising from tracking.</p>
+      <div id="types" class="bars" aria-label="Blocked requests by type" data-i18n-attr="aria-label:dashboard.typesLabel"></div>
+    </section>
+    <section class="panel" aria-labelledby="sites-title">
+      <h2 id="sites-title" data-i18n="dashboard.bySiteTitle">By site</h2>
+      <p class="note" data-i18n="dashboard.bySiteDetail">Up to 20 sites with the most blocked requests. Counters contain hostnames only, without page paths or URL parameters.</p>
+      <div id="sites" class="site-list"></div>
+    </section>
+    <footer data-i18n="dashboard.footer">Counters stay in memory for this session and are not sent anywhere. Clearing them does not clear browsing data or change protections. Private browsing counters are excluded.</footer>
+  </main>
+  <script src="protection-activity-ui.js"></script>
+  <script src="protection.js"></script>
+</body>
+</html>

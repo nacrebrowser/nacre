@@ -1,0 +1,258 @@
+{
+  "format": "nacre-release-validation",
+  "schemaVersion": 2,
+  "status": "INCOMPLETE",
+  "releaseVersion": "1.0.0",
+  "startedAt": "2026-10-27T18:31:02.902Z",
+  "finishedAt": "2026-10-27T18:32:14.541Z",
+  "source": {
+    "algorithm": "sha256-tree-v1",
+    "digest": "d960368a686dbebfc2fa90979613bf3f97ed32d77c5b99ae5357b98d620bb95e",
+    "files": 154
+  },
+  "evidenceSha256": "a4dfda992cbe69e99bd04bb4db8f5702ddb162c380bb79cf8d56b657a8664f80",
+  "builderSha256": "f535f761888a14157cf6924738c742b18ef28c814ea59bc45013ee1de3499269",
+  "testSuite": {
+    "command": "node --test --test-reporter=tap",
+    "startedAt": "2026-10-27T18:31:02.930Z",
+    "finishedAt": "2026-10-27T18:31:37.219Z",
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "environmentFailure": false,
+    "outputSha256": "d2553296f338e7965bdec1ea9630f34a5c0de679029f96a5e2b7c319a6c3afe3",
+    "total": 446,
+    "passed": 446,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "status": "PASS"
+  },
+  "checks": [
+    {
+      "id": "installer-native",
+      "command": "node scripts/verify-installer-native.cjs",
+      "startedAt": "2026-10-27T18:31:37.228Z",
+      "finishedAt": "2026-10-27T18:31:54.429Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "environmentFailure": false,
+      "outputSha256": "1306e8b1c9b13fe4a935406cbf0728c759f4d6f771cfde3a7581b89726cbeed8",
+      "status": "PASS"
+    },
+    {
+      "id": "diagnostics-runtime",
+      "command": "node scripts/verify-diagnostics-runtime.cjs",
+      "startedAt": "2026-10-27T18:31:54.429Z",
+      "finishedAt": "2026-10-27T18:31:56.119Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "environmentFailure": false,
+      "outputSha256": "1c4427088eee8a11d101a58111892f72bd1da9ae31e3b8feb9edc3308d79ff74",
+      "status": "PASS"
+    },
+    {
+      "id": "privacy-profiles-runtime",
+      "command": "node scripts/verify-privacy-center-runtime.cjs",
+      "startedAt": "2026-10-27T18:31:56.119Z",
+      "finishedAt": "2026-10-27T18:32:01.399Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "environmentFailure": false,
+      "outputSha256": "422f5dadfb9f96149aee2256381e8a373cfc61b3c25db4fab36d571d834d718b",
+      "status": "PASS"
+    },
+    {
+      "id": "audit-runtime",
+      "command": "node scripts/verify-audit-remediation-runtime.cjs",
+      "startedAt": "2026-10-27T18:32:01.399Z",
+      "finishedAt": "2026-10-27T18:32:03.599Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "environmentFailure": false,
+      "outputSha256": "640cdc07bb3767688a5aa93a589934f3ca561f3ebf1f72da779ddcccf31cc577",
+      "status": "PASS"
+    },
+    {
+      "id": "canvas-runtime",
+      "command": "node scripts/verify-canvas-exports-runtime.cjs",
+      "startedAt": "2026-10-27T18:32:03.599Z",
+      "finishedAt": "2026-10-27T18:32:04.017Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "environmentFailure": false,
+      "outputSha256": "83bc28ba59229598dda93579955e3e5eb0b57670c53f3941a170ffcc04103b0c",
+      "status": "PASS"
+    },
+    {
+      "id": "fingerprint-runtime",
+      "command": "node scripts/verify-fingerprint-runtime.cjs",
+      "startedAt": "2026-10-27T18:32:04.018Z",
+      "finishedAt": "2026-10-27T18:32:06.807Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "environmentFailure": false,
+      "outputSha256": "bd0e2e56feeb9d935fa343cc840235708138872db219f423696931455cbf9c7e",
+      "status": "PASS"
+    },
+    {
+      "id": "hardening-runtime",
+      "command": "node scripts/verify-hardening-runtime.cjs",
+      "startedAt": "2026-10-27T18:32:06.808Z",
+      "finishedAt": "2026-10-27T18:32:08.310Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "environmentFailure": false,
+      "outputSha256": "388a4d7671db2c721ed3e194a6bfc80633473993ffcc686cef3c70cb880e0b63",
+      "status": "PASS"
+    },
+    {
+      "id": "tor-control-runtime",
+      "command": "node scripts/verify-tor-control-runtime.cjs",
+      "startedAt": "2026-10-27T18:32:08.311Z",
+      "finishedAt": "2026-10-27T18:32:08.964Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "environmentFailure": false,
+      "outputSha256": "7e99ef1a6709f8d025894e0b8fb6d81d528b5d0db982f964c2daddfb26a46c99",
+      "status": "PASS"
+    },
+    {
+      "id": "workspace-isolation-runtime",
+      "command": "node scripts/verify-workspace-isolation-runtime.cjs",
+      "startedAt": "2026-10-27T18:32:08.964Z",
+      "finishedAt": "2026-10-27T18:32:11.505Z",
+      "exitCode": 1,
+      "signal": null,
+      "timedOut": false,
+      "environmentFailure": true,
+      "outputSha256": "013abd67a8fb72fd9d6e351329248f28fd41319cd4531b5c9e9badffb7e5b279",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "continuation-runtime",
+      "command": "node scripts/verify-continuation-runtime.cjs",
+      "startedAt": "2026-10-27T18:32:11.505Z",
+      "finishedAt": "2026-10-27T18:32:14.514Z",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "environmentFailure": false,
+      "outputSha256": "85405acc6983940f8de38feb40838a56f0cd693aec9e9df5ba25d9d3dc79f132",
+      "status": "PASS"
+    }
+  ],
+  "limitations": [
+    {
+      "id": "limit-1",
+      "checkId": "diagnostics-runtime",
+      "statement": "Electron fixtures run with --no-sandbox on Windows in this validation environment (Electron 44 aborts with 0x80000003 before app startup otherwise). Chromium OS-level sandbox isolation is not verified by these fixtures.",
+      "outputSha256": "1c4427088eee8a11d101a58111892f72bd1da9ae31e3b8feb9edc3308d79ff74"
+    },
+    {
+      "id": "limit-2",
+      "checkId": "diagnostics-runtime",
+      "statement": "No real external network request or physical native mouse drag in this fixture.",
+      "outputSha256": "1c4427088eee8a11d101a58111892f72bd1da9ae31e3b8feb9edc3308d79ff74"
+    },
+    {
+      "id": "limit-3",
+      "checkId": "privacy-profiles-runtime",
+      "statement": "Electron fixtures run with --no-sandbox on Windows in this validation environment (Electron 44 aborts with 0x80000003 before app startup otherwise). Chromium OS-level sandbox isolation is not verified by these fixtures.",
+      "outputSha256": "422f5dadfb9f96149aee2256381e8a373cfc61b3c25db4fab36d571d834d718b"
+    },
+    {
+      "id": "limit-4",
+      "checkId": "audit-runtime",
+      "statement": "Electron fixtures run with --no-sandbox on Windows in this validation environment (Electron 44 aborts with 0x80000003 before app startup otherwise). Chromium OS-level sandbox isolation is not verified by these fixtures.",
+      "outputSha256": "640cdc07bb3767688a5aa93a589934f3ca561f3ebf1f72da779ddcccf31cc577"
+    },
+    {
+      "id": "limit-5",
+      "checkId": "audit-runtime",
+      "statement": "Local server evidence; no global Windows packet capture or Tor/signing verification.",
+      "outputSha256": "640cdc07bb3767688a5aa93a589934f3ca561f3ebf1f72da779ddcccf31cc577"
+    },
+    {
+      "id": "limit-6",
+      "checkId": "audit-runtime",
+      "statement": "N4 native worker protection remains open; separate fingerprint diagnostics document the scope.",
+      "outputSha256": "640cdc07bb3767688a5aa93a589934f3ca561f3ebf1f72da779ddcccf31cc577"
+    },
+    {
+      "id": "limit-7",
+      "checkId": "canvas-runtime",
+      "statement": "Electron fixtures run with --no-sandbox on Windows in this validation environment (Electron 44 aborts with 0x80000003 before app startup otherwise). Chromium OS-level sandbox isolation is not verified by these fixtures.",
+      "outputSha256": "83bc28ba59229598dda93579955e3e5eb0b57670c53f3941a170ffcc04103b0c"
+    },
+    {
+      "id": "limit-8",
+      "checkId": "fingerprint-runtime",
+      "statement": "page OffscreenCanvas 2D getImageData: 0 pixels changed; decoded convertToBlob export changed 33153.",
+      "outputSha256": "bd0e2e56feeb9d935fa343cc840235708138872db219f423696931455cbf9c7e"
+    },
+    {
+      "id": "limit-9",
+      "checkId": "fingerprint-runtime",
+      "statement": "same-origin frame hardwareConcurrency=16, deviceMemory=32; OffscreenCanvas 2D getImageData changed 0 pixels and decoded convertToBlob export changed 0.",
+      "outputSha256": "bd0e2e56feeb9d935fa343cc840235708138872db219f423696931455cbf9c7e"
+    },
+    {
+      "id": "limit-10",
+      "checkId": "fingerprint-runtime",
+      "statement": "worker: enabled hardwareConcurrency=16, deviceMemory=32, languages=[\"en-US\",\"fr-FR\"]; OffscreenCanvas read changed 0 pixels and decoded export changed 0 pixels.",
+      "outputSha256": "bd0e2e56feeb9d935fa343cc840235708138872db219f423696931455cbf9c7e"
+    },
+    {
+      "id": "limit-11",
+      "checkId": "fingerprint-runtime",
+      "statement": "sharedWorker: enabled hardwareConcurrency=16, deviceMemory=32, languages=[\"en-US\"]; OffscreenCanvas read changed 0 pixels and decoded export changed 0 pixels.",
+      "outputSha256": "bd0e2e56feeb9d935fa343cc840235708138872db219f423696931455cbf9c7e"
+    },
+    {
+      "id": "limit-12",
+      "checkId": "fingerprint-runtime",
+      "statement": "serviceWorker: enabled hardwareConcurrency=16, deviceMemory=32, languages=[\"en-US\"]; OffscreenCanvas read changed 0 pixels and decoded export changed 0 pixels.",
+      "outputSha256": "bd0e2e56feeb9d935fa343cc840235708138872db219f423696931455cbf9c7e"
+    },
+    {
+      "id": "limit-13",
+      "checkId": "fingerprint-runtime",
+      "statement": "Electron fixtures run with --no-sandbox on Windows in this validation environment (Electron 44 aborts with 0x80000003 before app startup otherwise). Chromium OS-level sandbox isolation is not verified by these fixtures.",
+      "outputSha256": "bd0e2e56feeb9d935fa343cc840235708138872db219f423696931455cbf9c7e"
+    },
+    {
+      "id": "limit-14",
+      "checkId": "hardening-runtime",
+      "statement": "Electron fixtures run with --no-sandbox on Windows in this validation environment (Electron 44 aborts with 0x80000003 before app startup otherwise). Chromium OS-level sandbox isolation is not verified by these fixtures.",
+      "outputSha256": "388a4d7671db2c721ed3e194a6bfc80633473993ffcc686cef3c70cb880e0b63"
+    },
+    {
+      "id": "limit-15",
+      "checkId": "workspace-isolation-runtime",
+      "statement": "Electron fixtures run with --no-sandbox on Windows in this validation environment (Electron 44 aborts with 0x80000003 before app startup otherwise). Chromium OS-level sandbox isolation is not verified by these fixtures.",
+      "outputSha256": "013abd67a8fb72fd9d6e351329248f28fd41319cd4531b5c9e9badffb7e5b279"
+    },
+    {
+      "id": "limit-16",
+      "checkId": "continuation-runtime",
+      "statement": "Electron fixtures run with --no-sandbox on Windows in this validation environment (Electron 44 aborts with 0x80000003 before app startup otherwise). Chromium OS-level sandbox isolation is not verified by these fixtures.",
+      "outputSha256": "85405acc6983940f8de38feb40838a56f0cd693aec9e9df5ba25d9d3dc79f132"
+    },
+    {
+      "id": "limit-17",
+      "checkId": "continuation-runtime",
+      "statement": "Local HTTP fixtures; no global packet capture, Tor anonymity, installed setup or forensic-erasure validation.",
+      "outputSha256": "85405acc6983940f8de38feb40838a56f0cd693aec9e9df5ba25d9d3dc79f132"
+    }
+  ]
+}

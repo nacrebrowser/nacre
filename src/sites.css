@@ -1,0 +1,13 @@
+@import url('pages.css');
+
+body > header a { color: var(--text); font-weight: 600; }
+.site { margin: 14px 0; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
+.site-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 4px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.site h2 { margin: 0; font-size: 1.0625rem; }
+.permission { display: grid; grid-template-columns: 1fr minmax(150px, 220px); align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.permission:last-child { border-bottom: 0; }
+.permission[data-permission] { grid-template-columns: minmax(120px,1fr) minmax(150px,1fr) minmax(150px,1fr) auto; }
+.permission small { display: block; }
+#status { min-height: 1.5em; color: var(--accent-text); }
+@media (max-width: 620px) { .permission { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .permission[data-permission] { grid-template-columns: 1fr; } }

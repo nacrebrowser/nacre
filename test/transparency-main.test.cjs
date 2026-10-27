@@ -1,0 +1,32 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict');
+const {loadMainHeadless}=require('../scripts/red-team/harness/electron-stub.cjs');
+const tick=()=>new Promise(resolve=>setImmediate(resolve));
+const ui=h=>({sender:h.chrome,senderFrame:h.chrome.mainFrame});
+const lastState=h=>h.sends.filter(item=>item.channel==='nacre:state').at(-1).args[0];
+
+test('allowed observations are selective and copied reports follow sender scope even after activation changes',async()=>{
+ const h=await loadMainHeadless();
+ h.ipcHandlers.get('nacre:navigate').fn(ui(h),'https://shop.test/');
+ const normalId=lastState(h).activeId,normal=h.views.at(-1).webContents;
+ const request=url=>normal.session.webRequest.beforeRequest({url,webContentsId:normal.id,resourceType:'image'},()=>{});
+ request('https://ordinary.test/image?SECRET_QUERY');
+ request('https://google-analytics.com/collect?SECRET_QUERY');
+ const copy=h.ipcHandlers.get('nacre:copy-transparency-report').fn;
+ copy(ui(h));
+ const copied=()=>JSON.parse(h.effects.filter(e=>e.owner==='clipboard'&&e.method==='writeText').at(-1).args[0]);
+ assert.equal(copied().entries.length,1);assert.equal(copied().entries[0].action,'request-allowed');assert.equal(copied().entries[0].reason,'unknown');
+ assert.doesNotMatch(JSON.stringify(copied()),/ordinary\.test|SECRET/);
+ h.ipcHandlers.get('nacre:new-private-tab').fn(ui(h));await tick();
+ h.ipcHandlers.get('nacre:navigate').fn(ui(h),'https://private.test/');
+ const privateContents=h.views.at(-1).webContents;
+ privateContents.session.webRequest.headersReceived({url:'https://facebook.com/pixel?SECRET',webContentsId:privateContents.id,resourceType:'image',responseHeaders:{'Set-Cookie':'_fbp=PRIVATE_SECRET'}},()=>{});
+ h.ipcHandlers.get('nacre:open-protection').fn(ui(h));await tick();
+ const privateDashboard=h.views.at(-1).webContents;
+ privateDashboard.mainFrame.url='nacre://protection/';
+ const privateEvent={sender:privateDashboard,senderFrame:privateDashboard.mainFrame};
+ h.ipcHandlers.get('nacre:activate-tab').fn(ui(h),normalId);
+ copy(privateEvent);assert.equal(copied().scope,'private');assert.equal(copied().entries[0].company,'Meta');assert.doesNotMatch(JSON.stringify(copied()),/shop\.test|google-analytics|PRIVATE_SECRET/);
+ copy(ui(h));assert.equal(copied().scope,'normal');assert.equal(copied().entries[0].company,'Google');assert.doesNotMatch(JSON.stringify(copied()),/private\.test|facebook/);
+ assert.throws(()=>copy({sender:normal,senderFrame:normal.mainFrame}),/interface/);
+});

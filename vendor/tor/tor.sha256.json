@@ -1,0 +1,16 @@
+{
+  "version": "15.0.25",
+  "archiveSha256": "c1988c701de2f24f7d098d1d6d7f507b58f27740d097f29c246e0524d639b252",
+  "tor.exe": "8c38513b3c4584154158e7c584f4144849dc679a64cd679553d72dad28230c54",
+  "geoip": "3099e91a4c8c87a1e6ab8a0b1e7407aea0314a2d8d048d654b4087b9ae103d9f",
+  "geoip6": "10f50daba4156a5b1ae782c0db0478b4584901b1ed72cd619cddd4b9f2b03d6a",
+  "pluggable_transports/lyrebird.exe": "6e218e85f9a7ae2481f5402ded822471a9a9d0c7e66b05db3842b93fa5c1f02e",
+  "pluggable_transports/conjure-client.exe": "6d3bca367226caf0cd065ced8b031b482b5cd5c3889bce886f2e903197b9b43b",
+  "pt_config.json": "3f11d303c30191b3b1d382b9badd882d87fd87550d061f7d25a1b31226fc9b75",
+  "licenses/conjure.txt": "0522541e3505d6669334f6eb488d4fde9c4af2234daec13170a0cf4d46d99e92",
+  "licenses/libevent.txt": "ff02effc9b331edcdac387d198691bfa3e575e7d244ad10cb826aa51ef085670",
+  "licenses/lyrebird.txt": "2331e6517a15ce87e2a1d2838c314ca1b8f3c7a347ac28d370a7fccdb5964f40",
+  "licenses/openssl.txt": "7d5450cb2d142651b8afa315b5f238efc805dad827d91ba367d8516bc9d49e7a",
+  "licenses/tor.txt": "5dc29ea302cc75db6db4a7c88d7b5d4638b4e0f5f1d2e6d21ce71f707470b766",
+  "licenses/zlib.txt": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2"
+}

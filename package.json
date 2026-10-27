@@ -1,0 +1,105 @@
+{
+  "name": "nacre-browser",
+  "version": "1.0.0",
+  "author": "Nacre contributors",
+  "license": "MPL-2.0",
+  "description": "Navigateur de bureau centré sur la vie privée",
+  "private": true,
+  "main": "src/main.cjs",
+  "scripts": {
+    "postinstall": "node node_modules/electron/install.js",
+    "prepare:tor": "node scripts/download-tor.cjs",
+    "prepare:filters": "node scripts/download-filters.cjs",
+    "prestart": "npm run prepare:tor",
+    "start": "electron .",
+    "test": "node --test",
+    "measure:memory": "node scripts/compare-memory.cjs",
+    "verify:memory": "node scripts/verify-memory-runtime.cjs",
+    "security-check": "node scripts/security-check.cjs",
+    "sbom": "node scripts/generate-sbom.cjs",
+    "verify:fingerprint": "node scripts/verify-fingerprint-runtime.cjs",
+    "verify:tor": "node scripts/verify-tor-config.cjs",
+    "prebuild:windows": "npm run prepare:tor && npm run prepare:filters",
+    "preportable:windows": "npm run prepare:tor && npm run prepare:filters",
+    "build:windows": "node scripts/run-electron-builder.cjs --win --x64 --config build/electron-builder.dir.cjs && node scripts/package-windows.cjs",
+    "portable:windows": "node scripts/run-electron-builder.cjs --win --x64 --config build/electron-builder.dir.cjs && node scripts/package-windows.cjs",
+    "build:windows:signed": "node scripts/run-electron-builder.cjs --win --x64 --config build/electron-builder.signed.cjs",
+    "verify:hardening": "node scripts/verify-hardening-runtime.cjs && node scripts/verify-tor-control-runtime.cjs",
+    "verify:protection": "node scripts/verify-protection-activity.cjs",
+    "verify:isolation": "node scripts/verify-workspace-isolation-runtime.cjs",
+    "verify:continuation": "node scripts/verify-continuation-runtime.cjs",
+    "verify:audit": "node scripts/verify-audit-remediation-runtime.cjs && node scripts/verify-canvas-exports-runtime.cjs && node scripts/verify-fingerprint-runtime.cjs",
+    "verify:release": "npm test && npm run verify:audit && npm run verify:hardening && npm run verify:isolation && npm run verify:continuation && node scripts/verify-release-sources.cjs dist/win-unpacked",
+    "verify:privacy-center": "node scripts/verify-privacy-center-runtime.cjs",
+    "verify:diagnostics": "node scripts/verify-diagnostics-runtime.cjs",
+    "prepare:phishing": "node scripts/download-phishing-feed.cjs",
+    "verify:phishing": "node scripts/verify-phishing-feed-runtime.cjs",
+    "verify:installer": "node scripts/verify-installer-native.cjs",
+    "verify:home": "node scripts/verify-home-096-runtime.cjs",
+    "verify:site-icons": "node scripts/verify-site-icons-tor-runtime.cjs"
+  },
+  "devDependencies": {
+    "@electron/fuses": "1.8.0",
+    "electron": "44.9.3",
+    "electron-builder": "26.17.0"
+  },
+  "build": {
+    "appId": "fr.nacre.browser",
+    "productName": "Nacre",
+    "npmRebuild": false,
+    "directories": {
+      "output": "dist"
+    },
+    "electronDownload": {
+      "cache": ".cache/electron"
+    },
+    "toolsets": {
+      "nsis": "1.2.1"
+    },
+    "files": [
+      "src/**/*",
+      "package.json",
+      "LICENSE.md",
+      "PRIVACY.md",
+      "THIRD_PARTY_NOTICES.md"
+    ],
+    "extraResources": [
+      {
+        "from": "vendor/tor",
+        "to": "tor",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "vendor/filters/engine.bin",
+        "to": "filters/engine.bin"
+      },
+      {
+        "from": "vendor/filters/metadata.json",
+        "to": "filters/metadata.json"
+      }
+    ],
+    "win": {
+      "icon": "src/icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "deleteAppDataOnUninstall": false
+    },
+    "buildVersion": "1.0.0"
+  },
+  "dependencies": {
+    "@ghostery/adblocker-electron": "2.20.1",
+    "tldts-experimental": "7.4.18"
+  },
+  "nacreVersion": "1.0.0"
+}

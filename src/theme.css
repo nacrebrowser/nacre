@@ -1,0 +1,292 @@
+/* Nacre 0.9.5 design tokens, shared by the browser chrome and every internal page.
+   Dark surfaces derive from --dark-background (Settings > Appearance) so the
+   user's palette choice tints the whole browser. Keep --frame in sync with the
+   native window controls (titleBarOverlayOptions in main.cjs). */
+:root {
+  color-scheme: dark;
+
+  --font-sans: "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-display: "Segoe UI Variable Display", "Segoe UI", -apple-system, system-ui, sans-serif;
+  --font-mono: "Cascadia Code", Consolas, "Segoe UI Mono", "Courier New", monospace;
+
+  font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --space-0-5: 2px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-pill: 9999px;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.3, 1.3, 0.5, 1);
+  --duration-fast: 100ms;
+  --duration-normal: 160ms;
+  --duration-slow: 260ms;
+
+  --chrome-height: 88px;
+  --tab-height: 34px;
+  --toolbar-height: 44px;
+
+  --mint: #2f9e86;
+  --accent: var(--mint);
+  --ease: var(--ease-standard);
+  --warning: var(--warn);
+  --accent-solid: color-mix(in srgb, var(--accent) 78%, #000000);
+  --accent-text: color-mix(in srgb, var(--accent) 55%, #ffffff);
+  --accent-subtle: color-mix(in srgb, var(--accent) 16%, transparent);
+  --accent-hover: color-mix(in srgb, var(--accent) 88%, #ffffff);
+  --accent-ring: color-mix(in srgb, var(--accent) 55%, transparent);
+  --on-accent: #ffffff;
+
+  /* Pearl iridescence used by the brand mark and the new tab page. */
+  --pearl-1: #7fe0c8;
+  --pearl-2: #9fb7ff;
+  --pearl-3: #e3b6ff;
+
+  --priv: #b49ad7;
+  --priv-solid: #7c5ba6;
+  --priv-text: #d4c2ef;
+  --priv-subtle: rgba(168, 120, 247, 0.18);
+
+  --status-tor: #a98bf5;
+  --status-tor-subtle: rgba(169, 139, 245, 0.16);
+  --status-shield: #46b391;
+  --status-shield-subtle: color-mix(in srgb, var(--status-shield) 16%, transparent);
+  --warn: #eab308;
+  --warn-bg: rgba(234, 179, 8, 0.13);
+  --warn-text: #fcd34d;
+  --danger: #f2555a;
+  --danger-bg: rgba(242, 85, 90, 0.14);
+  --danger-text: #ffa4a7;
+
+  --dark-background: #202124;
+  --frame: var(--dark-background);
+  --frame-hover: color-mix(in srgb, var(--dark-background) 92%, white);
+  --toolbar: color-mix(in srgb, var(--dark-background) 88%, white);
+  --field: var(--dark-background);
+  --field-hover: color-mix(in srgb, var(--dark-background) 95%, white);
+  --field-focus: color-mix(in srgb, var(--dark-background) 82%, white);
+  --page: color-mix(in srgb, var(--dark-background) 97%, white);
+  --surface: color-mix(in srgb, var(--dark-background) 91%, white);
+  --surface-2: color-mix(in srgb, var(--dark-background) 85%, white);
+  --surface-3: color-mix(in srgb, var(--dark-background) 79%, white);
+  --surface-raised: color-mix(in srgb, var(--dark-background) 89%, white);
+
+  --text: #e8eaed;
+  --muted: #a9afb8;
+  --faint: #8f97a3;
+
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.15);
+  --line-hover: rgba(255, 255, 255, 0.24);
+
+  --hover: rgba(255, 255, 255, 0.07);
+  --press: rgba(255, 255, 255, 0.12);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.34);
+  --shadow-pop: 0 12px 32px rgba(0, 0, 0, 0.42), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-field: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="light"],
+body[data-theme="light"] {
+  color-scheme: light;
+
+  --frame: #dfe3e8;
+  --frame-hover: #d2d7de;
+  --toolbar: #ffffff;
+  --field: #eef1f4;
+  --field-hover: #e5e9ee;
+  --field-focus: #ffffff;
+  --page: #f7f8fa;
+  --surface: #ffffff;
+  --surface-2: #f1f3f6;
+  --surface-3: #e6eaef;
+  --surface-raised: #ffffff;
+
+  --text: #1d2228;
+  --muted: #5b6470;
+  --faint: #6b7480;
+
+  --line: rgba(17, 24, 39, 0.09);
+  --line-strong: rgba(17, 24, 39, 0.16);
+  --line-hover: rgba(17, 24, 39, 0.26);
+
+  --hover: rgba(17, 24, 39, 0.055);
+  --press: rgba(17, 24, 39, 0.1);
+
+  --accent-solid: color-mix(in srgb, var(--accent) 88%, #000000);
+  --accent-text: color-mix(in srgb, var(--accent) 62%, #000000);
+  --accent-subtle: color-mix(in srgb, var(--accent) 11%, transparent);
+  --accent-hover: color-mix(in srgb, var(--accent) 86%, #000000);
+
+  --status-tor: #6d4fd1;
+  --status-tor-subtle: rgba(109, 79, 209, 0.1);
+  --status-shield: #17865f;
+  --priv: #7c3aed;
+  --priv-solid: #6d28d9;
+  --priv-text: #5b21b6;
+  --priv-subtle: rgba(124, 58, 237, 0.1);
+
+  --warn: #b45309;
+  --warn-bg: rgba(180, 83, 9, 0.1);
+  --warn-text: #7c3d0a;
+  --danger: #d92d33;
+  --danger-bg: rgba(217, 45, 51, 0.09);
+  --danger-text: #a3161c;
+
+  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.08);
+  --shadow-md: 0 2px 8px rgba(17, 24, 39, 0.08);
+  --shadow-lg: 0 8px 24px rgba(17, 24, 39, 0.12);
+  --shadow-pop: 0 12px 32px rgba(17, 24, 39, 0.16), 0 2px 6px rgba(17, 24, 39, 0.08);
+  --shadow-field: 0 2px 10px rgba(17, 24, 39, 0.1);
+}
+
+.private-mode {
+  --toolbar: color-mix(in srgb, #2a2135 92%, white);
+  --frame: #1d1726;
+  --field: #1d1726;
+  --page: #211a2b;
+  --accent: var(--priv);
+  --accent-solid: var(--priv-solid);
+  --accent-text: var(--priv-text);
+  --accent-subtle: var(--priv-subtle);
+  --accent-ring: color-mix(in srgb, var(--priv) 55%, transparent);
+}
+
+html[data-theme="light"] .private-mode {
+  --toolbar: #f6f1fb;
+  --frame: #e4dcef;
+  --field: #ece4f6;
+  --page: #f8f4fc;
+  --accent: var(--priv);
+  --accent-solid: var(--priv-solid);
+  --accent-text: var(--priv-text);
+  --accent-subtle: var(--priv-subtle);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--ui-font-size, 16px);
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  color: var(--text);
+  background: var(--page);
+  font-family: inherit;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  stroke-width: 1.75px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+kbd {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  color: var(--faint);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-text) !important;
+  outline-offset: 2px !important;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 45%, transparent);
+  color: #ffffff;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--line-hover);
+  background-clip: padding-box;
+}
+
+@keyframes nacre-pop-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes nacre-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Localized interface only; website language/fingerprint policy stays separate. */
+html[dir="rtl"] body { text-align: start; }
+html[dir="rtl"] input[type="url"], html[dir="rtl"] input[type="password"],
+html[dir="rtl"] #address, html[dir="rtl"] #source-code, html[dir="rtl"] #source-url,
+html[dir="rtl"] #tor-log, html[dir="rtl"] code { direction: ltr; unicode-bidi: isolate; }
+html[dir="rtl"] .setting-row, html[dir="rtl"] .command-palette-list,
+html[dir="rtl"] .permission, html[dir="rtl"] .filter-list { text-align: start; }
+html[dir="rtl"] .workspace-sidebar { left: auto; right: 0; border-right: 0; border-left: 1px solid var(--line); }
+html[dir="rtl"] .vertical-tabs #home { left: 0; right: 232px; }
+html[dir="rtl"] #back svg, html[dir="rtl"] #forward svg { transform: scaleX(-1); }
+button, label, p, h1, h2, h3, small { overflow-wrap: anywhere; }

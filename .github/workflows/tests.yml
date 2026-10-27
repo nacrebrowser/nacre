@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Install pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@12.11.2 --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Download and verify Tor
+        run: pnpm run prepare:tor
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Check for personal paths and secrets
+        run: node scripts/audit-publication.cjs

@@ -1,0 +1,11 @@
+@import url('pages.css');
+
+body > main { max-width: 840px; }
+.back { color: var(--muted); font-size: .8125rem; }
+.eyebrow { margin-top: 36px; }
+section { margin: 14px 0; padding: 22px 24px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
+section p { color: var(--muted); line-height: 1.65; }
+section a { display: inline-block; margin: 4px 18px 0 0; font-weight: 600; }
+.manual { border-color: color-mix(in srgb, var(--warn) 45%, transparent); background: color-mix(in srgb, var(--warn) 8%, var(--surface)); }
+.manual li { padding: 3px 0; color: var(--muted); }
+footer { padding-top: 20px; color: var(--faint); font-size: .75rem; line-height: 1.6; }

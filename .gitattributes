@@ -1,0 +1,7 @@
+# The repository is LF-only; tests compare source text byte for byte.
+* text=auto eol=lf
+*.png binary
+*.ico binary
+*.exe binary
+*.bin binary
+*.zip binary

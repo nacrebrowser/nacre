@@ -1,0 +1,11 @@
+@import url('pages.css');
+
+body > header a { color: var(--text); font-weight: 600; }
+body > header strong { color: var(--faint); font-size: .75rem; font-weight: 600; letter-spacing: .06em; }
+.bookmark { display: grid; grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(120px, 1.5fr) minmax(80px, .7fr) auto; align-items: center; gap: 8px; margin: 8px 0; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
+.bookmark a { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bookmark input { min-width: 0; min-height: 36px; }
+.remove { color: var(--danger); background: transparent; border-color: color-mix(in srgb, var(--danger) 40%, transparent); }
+.remove:hover { background: color-mix(in srgb, var(--danger) 12%, transparent); }
+#status { color: var(--accent-text); font-size: .8125rem; }
+@media (max-width: 760px) { .bookmark { grid-template-columns: 1fr; } }

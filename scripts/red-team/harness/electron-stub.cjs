@@ -15,6 +15,25 @@ const { fileURLToPath } = require('node:url');
 const SRC = path.join(__dirname, '..', '..', '..', 'src');
 const MAIN = path.join(SRC, 'main.cjs');
 
+// Each harness gets a throwaway profile (with, on Linux, a ~65 MB Tor
+// runtime copy). They are removed when this test process exits, and folders
+// left by interrupted runs are purged once they are an hour old (younger ones
+// may belong to test files running in parallel).
+const SCRATCH_DIRECTORIES = new Set();
+const STALE_SCRATCH_MS = 60 * 60 * 1000;
+function trackScratch(directory) {
+  if (SCRATCH_DIRECTORIES.size === 0) {
+    process.once('exit', () => { for (const item of SCRATCH_DIRECTORIES) fs.rmSync(item, { recursive: true, force: true, maxRetries: 3 }); });
+    const parent = path.dirname(directory);
+    for (const entry of fs.readdirSync(parent)) {
+      const old = path.join(parent, entry);
+      try { if (entry.startsWith('nacre-harness-') && Date.now() - fs.statSync(old).mtimeMs > STALE_SCRATCH_MS) fs.rmSync(old, { recursive: true, force: true }); } catch {}
+    }
+  }
+  SCRATCH_DIRECTORIES.add(directory);
+  return directory;
+}
+
 // Calls that perform a real-world action. Any of these made during an attack
 // is recorded as a side effect.
 const DANGEROUS = new Set([
@@ -43,7 +62,7 @@ function createHarness() {
   const protocolHandlers = [];
   const scratch = path.resolve(SRC, '..', '.cache', 'headless-tests');
   fs.mkdirSync(scratch, { recursive: true });
-  const state = { userData: fs.mkdtempSync(path.join(scratch, 'nacre-harness-')), startup: null, dialogResult: null };
+  const state = { userData: trackScratch(fs.mkdtempSync(path.join(scratch, 'nacre-harness-'))), startup: null, dialogResult: null };
   let nextId = 1;
 
   const rec = (owner, method, args) => {

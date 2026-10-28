@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('node:fs');
 const path = require('node:path');
 
 function configuredUserDataPath({ portable, executablePath, appDataPath, readFileSync }) {
@@ -14,8 +15,28 @@ function configuredUserDataPath({ portable, executablePath, appDataPath, readFil
   return null;
 }
 
-function writeProfileLocation(pointer, selectedPath, fileSystem) {
+// True when child is parent itself or somewhere below it. Symbolic links are
+// resolved where possible; Windows paths compare without case.
+function isPathInside(parent, child, platform = process.platform, fileSystem = fs) {
+  const real = (value) => {
+    const resolved = path.resolve(value);
+    try { return fileSystem.realpathSync.native(resolved); } catch {}
+    try { return path.join(fileSystem.realpathSync.native(path.dirname(resolved)), path.basename(resolved)); } catch { return resolved; }
+  };
+  let a = real(parent);
+  let b = real(child);
+  if (platform === 'win32') { a = a.toLowerCase(); b = b.toLowerCase(); }
+  const relative = path.relative(a, b);
+  // "..profile" is a child; only ".." itself or "../…" leaves the parent.
+  const outside = relative === '..' || relative.startsWith('..' + path.sep) || path.isAbsolute(relative);
+  return !outside;
+}
+
+// installDirectory: updates replace that whole folder, so a profile inside it
+// would be deleted by the next update.
+function writeProfileLocation(pointer, selectedPath, fileSystem, installDirectory = '') {
   if (typeof selectedPath !== 'string' || !path.isAbsolute(selectedPath)) throw new TypeError('Choisissez un chemin de profil absolu.');
+  if (installDirectory && isPathInside(installDirectory, selectedPath)) throw new Error('Choisissez un dossier en dehors du dossier d’installation de Nacre : une mise à jour le remplacerait.');
   const target = path.resolve(selectedPath);
   fileSystem.mkdirSync(path.dirname(pointer), { recursive: true });
   const temporary = `${pointer}.${process.pid}.tmp`;
@@ -32,4 +53,4 @@ function writeProfileLocation(pointer, selectedPath, fileSystem) {
   return target;
 }
 
-module.exports = { configuredUserDataPath, writeProfileLocation };
+module.exports = { configuredUserDataPath, writeProfileLocation, isPathInside };

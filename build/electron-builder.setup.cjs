@@ -7,7 +7,7 @@ module.exports = {
   win: { ...config.win, target: ['nsis'] },
   nsis: {
     ...config.nsis,
-    artifactName: 'Nacre Setup ' + (require('../package.json').nacreVersion || require('../package.json').version) + '.exe',
+    artifactName: require('../scripts/artifact-names.cjs').artifactNames(require('../package.json').nacreVersion || require('../package.json').version).nsis,
     include: 'scripts/installer.nsh',
     installerLanguages: ['en_US'],
     displayLanguageSelector: false,

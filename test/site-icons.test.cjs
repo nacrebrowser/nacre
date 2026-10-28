@@ -96,7 +96,8 @@ test('the temporary icon Tor stays separate from browsing and stops on its own',
   assert.match(body, /finally \{[\s\S]*await closeTorRuntime\(job\.runtime\);/);
   assert.match(main, /const ICON_TOR_MAX_MS = 4 \* 60 \* 1000;/);
   // A user connection to Tor, panic and quit stop it first.
-  assert.match(main, /async function connectTorImpl\(country\) \{[\s\S]{0,300}await stopIconTor\(\);/);
+  assert.match(main, /async function connectTorImpl\(country\) \{[\s\S]{0,600}try \{ return await connectTorRoute\(country\); \}/);
+  assert.match(main, /async function connectTorRoute\(country\) \{\n  await stopIconTor\(\);/);
   assert.match(main, /async function panicCleanup\(\) \{[\s\S]{0,200}await stopIconTor\(\);/);
   assert.match(main, /fetchIconsInBackground\(\{ afterImport: true \}\);[\s\S]{0,40}return \{ found:/);
 });

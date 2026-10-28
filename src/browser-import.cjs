@@ -1,13 +1,14 @@
 'use strict';
 
-// Finds bookmarks of other browsers installed for the current Windows user
-// and reads them without contacting the network. Only bookmarks are read:
+// Finds bookmarks of other browsers installed for the current user (Windows
+// or Linux) and reads them without contacting the network. Only bookmarks are read:
 // passwords, cookies and history stay where they are. The renderer only ever
 // receives opaque source ids; paths are resolved again here on import.
 
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
+const crypto = require('node:crypto');
 
 const MAX_BOOKMARK_FILE = 20_000_000;
 const MAX_PLACES_FILE = 200_000_000;
@@ -25,6 +26,24 @@ const CHROMIUM_BROWSERS = Object.freeze([
 const OPERA_BROWSERS = Object.freeze([
   { key: 'opera', name: 'Opera', base: 'APPDATA', dir: ['Opera Software', 'Opera Stable'] },
   { key: 'opera-gx', name: 'Opera GX', base: 'APPDATA', dir: ['Opera Software', 'Opera GX Stable'] }
+]);
+// Linux: everything lives under the home directory, including the snap and
+// Flatpak copies Ubuntu installs by default.
+const LINUX_CHROMIUM_BROWSERS = Object.freeze([
+  { key: 'chrome', name: 'Google Chrome', base: 'HOME', dir: ['.config', 'google-chrome'] },
+  { key: 'edge', name: 'Microsoft Edge', base: 'HOME', dir: ['.config', 'microsoft-edge'] },
+  { key: 'brave', name: 'Brave', base: 'HOME', dir: ['.config', 'BraveSoftware', 'Brave-Browser'] },
+  { key: 'vivaldi', name: 'Vivaldi', base: 'HOME', dir: ['.config', 'vivaldi'] },
+  { key: 'chromium', name: 'Chromium', base: 'HOME', dir: ['.config', 'chromium'] },
+  { key: 'chromium-snap', name: 'Chromium', base: 'HOME', dir: ['snap', 'chromium', 'common', 'chromium'] }
+]);
+const LINUX_OPERA_BROWSERS = Object.freeze([
+  { key: 'opera', name: 'Opera', base: 'HOME', dir: ['.config', 'opera'] }
+]);
+const LINUX_FIREFOX_ROOTS = Object.freeze([
+  { key: 'firefox', dir: ['.mozilla', 'firefox'] },
+  { key: 'firefox-snap', dir: ['snap', 'firefox', 'common', '.mozilla', 'firefox'] },
+  { key: 'firefox-flatpak', dir: ['.var', 'app', 'org.mozilla.firefox', '.mozilla', 'firefox'] }
 ]);
 
 function regularFile(file, limit) {
@@ -56,9 +75,9 @@ function listDirectories(directory) {
   } catch { return []; }
 }
 
-function findChromiumProfiles(env) {
+function findChromiumProfiles(env, chromiumBrowsers = CHROMIUM_BROWSERS, operaBrowsers = OPERA_BROWSERS) {
   const sources = [];
-  for (const browser of CHROMIUM_BROWSERS) {
+  for (const browser of chromiumBrowsers) {
     if (!env[browser.base]) continue;
     const userData = path.join(env[browser.base], ...browser.dir);
     const names = chromiumProfileNames(userData);
@@ -70,7 +89,7 @@ function findChromiumProfiles(env) {
       sources.push({ id: `${browser.key}:${profile}`, browser: browser.name, profile: cleanLabel(info.name, profile), kind: 'chromium', file });
     }
   }
-  for (const browser of OPERA_BROWSERS) {
+  for (const browser of operaBrowsers) {
     if (!env[browser.base]) continue;
     const file = path.join(env[browser.base], ...browser.dir, 'Bookmarks');
     if (regularFile(file, MAX_BOOKMARK_FILE)) sources.push({ id: `${browser.key}:default`, browser: browser.name, profile: '', kind: 'chromium', file });
@@ -78,37 +97,82 @@ function findChromiumProfiles(env) {
   return sources;
 }
 
-// profiles.ini lists Firefox profiles with their display names.
-function firefoxProfileNames(root) {
-  const names = new Map();
+// profiles.ini lists Firefox profiles: display name, and a path relative to
+// the Firefox directory (IsRelative=1) or absolute.
+function firefoxProfileEntries(root) {
+  const entries = [];
   let text = '';
   try { if (regularFile(path.join(root, 'profiles.ini'), 1_000_000)) text = fs.readFileSync(path.join(root, 'profiles.ini'), 'utf8'); } catch {}
   let current = {};
-  const flush = () => { if (current.path && current.name) names.set(path.basename(current.path.replace(/\//g, path.sep)), current.name); current = {}; };
+  const flush = () => {
+    if (current.path) {
+      const relative = current.isrelative !== '0';
+      const location = current.path.replace(/[\\/]/g, path.sep);
+      if (relative ? !path.isAbsolute(location) : path.isAbsolute(location)) {
+        const directory = relative ? path.join(root, location) : path.resolve(location);
+        // A relative entry must stay inside the Firefox directory.
+        if (!relative || !path.relative(root, directory).startsWith('..')) entries.push({ directory, name: current.name || '' });
+      }
+    }
+    current = {};
+  };
   for (const line of text.split(/\r?\n/)) {
     if (/^\[.*\]$/.test(line.trim())) { flush(); continue; }
-    const match = /^(Name|Path)=(.*)$/.exec(line.trim());
+    const match = /^(Name|Path|IsRelative)=(.*)$/.exec(line.trim());
     if (match) current[match[1].toLowerCase()] = match[2];
   }
   flush();
-  return names;
+  return entries.slice(0, 100);
+}
+
+// Profiles come from profiles.ini first, then from the usual folder
+// (Windows: Firefox\Profiles; Linux: the Firefox directory itself). Ids stay
+// opaque: the folder name, or a short hash when two folders share it.
+function firefoxProfilesIn(root, profilesDirectory, idPrefix) {
+  const candidates = new Map();
+  for (const entry of firefoxProfileEntries(root)) candidates.set(path.resolve(entry.directory), entry.name);
+  for (const profile of listDirectories(profilesDirectory)) {
+    const directory = path.resolve(profilesDirectory, profile);
+    if (!candidates.has(directory)) candidates.set(directory, '');
+  }
+  const sources = [];
+  const usedIds = new Set();
+  for (const [directory, name] of candidates) {
+    const folder = path.basename(directory);
+    try { if (fs.lstatSync(directory).isSymbolicLink()) continue; } catch { continue; }
+    const file = path.join(directory, 'places.sqlite');
+    if (!regularFile(file, MAX_PLACES_FILE)) continue;
+    // Any folder name works (spaces, accents); the id only reuses it when it
+    // is plain ASCII, otherwise it is a short hash of the path.
+    const hash = crypto.createHash('sha256').update(directory).digest('hex').slice(0, 12);
+    let id = /^[A-Za-z0-9._-]{1,120}$/.test(folder) ? `${idPrefix}:${folder}` : `${idPrefix}:${hash}`;
+    if (usedIds.has(id)) id = `${idPrefix}:${folder.replace(/[^A-Za-z0-9._-]/g, '').slice(0, 60)}-${hash}`;
+    usedIds.add(id);
+    sources.push({ id, browser: 'Mozilla Firefox', profile: cleanLabel(name, folder), kind: 'firefox', file });
+  }
+  return sources;
 }
 
 function findFirefoxProfiles(env) {
   if (!env.APPDATA) return [];
   const root = path.join(env.APPDATA, 'Mozilla', 'Firefox');
-  const names = firefoxProfileNames(root);
-  const sources = [];
-  for (const profile of listDirectories(path.join(root, 'Profiles'))) {
-    if (!/^[A-Za-z0-9._-]{1,120}$/.test(profile)) continue;
-    const file = path.join(root, 'Profiles', profile, 'places.sqlite');
-    if (!regularFile(file, MAX_PLACES_FILE)) continue;
-    sources.push({ id: `firefox:${profile}`, browser: 'Mozilla Firefox', profile: cleanLabel(names.get(profile), profile), kind: 'firefox', file });
-  }
-  return sources;
+  return firefoxProfilesIn(root, path.join(root, 'Profiles'), 'firefox');
 }
 
-function findBrowserSources(env = process.env) {
+function findLinuxFirefoxProfiles(env) {
+  if (!env.HOME) return [];
+  return LINUX_FIREFOX_ROOTS.flatMap(({ key, dir }) => {
+    const root = path.join(env.HOME, ...dir);
+    return firefoxProfilesIn(root, root, key);
+  });
+}
+
+function findBrowserSources(env = process.env, platform = process.platform) {
+  if (platform === 'linux') {
+    const home = { HOME: env.HOME || os.homedir() };
+    return [...findChromiumProfiles(home, LINUX_CHROMIUM_BROWSERS, LINUX_OPERA_BROWSERS), ...findLinuxFirefoxProfiles(home)];
+  }
+  if (platform !== 'win32') return [];
   return [...findChromiumProfiles(env), ...findFirefoxProfiles(env)];
 }
 

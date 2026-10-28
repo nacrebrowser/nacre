@@ -7,17 +7,44 @@ const { execFileSync } = require('node:child_process');
 
 const TOR_BUNDLE_VERSION = '15.0.25';
 const TOR_VERSION = '0.4.9.14';
-const TOR_ARCHIVE_SHA256 = 'c1988c701de2f24f7d098d1d6d7f507b58f27740d097f29c246e0524d639b252';
+// Tor Expert Bundle digests, as listed in the Tor Project's
+// sha256sums-signed-build.txt for this version.
+const TOR_ARCHIVES = Object.freeze({
+  win32: Object.freeze({ name: `tor-expert-bundle-windows-x86_64-${TOR_BUNDLE_VERSION}.tar.gz`, sha256: 'c1988c701de2f24f7d098d1d6d7f507b58f27740d097f29c246e0524d639b252' }),
+  linux: Object.freeze({ name: `tor-expert-bundle-linux-x86_64-${TOR_BUNDLE_VERSION}.tar.gz`, sha256: '19cf18726eecb362e0f21d27afa9ea9efe5da928bfdfbb1ceb5fe54519e87f4a' })
+});
+const TOR_ARCHIVE_SHA256 = TOR_ARCHIVES.win32.sha256;
 // Pinned in application code (inside the ASAR), not trusted from the adjacent
-// resources directory. Snowflake is implemented by lyrebird.exe in this bundle;
-// there is no separate snowflake.exe.
+// resources directory. Snowflake is implemented by lyrebird in this bundle;
+// there is no separate snowflake executable.
 const TOR_FILE_PINS = require('./tor-file-pins.cjs');
+const TOR_PLATFORM_PINS = Object.freeze({ win32: TOR_FILE_PINS, linux: require('./tor-file-pins-linux.cjs') });
+
+function torExecutableNames(platform = process.platform) {
+  return platform === 'win32' ? { tor: 'tor.exe', lyrebird: 'lyrebird.exe' } : { tor: 'tor', lyrebird: 'lyrebird' };
+}
+
+// A checkout prepares one bundle per platform: vendor/tor (Windows, the
+// historical layout) and vendor/tor-linux. Packages always use resources/tor.
+function torVendorName(platform = process.platform) {
+  return platform === 'win32' ? 'tor' : 'tor-' + platform;
+}
+
+// The Linux bundle ships its own OpenSSL and libevent next to tor.
+function torProcessEnvironment(bundleDirectory, platform = process.platform, env = process.env) {
+  return platform === 'linux' ? { ...env, LD_LIBRARY_PATH: bundleDirectory } : env;
+}
+
+// Unsupported platforms get no pins, so every bundled file is refused.
+function torPinsFor(platform = process.platform) {
+  return Object.hasOwn(TOR_PLATFORM_PINS, platform) ? TOR_PLATFORM_PINS[platform] : Object.freeze({});
+}
 
 function sha256File(file) {
   return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 }
 
-function verifyPinnedTorFiles(directory, pins = TOR_FILE_PINS) {
+function verifyPinnedTorFiles(directory, pins = torPinsFor()) {
   const mismatches = [];
   for (const [relativePath, expected] of Object.entries(pins)) {
     const file = path.join(directory, ...relativePath.split('/'));
@@ -53,4 +80,4 @@ function secureTorRuntimeDirectory(directory, platform = process.platform, run =
   return 'mode 0700';
 }
 
-module.exports = { TOR_BUNDLE_VERSION, TOR_VERSION, TOR_ARCHIVE_SHA256, TOR_FILE_PINS, sha256File, verifyPinnedTorFiles, secureTorRuntimeDirectory };
+module.exports = { TOR_BUNDLE_VERSION, TOR_VERSION, TOR_ARCHIVES, TOR_ARCHIVE_SHA256, TOR_FILE_PINS, TOR_PLATFORM_PINS, torExecutableNames, torPinsFor, torVendorName, torProcessEnvironment, sha256File, verifyPinnedTorFiles, secureTorRuntimeDirectory };

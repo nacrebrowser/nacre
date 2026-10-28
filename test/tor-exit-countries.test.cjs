@@ -23,7 +23,8 @@ const EXPECTED_ADDITIONAL = [
 ];
 const ALL_SUPPORTED = [...ORIGINAL_SIX, ...EXPECTED_ADDITIONAL].sort();
 function readGeoIpCountries(file) {
-  const rows = fs.readFileSync(path.join(root, 'vendor', 'tor', file), 'utf8').split(/\r?\n/);
+  // The bundle prepared for this platform (vendor/tor on Windows, vendor/tor-linux on Linux).
+  const rows = fs.readFileSync(path.join(root, 'vendor', require('../src/tor-integrity.cjs').torVendorName(), file), 'utf8').split(/\r?\n/);
   return new Set(rows.map((line) => line.trimEnd().split(',').at(-1)).filter((code) => /^[A-Z]{2}$/.test(code)));
 }
 const GEOIP_V4_COUNTRIES = readGeoIpCountries('geoip');
@@ -149,4 +150,12 @@ test('buildTorRuntimeArguments omet ExitNodes et StrictNodes en mode AUTO unique
   assert.equal(fixed[fixed.indexOf('--ExitNodes') + 1], '{de}');
   assert.equal(fixed[fixed.indexOf('--StrictNodes') + 1], '1');
   assert.throws(() => buildTorRuntimeArguments({ ...base, country: 'ZZ' }));
+});
+
+test('Tor is owned by the Nacre process and exits when it disappears', () => {
+  const base = { cookiePath: 'cookie', dataDirectory: 'data', geoip: 'geoip', geoip6: 'geoip6', country: 'AUTO' };
+  const owner = (args) => args[args.indexOf('--__OwningControllerProcess') + 1];
+  assert.equal(owner(buildTorRuntimeArguments({ ...base, ownerPid: 4242 })), '4242');
+  assert.equal(owner(buildTorRuntimeArguments(base)), String(process.pid));
+  assert.throws(() => buildTorRuntimeArguments({ ...base, ownerPid: 0 }), TypeError);
 });

@@ -84,8 +84,10 @@ test('regression: update checks refuse offline Tor and direct mode waits for exp
   const h = await require('../scripts/red-team/harness/electron-stub.cjs').loadMainHeadless();
   const event = { sender: h.chrome, senderFrame: h.chrome.mainFrame };
   const before = h.netFetched.length;
-  await assert.rejects(h.ipcHandlers.get('nacre:check-updates').fn(event, ''), Error);
+  const status = await h.ipcHandlers.get('nacre:check-updates').fn(event);
+  assert.notEqual(status.state, 'ready', 'nothing prepared without a live route');
   assert.equal(h.netFetched.length, before, 'no update fetch without live Tor');
+  await assert.rejects(h.ipcHandlers.get('nacre:check-updates').fn({ sender: {}, senderFrame: {} }), Error, 'untrusted callers are refused');
   assert.equal(h.effects.some(e => e.method === 'blocked'), false, 'no host network attempt');
   let warning;
   h.electron.dialog.showMessageBox = async (_window, options) => { warning = options; return { response: 1 }; };

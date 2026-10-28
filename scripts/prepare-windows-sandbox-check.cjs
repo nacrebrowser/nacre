@@ -8,7 +8,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const version = require('../package.json').version;
-const setupName = 'Nacre Setup ' + version + '.exe';
+const setupName = require('./artifact-names.cjs').artifactNames(version).nsis;
 const setup = path.join(path.resolve(root, process.argv[2] || 'dist'), setupName);
 if (!fs.statSync(setup).isFile()) throw new Error('Installer not found: ' + setup);
 

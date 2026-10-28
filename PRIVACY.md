@@ -39,13 +39,13 @@ If Tor is on but stops working, Nacre does not quietly switch to a direct connec
 | --- | --- | --- |
 | Tor network | At startup, if Tor is on | Tor |
 | Missing site icons | After a bookmark import, or when you add a shortcut without an icon (at most every 3 hours) | Tor only. If Tor is off, a temporary Tor process is started for this alone, then stopped. Not done when a manual proxy is set. |
+| Update check | Once a day, a few minutes after startup (can be turned off in Settings › About) | Tor when Tor is on, with no direct fallback. Without Tor, only after you allow it once (GitHub then sees your IP address). GitHub receives requests for the release files only: no identifier, history or bookmarks. |
 
 You can turn off the icon fetching in Settings › Privacy › "Fetch missing site icons through Tor".
 
 **Only when you ask.** These never run on their own:
 
 - updating the ad and tracker filter lists (through Tor);
-- checking for a new version, when you click "Check for updates" in Settings (GitHub, through Tor);
 - leak-test websites opened from the diagnostics page.
 
 The phishing list is bundled with the app. Nacre does not send the addresses you visit to a reputation service: phishing checks and tracking-link cleanup run locally.

@@ -194,26 +194,26 @@ test('Tor-down update is closed and leaves the current filter engine untouched',
 });
 
 test('failed snapshot swap keeps the previous active filter snapshot', () => {
-  const directory = path.win32.join('C:\\nacre-test', 'filters');
+  const directory = path.join(path.resolve('/nacre-test'), 'filters');
   const files = new Map();
   let failPointerSwap = false;
   const fakeFs = {
     mkdirSync() {},
     writeFileSync(file, contents) { files.set(file, Buffer.isBuffer(contents) ? Buffer.from(contents) : String(contents)); },
     renameSync(source, destination) {
-      if (failPointerSwap && destination === path.win32.join(directory, 'active.json')) throw new Error('simulated final pointer failure');
+      if (failPointerSwap && destination === path.join(directory, 'active.json')) throw new Error('simulated final pointer failure');
       files.set(destination, files.get(source));
       files.delete(source);
     }
   };
   const first = persistFilterSnapshot(directory, Buffer.from('old engine'), { version: 1 }, { texts: { easylist: 'old' } }, fakeFs);
-  const previousPointer = files.get(path.win32.join(directory, 'active.json'));
+  const previousPointer = files.get(path.join(directory, 'active.json'));
   failPointerSwap = true;
   assert.throws(() => persistFilterSnapshot(directory, Buffer.from('new engine'), { version: 2 }, { texts: { easylist: 'new' } }, fakeFs), /pointer failure/);
-  assert.equal(files.get(path.win32.join(directory, 'active.json')), previousPointer);
+  assert.equal(files.get(path.join(directory, 'active.json')), previousPointer);
   const pointer = JSON.parse(previousPointer);
   assert.equal(pointer.sha256, first.sha256);
-  assert.equal(files.get(path.win32.join(directory, pointer.engineFile)).toString(), 'old engine');
+  assert.equal(files.get(path.join(directory, pointer.engineFile)).toString(), 'old engine');
 });
 
 test('custom rules are bounded, dashboard counters stay in memory, and weekly cadence is opt-in', () => {

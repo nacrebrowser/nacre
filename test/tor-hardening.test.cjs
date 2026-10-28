@@ -5,7 +5,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
-const { sha256File, verifyPinnedTorFiles, TOR_FILE_PINS, secureTorRuntimeDirectory } = require('../src/tor-integrity.cjs');
+const { sha256File, verifyPinnedTorFiles, TOR_FILE_PINS, TOR_PLATFORM_PINS, TOR_ARCHIVES, torExecutableNames, torPinsFor, secureTorRuntimeDirectory } = require('../src/tor-integrity.cjs');
 const { TOR_BUNDLE_VERSION } = require('../src/tor-integrity.cjs');
 const { buildTorRuntimeArguments } = require('../src/tor-runtime-config.cjs');
 
@@ -30,6 +30,29 @@ test('Tor runtime arguments are loopback-only, cookie-authenticated and avoid di
   assert.equal(pairs['--ExitNodes'], '{gb}');
   assert.equal(args.includes('--ControlPortWriteToFile'), false);
   assert.throws(() => buildTorRuntimeArguments({ socksPort: 0, controlPort: 1, cookiePath: 'a', dataDirectory: 'b', geoip: 'c', geoip6: 'd', country: 'GB' }), /Port SOCKS/);
+});
+
+test('Linux bundle has its own pins, libraries and archive digest; Windows pins are untouched', () => {
+  const linux = TOR_PLATFORM_PINS.linux;
+  for (const name of ['tor', 'libcrypto.so.3', 'libevent-2.1.so.7', 'libssl.so.3', 'pluggable_transports/lyrebird', 'pluggable_transports/conjure-client', 'pt_config.json', 'geoip', 'geoip6', 'tor.sha256.json']) {
+    assert.match(linux[name] || '', /^[0-9a-f]{64}$/, name);
+  }
+  assert.ok(!Object.keys(linux).some((name) => name.endsWith('.exe') || name.startsWith('debug/')), 'no Windows or debug binaries on Linux');
+  assert.equal(TOR_PLATFORM_PINS.win32, TOR_FILE_PINS);
+  assert.equal(TOR_ARCHIVES.win32.sha256, 'c1988c701de2f24f7d098d1d6d7f507b58f27740d097f29c246e0524d639b252');
+  assert.equal(TOR_ARCHIVES.linux.sha256, '19cf18726eecb362e0f21d27afa9ea9efe5da928bfdfbb1ceb5fe54519e87f4a');
+  assert.deepEqual(torExecutableNames('win32'), { tor: 'tor.exe', lyrebird: 'lyrebird.exe' });
+  assert.deepEqual(torExecutableNames('linux'), { tor: 'tor', lyrebird: 'lyrebird' });
+  assert.deepEqual(torPinsFor('darwin'), {}, 'an unsupported platform trusts no bundled file');
+  const main = fs.readFileSync(path.join(__dirname, '../src/main.cjs'), 'utf8');
+  assert.match(main, /env: torProcessEnvironment\(bundleDirectory\)/);
+  const { torVendorName, torProcessEnvironment } = require('../src/tor-integrity.cjs');
+  assert.equal(torVendorName('win32'), 'tor');
+  assert.equal(torVendorName('linux'), 'tor-linux');
+  assert.equal(torProcessEnvironment('/b', 'linux', { PATH: '/bin' }).LD_LIBRARY_PATH, '/b');
+  const windowsEnv = { PATH: 'C:\Windows' };
+  assert.equal(torProcessEnvironment('C:\b', 'win32', windowsEnv), windowsEnv);
+  assert.doesNotMatch(main, /torAsset\('tor\.exe'\)|'lyrebird\.exe'/);
 });
 
 test('runtime bundle pins include Tor, Lyrebird, Conjure and bridges config and detect replacement', () => {

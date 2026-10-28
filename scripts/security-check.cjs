@@ -5,7 +5,7 @@ const path = require('node:path');
 const os = require('node:os');
 const { spawnSync } = require('node:child_process');
 const packageInfo = require('../package.json');
-const { verifyPinnedTorFiles, TOR_FILE_PINS } = require('../src/tor-integrity.cjs');
+const { verifyPinnedTorFiles, torPinsFor, torVendorName } = require('../src/tor-integrity.cjs');
 const { isFilterMetadataFor } = require('../src/filter-metadata.cjs');
 const { verifyFuseWire, loadFuseApi } = require('./electron-fuse-policy.cjs');
 
@@ -165,7 +165,7 @@ function main() {
 
     const scan = runStaticChecks();
     for (const item of scan) report(item.name, item.ok, item.detail);
-    report('Empreintes des binaires Tor', verifyPinnedTorFiles(path.join(root, 'vendor', 'tor')).valid, Object.keys(TOR_FILE_PINS).join(', '));
+    report('Empreintes des binaires Tor', verifyPinnedTorFiles(path.join(root, 'vendor', torVendorName())).valid, Object.keys(torPinsFor()).join(', '));
     const engineFile = path.join(root, 'vendor', 'filters', 'engine.bin');
     const metadataFile = path.join(root, 'vendor', 'filters', 'metadata.json');
     let filterIntegrity = false;

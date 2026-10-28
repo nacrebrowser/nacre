@@ -1,6 +1,8 @@
 {
   "name": "nacre-browser",
-  "version": "1.0.0",
+  "version": "1.1.0",
+  "homepage": "https://github.com/nacrebrowser/nacre",
+  "desktopName": "nacre.desktop",
   "author": "Nacre contributors",
   "license": "MPL-2.0",
   "description": "Navigateur de bureau centré sur la vie privée",
@@ -19,10 +21,12 @@
     "sbom": "node scripts/generate-sbom.cjs",
     "verify:fingerprint": "node scripts/verify-fingerprint-runtime.cjs",
     "verify:tor": "node scripts/verify-tor-config.cjs",
-    "prebuild:windows": "npm run prepare:tor && npm run prepare:filters",
-    "preportable:windows": "npm run prepare:tor && npm run prepare:filters",
+    "prebuild:windows": "node scripts/check-release-inputs.cjs && npm run prepare:tor && npm run prepare:filters",
+    "preportable:windows": "node scripts/check-release-inputs.cjs && npm run prepare:tor && npm run prepare:filters",
     "build:windows": "node scripts/run-electron-builder.cjs --win --x64 --config build/electron-builder.dir.cjs && node scripts/package-windows.cjs",
     "portable:windows": "node scripts/run-electron-builder.cjs --win --x64 --config build/electron-builder.dir.cjs && node scripts/package-windows.cjs",
+    "prebuild:linux": "node scripts/check-release-inputs.cjs && node scripts/download-tor.cjs --platform linux && npm run prepare:filters",
+    "build:linux": "node scripts/run-electron-builder.cjs --linux --x64 --config build/electron-builder.linux.cjs",
     "build:windows:signed": "node scripts/run-electron-builder.cjs --win --x64 --config build/electron-builder.signed.cjs",
     "verify:hardening": "node scripts/verify-hardening-runtime.cjs && node scripts/verify-tor-control-runtime.cjs",
     "verify:protection": "node scripts/verify-protection-activity.cjs",
@@ -61,7 +65,9 @@
       "package.json",
       "LICENSE.md",
       "PRIVACY.md",
-      "THIRD_PARTY_NOTICES.md"
+      "THIRD_PARTY_NOTICES.md",
+      "!**/*.pem",
+      "!**/*.key"
     ],
     "extraResources": [
       {
@@ -95,11 +101,11 @@
       "createStartMenuShortcut": true,
       "deleteAppDataOnUninstall": false
     },
-    "buildVersion": "1.0.0"
+    "buildVersion": "1.1.0"
   },
   "dependencies": {
     "@ghostery/adblocker-electron": "2.20.1",
     "tldts-experimental": "7.4.18"
   },
-  "nacreVersion": "1.0.0"
+  "nacreVersion": "1.1.0"
 }

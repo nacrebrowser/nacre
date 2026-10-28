@@ -15,11 +15,11 @@ const appDir = path.join(dist, 'win-unpacked');
 const asar = path.join(appDir, 'resources', 'app.asar');
 const appExe = path.join(appDir, 'Nacre.exe');
 const releaseVersion = packageInfo.nacreVersion || packageInfo.version;
-const safeName = `Nacre ${releaseVersion}`;
-const portableZip = path.join(dist, `${safeName} Portable.zip`);
-const setupExe = path.join(dist, `Nacre Setup ${releaseVersion}.exe`);
+const names = require('./artifact-names.cjs').artifactNames(releaseVersion);
+const portableZip = path.join(dist, names.portable);
+const setupExe = path.join(dist, names.nsis);
 const appArchive = path.join(dist, `.nacre-app-${releaseVersion}.zip`);
-const sumsFile = path.join(dist, `SHA256SUMS-${releaseVersion}.txt`);
+const sumsFile = path.join(dist, names.sums);
 
 function assertInside(parent, target) {
   const relative = path.relative(path.resolve(parent), path.resolve(target));

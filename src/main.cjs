@@ -20,7 +20,10 @@ const { getReleaseValidationReport } = require('./release-validation.cjs');
 const { readStartupChoice, applyStartupChoice, applyStartupRoute } = require('./startup-choice.cjs');
 const { normalizeStoredScalars, applyScalarPatch } = require('./settings-schema.cjs');
 const { hostResolverOptions, isStrictDnsFailure } = require('./dns-policy.cjs');
-const { safeURL, sanitizeStoredProxy, sanitizeSiteZoom, isGitHubRepository, compareVersions, searchURL: searchURLFor } = require('./url-policy.cjs');
+const { safeURL, sanitizeStoredProxy, sanitizeSiteZoom, compareVersions, searchURL: searchURLFor } = require('./url-policy.cjs');
+const { createUpdater } = require('./updater.cjs');
+const { UpdateError } = require('./update-verify.cjs');
+const UPDATE_KEYS = require('./update-keys.cjs');
 // Search addresses follow the user's engine choice.
 const searchURL = (query) => searchURLFor(query, settings.searchEngine, settings.customSearchUrl);
 const { pickFaviconUrl, fetchFaviconBytes, encodeFavicon, isSafeFaviconDataUrl, imageDimensions } = require('./favicon.cjs');
@@ -34,11 +37,12 @@ const { createTorSocksBridge } = require('./tor-socks-bridge.cjs');
 const { connectTorControl, readControlPort } = require('./tor-control.cjs');
 const { createCircuitBudget, permissionModeFor, setPermissionPolicy, validateBridgeLines, validateSettingsPayload, shouldFailClosed, torStoppedErrorUrl, torStartupResumeUrl, stripTrackingParameters } = require('./privacy-core.cjs');
 const { buildTorBridgeArguments } = require('./tor-bridge-config.cjs');
-const { TOR_BUNDLE_VERSION, TOR_VERSION, verifyPinnedTorFiles, secureTorRuntimeDirectory } = require('./tor-integrity.cjs');
+const { TOR_BUNDLE_VERSION, TOR_VERSION, torExecutableNames, torVendorName, torProcessEnvironment, verifyPinnedTorFiles, secureTorRuntimeDirectory } = require('./tor-integrity.cjs');
 const { buildTorRuntimeArguments } = require('./tor-runtime-config.cjs');
 const { TOR_EXIT_COUNTRIES, TOR_EXIT_COUNTRY_ERROR, isTorExitSelection, TOR_EXIT_AUTO, assertTorExitCountry, migrateStoredTorCountry } = require('./tor-exit-countries.cjs');
 const { createFilterMetadata, isFilterMetadataFor } = require('./filter-metadata.cjs');
-const { buildChromeUserAgent, buildChromeUserAgentMetadata, buildClientHintHeaders, applyPrivacySignals } = require('./fingerprint-config.cjs');
+const { userAgentProfile, buildChromeUserAgent, buildChromeUserAgentMetadata, buildClientHintHeaders, applyPrivacySignals } = require('./fingerprint-config.cjs');
+const UA_PROFILE = userAgentProfile();
 const { sanitizeTorLog, explainTorFailure } = require('./tor-diagnostics.cjs');
 const { DEFAULT_LISTS, MAX_LIST_BYTES, MAX_TOTAL_LIST_BYTES, FILTER_FETCH_TIMEOUT_MS, safeFilterListUrl, readFilterResponseText, validateFilterListText, validateCustomFilters, shouldUpdateViaTor, shouldBlockStrictThirdParty, verifyAdvertisedDigest, updateBlockerFromSources, persistFilterSnapshot, recordBlockedRequest, normalizeListStates, updateDue, reloadYouTubeTabs } = require('./adblock-core.cjs');
 const { buildProceduralCosmeticScript } = require('./adblock-procedural.cjs');
@@ -48,7 +52,7 @@ const { secureInternalResponse, internalErrorResponse } = require('./internal-re
 const { CLOSED_PROXY_HOST, CLOSED_PROXY_PORT, closedProxyConfig, chromiumPrivacySwitches, shouldAllowHttpRequest, isHttpUrl } = require('./network-security.cjs');
 const { shouldBlockRequestCookies, cookieContextForRequest, cookieRemovalUrl } = require('./cookie-policy.cjs');
 const { clearDataTypesForSelection, sanitizeDownloadFilename, isRiskyOpenDownload, isSafeAutoOpenDownload, canRemoveDownloadRecord, publicDownloadRecord } = require('./data-policy.cjs');
-const { configuredUserDataPath, writeProfileLocation } = require('./profile-location.cjs');
+const { configuredUserDataPath, writeProfileLocation, isPathInside } = require('./profile-location.cjs');
 const { isLocalAddressInput } = require('./address-input.cjs');
 const { applyWebglDisablePolicy } = require('./webgl-policy.cjs');
 const { createFingerprintSeedStore } = require('./fingerprint-seeds.cjs');
@@ -169,7 +173,7 @@ const defaults = {
   torAutoStart: true,
   torPreferredCountry: TOR_EXIT_AUTO,
   searchEngine: 'duckduckgo',
-  releaseRepository: 'nacrebrowser/nacre',
+  update: { auto: true, directConsent: 'unset' },
   customSearchUrl: '',
   startupMode: 'new-tab',
   startupPages: [],
@@ -277,8 +281,10 @@ const phishingNotices = new Map();
 let panicBusy = false;
 let tabSuspensionTimer = null;
 
+const TOR_EXECUTABLES = torExecutableNames();
 function torAsset(...names) {
-  return path.join(app.isPackaged ? process.resourcesPath : path.join(__dirname, '..', 'vendor'), 'tor', ...names);
+  if (app.isPackaged) return path.join(process.resourcesPath, 'tor', ...names);
+  return path.join(__dirname, '..', 'vendor', torVendorName(), ...names);
 }
 
 function stopTor(runtime) {
@@ -320,7 +326,7 @@ function torBridgeConfiguration(mode, configuredLines, directory = torAsset()) {
     catch { throw new Error('La configuration des ponts n’est pas disponible dans le bundle Tor.'); }
     lines = (defaults && defaults[mode] || []).join('\n');
   }
-  const executable = asset('pluggable_transports', 'lyrebird.exe');
+  const executable = asset('pluggable_transports', TOR_EXECUTABLES.lyrebird);
   return buildTorBridgeArguments(mode, lines, fs.existsSync(executable) ? executable : '');
 }
 
@@ -329,7 +335,7 @@ function torBridgeConfiguration(mode, configuredLines, directory = torAsset()) {
 // onSpawn hands its runtime out early so it can be stopped while connecting.
 async function startTor(country, { background = false, onSpawn } = {}) {
   if (!isTorExitSelection(country)) throw new Error(TOR_EXIT_COUNTRY_ERROR);
-  let executable = torAsset('tor.exe');
+  let executable = torAsset(TOR_EXECUTABLES.tor);
   let geoip = torAsset('geoip');
   let geoip6 = torAsset('geoip6');
   if (!background) torBootstrapPercent = 0;
@@ -349,7 +355,7 @@ async function startTor(country, { background = false, onSpawn } = {}) {
   }
   const bundleDirectory = path.join(dataDirectory, 'bundle');
   fs.cpSync(torDirectory, bundleDirectory, { recursive: true, dereference: false });
-  executable = path.join(bundleDirectory, 'tor.exe');
+  executable = path.join(bundleDirectory, TOR_EXECUTABLES.tor);
   geoip = path.join(bundleDirectory, 'geoip');
   geoip6 = path.join(bundleDirectory, 'geoip6');
   const bridgeArgs = torBridgeConfiguration(settings.torBridgeMode || 'none', settings.torBridgeLines || '', bundleDirectory);
@@ -362,7 +368,7 @@ async function startTor(country, { background = false, onSpawn } = {}) {
     fs.rmSync(dataDirectory, { recursive: true, force: true });
     throw new Error('Tor runtime integrity failed');
   }
-  const child = spawn(executable, args, { cwd: path.dirname(executable), windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+  const child = spawn(executable, args, { cwd: path.dirname(executable), env: torProcessEnvironment(bundleDirectory), windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
   const runtime = { process: child, port: 0, controlPort: 0, cookiePath, dataDirectory, country, output: '', ready: false, stopping: false, background, bridges: new Map(), control: null, circuitBudget: createCircuitBudget(16) };
   onSpawn?.(runtime);
   return new Promise((resolve, reject) => {
@@ -476,6 +482,7 @@ async function closeTorRuntime(runtime) {
 }
 
 async function handleUnexpectedTorExit(runtime) {
+  noteRouteChange();
   // Keep every session pinned to a known closed local port before showing the
   // local error page. No session is ever returned to the system/direct route.
   const sessions = browserSessions();
@@ -515,7 +522,7 @@ async function updateTorExitIp() {
     throw new Error('Tor doit être connecté avant de vérifier l’IP de sortie.');
   }
   const response = await regularSession.fetch('https://check.torproject.org/api/ip', {
-    redirect: 'error', signal: AbortSignal.timeout(12000), headers: { Accept: 'application/json', 'User-Agent': buildChromeUserAgent(process.versions.chrome) }
+    redirect: 'error', signal: AbortSignal.timeout(12000), headers: { Accept: 'application/json', 'User-Agent': buildChromeUserAgent(process.versions.chrome, UA_PROFILE.token) }
   });
   if (!response.ok) throw new Error('Le service de vérification IP a répondu avec le statut HTTP ' + response.status + '.');
   const result = JSON.parse(await response.text());
@@ -654,7 +661,10 @@ async function readSettings() {
       torCountry: migrateStoredTorCountry(stored.torCountry),
       torAutoStart: stored.torAutoStart !== false,
       torPreferredCountry: migrateStoredTorCountry(stored.torPreferredCountry) || migrateStoredTorCountry(stored.torCountry) || TOR_EXIT_AUTO,
-      releaseRepository: isGitHubRepository(stored.releaseRepository) ? stored.releaseRepository : defaults.releaseRepository,
+      update: {
+        auto: !(stored.update && stored.update.auto === false),
+        directConsent: stored.update && ['allow', 'deny'].includes(stored.update.directConsent) ? stored.update.directConsent : 'unset'
+      },
       customSearchUrl: typeof stored.customSearchUrl === 'string' ? stored.customSearchUrl : '',
       startupPages: Array.isArray(stored.startupPages) ? stored.startupPages.filter((item) => safeURL(item)).slice(0, 10) : [],
       directMode: stored.directMode === true,
@@ -751,24 +761,236 @@ function forgetTabDocuments(tabId) {
   }
 }
 
-async function latestGitHubRelease(ses, repository) {
-  const endpoint = 'https://api.github.com/repos/' + repository + '/releases/latest';
-  const response = await ses.fetch(endpoint, {
-    redirect: 'error',
-    signal: AbortSignal.timeout(15000),
-    headers: {
-      Accept: 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28',
-      'User-Agent': buildChromeUserAgent(process.versions.chrome)
+// ----- Automatic updates (src/updater.cjs) -----
+// The updater has its own in-memory session, never listed in
+// browserSessions(): no browser preloads, cookies or cache. Its route is
+// recomputed for every request; any route or consent change aborts it.
+let updater = null;
+let updaterSessionObject = null;
+let lastUpdateState = '';
+// Set synchronously when a route change starts, cleared when it has finished
+// (connected, or rolled back): no updater request in between.
+let routeTransitions = 0;
+
+// How this copy was installed decides what an update may do.
+function updateInstallKind() {
+  if (!app.isPackaged) return 'none';
+  if (process.env.NACRE_PORTABLE_MODE === '1') return 'portable';
+  if (process.platform === 'win32') return fs.existsSync(path.join(path.dirname(app.getPath('exe')), 'Uninstall Nacre.exe')) ? 'nsis' : 'none';
+  if (process.platform === 'linux') return 'deb';
+  return 'none';
+}
+
+// Shared by every profile of this installation, never reset with preferences.
+function updateStatePath() {
+  if (process.env.NACRE_PORTABLE_MODE === '1') return path.join(path.dirname(app.getPath('exe')), 'NacreData', 'update-state.json');
+  return path.join(app.getPath('appData'), APP_NAME, 'update-state.json');
+}
+
+function updateStagingRoot() {
+  return path.join(app.getPath('userData'), 'updates');
+}
+
+function updateRoute() {
+  if (routeTransitions > 0) return { mode: 'transition', ready: false };
+  const requiredCountry = settings.torCountry || torConnectingCountry;
+  if (requiredCountry) {
+    const ready = Boolean(!torConnectingCountry && torRuntime && torRuntime.ready && torRuntime.process && torRuntime.process.exitCode === null && torRuntime.country === requiredCountry);
+    return { mode: 'tor', ready };
+  }
+  return { mode: settings.proxy && settings.proxy.enabled ? 'proxy' : 'direct', ready: true };
+}
+
+function updateRouteSignature() {
+  const proxy = settings.proxy || {};
+  return JSON.stringify([updateRoute(), torRuntime ? torRuntime.port : 0, proxy.enabled, proxy.type, proxy.host, proxy.port, settings.directMode, settings.update.directConsent]);
+}
+
+function noteRouteChange() {
+  if (updater) updater.onRouteChange();
+  if (updaterSessionObject) updaterSessionObject.closeAllConnections().catch(() => {});
+}
+
+function updaterSession() {
+  if (!updaterSessionObject) {
+    updaterSessionObject = session.fromPartition('nacre-updater', { cache: false });
+    updaterSessionObject.setPermissionRequestHandler((_contents, _permission, callback) => callback(false));
+    updaterSessionObject.setUserAgent(buildChromeUserAgent(process.versions.chrome, UA_PROFILE.token));
+  }
+  return updaterSessionObject;
+}
+
+// Turns the data/end/error/aborted events of an Electron response into an
+// async iterable of Buffers. fail(error) ends the iteration with that error.
+const UPDATE_BUFFER_LIMIT = 8 * 1024 * 1024;
+
+function incomingBody(incoming) {
+  const chunks = [];
+  let buffered = 0;
+  let done = false;
+  let failure = null;
+  let wake = null;
+  const notify = () => { if (wake) { const resume = wake; wake = null; resume(); } };
+  incoming.on('data', (chunk) => {
+    if (failure || done) return;
+    chunks.push(Buffer.from(chunk));
+    buffered += chunk.length;
+    // The consumer is far behind: stop rather than keep growing memory.
+    if (buffered > UPDATE_BUFFER_LIMIT) failure = new UpdateError('size', 'Update response buffered beyond its limit.');
+    notify();
+  });
+  incoming.once('end', () => { done = true; notify(); });
+  incoming.once('error', (error) => { failure = failure || error; notify(); });
+  incoming.once('aborted', () => { failure = failure || abortError(); notify(); });
+  return {
+    fail(error) { failure = failure || error; notify(); },
+    async *[Symbol.asyncIterator]() {
+      for (;;) {
+        if (failure) throw failure;
+        if (chunks.length) { const chunk = chunks.shift(); buffered -= chunk.length; yield chunk; continue; }
+        if (done) return;
+        await new Promise((resolve) => { wake = resolve; });
+      }
+    }
+  };
+}
+
+function abortError() {
+  return Object.assign(new Error('Update request cancelled.'), { name: 'AbortError' });
+}
+
+// One HTTPS request for the updater. Redirects are followed one hop at a
+// time, only after the updater approved the destination. While it runs, a
+// change of route (Tor, proxy, direct, consent) aborts it.
+const UPDATE_RESPONSE_TIMEOUT = 30 * 1000;
+const UPDATE_IDLE_TIMEOUT = 60 * 1000;
+
+async function updaterRequest(url, { signal, onRedirect }) {
+  const ses = updaterSession();
+  const route = updateRoute();
+  if (route.mode === 'transition') throw new UpdateError('offline', 'The network route is changing.');
+  if (route.mode === 'tor' && !route.ready) throw new UpdateError('offline', 'Tor is not connected.');
+  if (route.mode !== 'tor' && settings.update.directConsent !== 'allow') throw new UpdateError('consent', 'Direct update checks are not allowed.');
+  const signature = updateRouteSignature();
+  await ses.setProxy(route.mode === 'tor' ? await torSessionProxyConfig(torRuntime, ses) : proxyConfig(settings.proxy));
+  if (signal.aborted || updateRouteSignature() !== signature) throw abortError();
+  return new Promise((resolve, reject) => {
+    let body = null;
+    let settled = false;
+    let proxyAuthTried = false;
+    let deadline = null;
+    const request = electronNet.request({ url, session: ses, redirect: 'manual', useSessionCookies: false, cache: 'no-store' });
+    const watch = setInterval(() => { if (updateRouteSignature() !== signature) noteRouteChange(); }, 250);
+    // No answer within 30 s, or 60 s without data, ends the request.
+    const arm = (delay) => { clearTimeout(deadline); deadline = setTimeout(() => fail(new UpdateError('timeout', 'Update request timed out.')), delay); };
+    const finish = () => { clearInterval(watch); clearTimeout(deadline); signal.removeEventListener('abort', abort); };
+    const fail = (error) => {
+      finish();
+      try { request.abort(); } catch {}
+      if (body) body.fail(error);
+      if (!settled) { settled = true; reject(error); }
+    };
+    function abort() { fail(abortError()); }
+    signal.addEventListener('abort', abort, { once: true });
+    arm(UPDATE_RESPONSE_TIMEOUT);
+    request.setHeader('User-Agent', buildChromeUserAgent(process.versions.chrome, UA_PROFILE.token));
+    // Only the configured proxy, once, with its stored credentials.
+    request.on('login', (authInfo, callback) => {
+      const proxy = settings.proxy;
+      if (proxyAuthTried || !authInfo.isProxy || route.mode !== 'proxy' || !proxy.enabled || !proxy.encryptedPassword
+        || String(authInfo.host).toLowerCase() !== proxy.host || Number(authInfo.port) !== proxy.port) return callback();
+      proxyAuthTried = true;
+      try { callback(proxy.username, safeStorage.decryptString(Buffer.from(proxy.encryptedPassword, 'base64'))); } catch { callback(); }
+    });
+    request.on('redirect', (_status, _method, location) => {
+      if (updateRouteSignature() !== signature) fail(abortError());
+      else if (onRedirect(location)) request.followRedirect();
+      else fail(new UpdateError('location', 'Update redirect refused.'));
+    });
+    request.on('response', (incoming) => {
+      body = incomingBody(incoming);
+      // Ends the request when the updater stops reading early (limit, 404,
+      // error): the response is aborted instead of being left to stream.
+      body.cancel = () => fail(abortError());
+      arm(UPDATE_IDLE_TIMEOUT);
+      incoming.on('data', () => arm(UPDATE_IDLE_TIMEOUT));
+      incoming.once('end', finish);
+      incoming.once('error', finish);
+      incoming.once('aborted', () => fail(abortError()));
+      settled = true;
+      resolve({ status: incoming.statusCode, body });
+    });
+    request.on('error', (error) => fail(error));
+    request.end();
+  });
+}
+
+// The update installer replaces the whole installation folder: a profile,
+// download or state kept inside it would be deleted.
+function updateInstallGuard() {
+  const installDirectory = path.dirname(app.getPath('exe'));
+  const pointerTarget = configuredUserDataPath({ portable: false, executablePath: app.getPath('exe'), appDataPath: app.getPath('appData'), readFileSync: fs.readFileSync.bind(fs) });
+  const localProfiles = defaultProfilePaths({ appDataPath: app.getPath('appData') });
+  const paths = [app.getPath('userData'), updateStagingRoot(), updateStatePath(), pointerTarget, settings.downloadDirectory,
+    localProfiles.registryPath, localProfiles.profilesDirectory, ...Array.from(downloads.values(), (record) => record.path)].filter(Boolean);
+  if (paths.some((item) => isPathInside(installDirectory, item))) return 'profile-in-install-dir';
+  return installFolderHoldsProfile(installDirectory) ? 'profile-in-install-dir' : '';
+}
+
+// A settings.json below the installation folder (outside the application's
+// own resources) is a profile the installer would delete.
+function installFolderHoldsProfile(installDirectory) {
+  const visit = (directory, depth) => {
+    let entries;
+    try { entries = fs.readdirSync(directory, { withFileTypes: true }); } catch { return false; }
+    for (const entry of entries) {
+      if (entry.isFile() && entry.name === 'settings.json' && directory !== installDirectory) return true;
+      if (entry.isDirectory() && !entry.isSymbolicLink() && depth < 3 && !(depth === 0 && ['resources', 'locales'].includes(entry.name))) {
+        if (visit(path.join(directory, entry.name), depth + 1)) return true;
+      }
+    }
+    return false;
+  };
+  return visit(installDirectory, 0);
+}
+
+function publicUpdateStatus() {
+  const status = updater ? updater.status() : { state: 'idle' };
+  return {
+    state: status.state, error: status.error || '', version: status.version || '', critical: Boolean(status.critical),
+    releaseUrl: status.releaseUrl || '', lastCheck: status.lastCheck || '', currentVersion: app.getVersion(), installKind: updateInstallKind()
+  };
+}
+
+function setupUpdater() {
+  updater = createUpdater({
+    currentVersion: app.getVersion(),
+    installKind: updateInstallKind(),
+    statePath: updateStatePath(),
+    stagingRoot: updateStagingRoot(),
+    keys: UPDATE_KEYS,
+    route: updateRoute,
+    consent: () => settings.update.directConsent,
+    request: updaterRequest,
+    secureDirectory: (directory) => secureTorRuntimeDirectory(directory),
+    installGuard: updateInstallGuard,
+    spawnInstaller: (file, args) => new Promise((resolve, reject) => {
+      const child = spawn(file, args, { detached: true, stdio: 'ignore', windowsHide: true });
+      child.once('error', reject);
+      child.once('spawn', () => { child.unref(); resolve(); });
+    }),
+    quit: () => app.quit(),
+    onStatus: (status) => {
+      if (status.state === 'ready' && lastUpdateState !== 'ready') notify(status.critical ? 'update.readyCriticalToast' : 'update.readyToast', { version: status.version }, status.critical ? 'warning' : 'info');
+      if (status.state === 'updated') notify('update.updatedToast', { version: status.version });
+      lastUpdateState = status.state;
+      sendState();
     }
   });
-  if (!response.ok) throw new Error(response.status === 404 ? 'Aucune version publique trouvée sur GitHub.' : translate('diagnostic.githubStatus', settings.language).replace('{status}', String(response.status)));
-  const body = await response.text();
-  if (body.length > 200000) throw new Error('La réponse GitHub dépasse la taille prévue.');
-  const release = JSON.parse(body);
-  const version = String(release.tag_name || '').replace(/^v/i, '');
-  if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(version)) throw new Error('La version publiée n’a pas un format reconnu.');
-  return { version, url: 'https://github.com/' + repository + '/releases/tag/' + encodeURIComponent(release.tag_name) };
+  // Without built-in public keys nothing could ever verify: stay idle.
+  if (!UPDATE_KEYS.length) return;
+  updater.settlePreviousInstall().catch(() => {});
+  if (settings.update.auto) updater.start((2 + Math.random() * 8) * 60 * 1000);
 }
 
 function safeNavigationURL(value) {
@@ -1089,7 +1311,7 @@ function registerAdblockPreload(ses) {
 }
 
 function applySessionLocale(ses) {
-  const ua = buildChromeUserAgent(process.versions.chrome);
+  const ua = buildChromeUserAgent(process.versions.chrome, UA_PROFILE.token);
   try { ses.setUserAgent(ua, 'en-US,en'); } catch {}
 }
 
@@ -1349,7 +1571,7 @@ function snapshot() {
       welcomeDone: settings.welcomeDone,
       searchEngine: settings.searchEngine,
       customSearchUrl: settings.customSearchUrl,
-      releaseRepository: settings.releaseRepository,
+      update: { ...settings.update, status: publicUpdateStatus() },
       startupMode: settings.startupMode,
       startupPages: settings.startupPages,
       theme: settings.theme,
@@ -1504,7 +1726,7 @@ async function loadBlocker(refresh = false) {
       try {
         response = await regularSession.fetch(url, {
           redirect: 'error', credentials: 'omit', referrerPolicy: 'no-referrer', signal: AbortSignal.timeout(FILTER_FETCH_TIMEOUT_MS),
-          headers: { Accept: 'text/plain, text/x-adblock-filter, */*;q=0.1', 'User-Agent': buildChromeUserAgent(process.versions.chrome) }
+          headers: { Accept: 'text/plain, text/x-adblock-filter, */*;q=0.1', 'User-Agent': buildChromeUserAgent(process.versions.chrome, UA_PROFILE.token) }
         });
       } catch (error) {
         if (error?.name === 'AbortError' || error?.name === 'TimeoutError' || error?.code === 'ABORT_ERR') {
@@ -1673,6 +1895,13 @@ function configureProxy(payload, enabled) {
 }
 
 async function configureProxyImpl(payload, enabled) {
+  routeTransitions += 1;
+  noteRouteChange();
+  try { return await configureProxyRoute(payload, enabled); }
+  finally { routeTransitions -= 1; }
+}
+
+async function configureProxyRoute(payload, enabled) {
   if (torConnectingCountry) throw new Error('Attends la fin de la connexion Tor avant de modifier le relais.');
   const previous = settings.proxy;
   const previousTorCountry = settings.torCountry;
@@ -1709,6 +1938,7 @@ async function configureProxyImpl(payload, enabled) {
     next = { enabled: true, type, host, port, username, encryptedPassword, directMode: false };
   }
 
+  noteRouteChange();
   const sessions = browserSessions();
   try {
     await waitForAll(sessions.map((ses) => setSessionProxy(ses, proxyConfig(next, false))));
@@ -1745,6 +1975,15 @@ function connectTor(country) {
 async function connectTorImpl(country) {
   if (torConnectingCountry) throw new Error('Une connexion Tor est déjà en cours.');
   if (!isTorExitSelection(country)) throw new Error(TOR_EXIT_COUNTRY_ERROR);
+  // The route is about to change: block and stop updater requests before
+  // anything else, until the connection has succeeded or been rolled back.
+  routeTransitions += 1;
+  noteRouteChange();
+  try { return await connectTorRoute(country); }
+  finally { routeTransitions -= 1; }
+}
+
+async function connectTorRoute(country) {
   await stopIconTor();
   const previousCountry = settings.torCountry;
   const previousRuntime = torRuntime;
@@ -1752,6 +1991,7 @@ async function connectTorImpl(country) {
   const previousManualProxy = settings.proxy.enabled && !previousCountry;
   const hadWorkingRoute = Boolean(previousRuntime || previousManualProxy);
   torConnectingCountry = country;
+  noteRouteChange();
   torStartupError = '';
   lastTorLog = '';
   sendState();
@@ -1777,6 +2017,7 @@ async function connectTorImpl(country) {
       await waitForAll(blockedSessions.map((ses) => setSessionProxy(ses, torProxyConfig(1))));
       await waitForAll(blockedSessions.map((ses) => ses.closeAllConnections().catch(() => {})));
     }
+    noteRouteChange();
     candidate = await startTor(country);
     const sessions = browserSessions();
     try {
@@ -1905,6 +2146,11 @@ function addNetworkRules(ses) {
         const result = await dialog.showSaveDialog(win, { defaultPath, title: translate('dialog.saveDownload.title', settings.language) });
         if (!liveDownload()) return;
         if (result.canceled || !result.filePath) { item.cancel(); return; }
+        if (updateInstallKind() === 'nsis' && isPathInside(path.dirname(app.getPath('exe')), result.filePath)) {
+          tell(translate('profile.outsideInstallFolder', settings.language), 'warning');
+          item.cancel();
+          return;
+        }
         record.path = path.resolve(result.filePath);
         item.setSavePath(record.path);
       }
@@ -2095,8 +2341,8 @@ function addNetworkRules(ses) {
       }
     }
     headers['Accept-Language'] = 'en-US,en;q=0.9';
-    headers['User-Agent'] = buildChromeUserAgent(process.versions.chrome);
-    const clientHints = buildClientHintHeaders(process.versions.chrome);
+    headers['User-Agent'] = buildChromeUserAgent(process.versions.chrome, UA_PROFILE.token);
+    const clientHints = buildClientHintHeaders(process.versions.chrome, UA_PROFILE.platform, UA_PROFILE.platformVersion);
     const lowEntropyHints = new Set(['sec-ch-ua', 'sec-ch-ua-mobile', 'sec-ch-ua-platform']);
     for (const [name, value] of Object.entries(clientHints)) {
       const existing = Object.keys(headers).find((key) => key.toLowerCase() === name.toLowerCase());
@@ -2928,7 +3174,7 @@ async function fetchSiteIconBatch(ses, runtime, alive, limit) {
   const queue = siteIcons.due([...wantedIconHosts()]).slice(0, limit);
   if (!queue.length) return;
   const urls = new Map([...settings.home.shortcuts, ...settings.bookmarks.slice(0, 40)].map((item) => [iconHost(item.url), item.url]));
-  ses.setUserAgent(buildChromeUserAgent(process.versions.chrome));
+  ses.setUserAgent(buildChromeUserAgent(process.versions.chrome, UA_PROFILE.token));
   try {
     await setSessionProxy(ses, await torSessionProxyConfig(runtime, ses));
     const worker = async () => {
@@ -3510,13 +3756,13 @@ function registerIPC() {
     const frame = event.senderFrame;
     const host = typeof requestedHost === 'string' ? requestedHost.toLowerCase() : '';
     const webglMode = 'disabled';
-    if (!tab || tab.internal || !frame || frame.isDestroyed() || frame.top !== event.sender.mainFrame || !/^https?:\/\//i.test(frame.url) || !/^(?=.{1,253}$)[a-z0-9.-]+$/.test(host) || host !== hostOf(frame.url)) { event.returnValue = { secret: '', metadata: buildChromeUserAgentMetadata(process.versions.chrome), webglMode }; return; }
+    if (!tab || tab.internal || !frame || frame.isDestroyed() || frame.top !== event.sender.mainFrame || !/^https?:\/\//i.test(frame.url) || !/^(?=.{1,253}$)[a-z0-9.-]+$/.test(host) || host !== hostOf(frame.url)) { event.returnValue = { secret: '', metadata: buildChromeUserAgentMetadata(process.versions.chrome, UA_PROFILE.platform, UA_PROFILE.platformVersion), webglMode }; return; }
     const ses = event.sender.session;
     const domain = primaryDomain(host);
     // Trusted sites keep the same values across launches so the service does
     // not see a new device each time; other sites get fresh values per launch.
     const secret = trustedSiteHost(host, tab) ? trustedFingerprintSeed(trustedSiteSecret(), tab.workspaceId, domain) : fingerprintSeeds.forSite(ses, domain);
-    event.returnValue = { secret, metadata: buildChromeUserAgentMetadata(process.versions.chrome), webglMode };
+    event.returnValue = { secret, metadata: buildChromeUserAgentMetadata(process.versions.chrome, UA_PROFILE.platform, UA_PROFILE.platformVersion), webglMode };
   });
   ipcMain.handle('nacre:get-language', (event) => {
     if (!isTrustedUIEvent(event)) throw new Error('Action réservée à l’interface de Nacre.');
@@ -3648,36 +3894,41 @@ function registerIPC() {
     for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
     return { status: response.status, text: new TextDecoder().decode(bytes), truncated };
   });
-  ipcMain.handle('nacre:check-updates', async (event, requestedRepository) => {
+  ipcMain.handle('nacre:check-updates', async (event) => {
     if (!isTrustedUIEvent(event)) throw new Error('Action réservée aux paramètres de Nacre.');
-    const repository = typeof requestedRepository === 'string' ? requestedRepository.trim() : settings.releaseRepository;
-    if (repository && !isGitHubRepository(repository)) throw new Error('Indique un dépôt public au format propriétaire/projet.');
-    if (repository !== settings.releaseRepository) {
-      settings.releaseRepository = repository;
+    if (updater) await updater.check();
+    return publicUpdateStatus();
+  });
+  ipcMain.handle('nacre:update-action', async (event, action) => {
+    if (!isTrustedUIEvent(event)) throw new Error('Action réservée aux paramètres de Nacre.');
+    if (!updater) return publicUpdateStatus();
+    if (action === 'open-release') {
+      const url = updater.status().releaseUrl;
+      if (/^https:\/\/github\.com\/nacrebrowser\/nacre\/releases\/tag\/v\d+\.\d+\.\d+$/.test(url || '')) createTab(url);
+      return publicUpdateStatus();
+    }
+    if (action === 'install' || action === 'install-later') {
+      if (action === 'install') await updater.installNow({ relaunch: true });
+      return publicUpdateStatus();
+    }
+    if (action === 'consent-allow' || action === 'consent-deny') {
+      const previous = settings.update;
+      settings.update = { ...settings.update, directConsent: action === 'consent-allow' ? 'allow' : 'deny' };
+      noteRouteChange();
+      if (!saveSettings()) {
+        // Keep the more restrictive choice for this session and say so.
+        if (action === 'consent-allow') settings.update = previous;
+        sendState();
+        throw new Error(translate('update.error.state', settings.language));
+      }
+      if (action === 'consent-allow') updater.check().catch(() => {});
+    } else if (action === 'auto-on' || action === 'auto-off') {
+      settings.update = { ...settings.update, auto: action === 'auto-on' };
       saveSettings();
+      if (settings.update.auto) updater.start(60 * 1000); else updater.stop();
     }
-    if (!regularSession) throw new Error('La session réseau du navigateur n’est pas encore prête.');
-    if (!settings.torCountry || !torRuntime || !torRuntime.ready || !torRuntime.process || torRuntime.process.exitCode !== null) {
-      throw new Error('Connectez Tor avant de rechercher des mises à jour. Aucune requête directe n’est envoyée.');
-    }
-    const electronCurrent = process.versions.electron || app.getVersion();
-    const results = await Promise.all([
-      latestGitHubRelease(regularSession, 'electron/electron').then((release) => ({
-        current: electronCurrent,
-        latest: release.version,
-        updateAvailable: compareVersions(electronCurrent, release.version) < 0,
-        url: release.url
-      })).catch((error) => ({ current: electronCurrent, error: error.message || 'Vérification Electron impossible.' })),
-      repository
-        ? latestGitHubRelease(regularSession, repository).then((release) => ({
-          current: app.getVersion(),
-          latest: release.version,
-          updateAvailable: compareVersions(app.getVersion(), release.version) < 0,
-          url: release.url
-        })).catch((error) => ({ current: app.getVersion(), error: error.message || 'Vérification Nacre impossible.' }))
-        : Promise.resolve({ current: app.getVersion(), unconfigured: true })
-    ]);
-    return { electron: results[0], nacre: results[1] };
+    sendState();
+    return publicUpdateStatus();
   });
   ipcMain.handle('nacre:get-site-permissions', async (event) => {
     if (!isTrustedUIEvent(event)) throw new Error('Action réservée aux paramètres de Nacre.');
@@ -4038,6 +4289,11 @@ function registerIPC() {
     if (!isTrustedUIEvent(event)) return;
     const result = await dialog.showOpenDialog(win, { properties: ['openDirectory', 'createDirectory'], title: translate("ui.maincjs.textf3a34fee4f", settings.language), defaultPath: settings.downloadDirectory || app.getPath('downloads') });
     if (result.canceled || !result.filePaths[0]) return;
+    // Updates replace the installation folder: downloads must live elsewhere.
+    if (updateInstallKind() === 'nsis' && isPathInside(path.dirname(app.getPath('exe')), result.filePaths[0])) {
+      tell(translate('profile.outsideInstallFolder', settings.language), 'warning');
+      return;
+    }
     settings.downloadDirectory = path.resolve(result.filePaths[0]);
     saveSettings();
     sendState();
@@ -4062,7 +4318,7 @@ function registerIPC() {
     if (confirmation.response !== 0) return;
     const pointer = path.join(app.getPath('appData'), 'Nacre', 'profile-location.json');
     try {
-      writeProfileLocation(pointer, destination, fs);
+      writeProfileLocation(pointer, destination, fs, updateInstallKind() === 'nsis' ? path.dirname(app.getPath('exe')) : '');
       notify('toast.profileLocationRestart');
     } catch (error) { notify('toast.profileLocationSaveFailed', { error: localizeText(error.message, settings.language) }, 'warning'); }
   });
@@ -4109,7 +4365,6 @@ function registerIPC() {
     const next = { ...settings };
     if (hasLanguage) next.language = language;
     applyScalarPatch(next, payload);
-    if (typeof payload.releaseRepository === 'string' && (payload.releaseRepository === '' || isGitHubRepository(payload.releaseRepository))) next.releaseRepository = payload.releaseRepository;
     if (typeof payload.customSearchUrl === 'string' && payload.customSearchUrl.length <= 500 && payload.customSearchUrl.includes('%s')) {
       const probe = payload.customSearchUrl.replaceAll('%s', 'nacre');
       if (safeURL(probe)) next.customSearchUrl = payload.customSearchUrl;
@@ -4219,6 +4474,7 @@ function registerIPC() {
     });
     if (answer.response !== 0) return;
     return identityLifecycle(async () => {
+    noteRouteChange();
     const sessions = browserSessions();
     try { await waitForAll(sessions.map((ses) => setSessionProxy(ses, closedProxyConfig()))); }
     catch { notify('toast.networkResetFailed', {}, 'warning'); return; }
@@ -4443,6 +4699,7 @@ function registerIPC() {
     try {
       await configureProxyImpl({}, false);
       settings.directMode = true;
+      noteRouteChange();
       await waitForAll(browserSessions().map((ses) => setSessionProxy(ses, { mode: 'system' })));
       await waitForAll(browserSessions().map((ses) => ses.closeAllConnections().catch(() => {})));
       configureDnsForRoute(false);
@@ -4631,6 +4888,7 @@ app.whenReady().then(async () => {
   createWindow();
   startupGateActive = false;
   startTabSuspensionTimer();
+  setupUpdater();
   if (profileIntegrityWarning) dialog.showMessageBox(win, { type: 'warning', title: translate('profile.integrityTitle', settings.language), message: localizeText(profileIntegrityWarning, settings.language) }).catch(() => {});
   if (settings.torCountry) {
     const country = settings.torCountry;
@@ -4676,6 +4934,7 @@ app.on('before-quit', async (event) => {
   if (quittingAfterClear) return;
   event.preventDefault();
   quittingAfterClear = true;
+  if (updater) updater.shutdown();
   try {
     identityLifecycleBusy = true;
     await workspaceMutations.idle();
@@ -4724,6 +4983,9 @@ app.on('before-quit', async (event) => {
     }
   } finally {
     profileVault?.lock();
+    // A verified update waiting for the next close is installed now; Nacre
+    // is not started again afterwards.
+    if (updater) await updater.installOnQuit().catch((error) => console.error('Update not installed.', error));
     app.exit(0);
   }
 });

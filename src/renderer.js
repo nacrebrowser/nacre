@@ -432,6 +432,7 @@ function renderActive() {
   $('#zoom-reset').disabled = !webPage;
   $('#zoom-value').textContent = t('zoom.value').replace('{value}', String(tab.zoom || state.settings.defaultZoom || 100));
   renderZoomControls(tab, webPage);
+  renderUpdateButton(state.settings && state.settings.update && state.settings.update.status);
   const activeDownloads = (state.downloads || []).filter((item) => ['downloading', 'choosing', 'waiting', 'paused'].includes(item.state)).length;
   $('#downloads-count').hidden = activeDownloads === 0;
   $('#downloads-count').textContent = activeDownloads ? String(activeDownloads) : '';
@@ -547,6 +548,19 @@ function toggleVPN() {
   if (!state || state.settings.proxy.torConnectingCountry) return;
   if (state.settings.proxy.mode === 'tor' && !state.settings.proxy.torError) api.disableProxy();
   else api.connectTor(state.settings.proxy.torPreferredCountry || 'AUTO');
+}
+
+// Update states that need the user: ready to install, available to download
+// by hand, waiting for consent, or a failed installation.
+function renderUpdateButton(status) {
+  const button = $('#update-button');
+  const label = { ready: 'update.restart', available: 'update.available', consent: 'update.consentButton' }[status && status.state]
+    || (status && status.state === 'error' && ['install-failed', 'launch-failed', 'profile-in-install-dir'].includes(status.error) ? 'update.failedButton' : '');
+  button.hidden = !label;
+  if (!label) return;
+  $('#update-label').textContent = t(label).replace('{version}', status.version || '');
+  button.classList.toggle('critical', Boolean(status.critical));
+  button.dataset.state = status.state;
 }
 
 function showToast(item) {
@@ -765,6 +779,12 @@ $('#home-clear').addEventListener('click', () => api.clearData());
 $('#settings-clear').addEventListener('click', () => api.clearData());
 $('#settings-button').addEventListener('click', () => api.openSettingsTab());
 $('#downloads-button').addEventListener('click', () => api.openDownloads());
+$('#update-button').addEventListener('click', () => {
+  const button = $('#update-button');
+  if (button.dataset.state === 'ready') api.updateAction('install');
+  else if (button.dataset.state === 'available') api.updateAction('open-release');
+  else api.navigate('nacre://settings/#about');
+});
 $('#vpn-toggle').addEventListener('click', toggleVPN);
 $('#vpn-country-button').addEventListener('click', () => vpnMenu.hidden ? openVPNMenu() : closeVPNMenu());
 $('#vpn-new-identity').addEventListener('click', async () => {

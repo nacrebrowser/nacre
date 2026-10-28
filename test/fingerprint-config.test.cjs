@@ -37,3 +37,15 @@ test('GPC is sent by default while the rare DNT header stays disabled', () => {
   assert.deepEqual(applyPrivacySignals({ DNT: '1', 'Sec-GPC': '0' }, {}), { 'Sec-GPC': '1' });
   assert.deepEqual(applyPrivacySignals({}, { sendGpc: true, sendDnt: true }), { 'Sec-GPC': '1', DNT: '1' });
 });
+
+test('user agent profile follows the operating system family, Windows by default', () => {
+  const { userAgentProfile } = require('../src/fingerprint-config.cjs');
+  const linux = userAgentProfile('linux');
+  assert.match(buildChromeUserAgent('152.0.7977.130', linux.token), /\(X11; Linux x86_64\)/);
+  assert.equal(buildChromeUserAgentMetadata('152.0.7977.130', linux.platform, linux.platformVersion).platform, 'Linux');
+  const hints = buildClientHintHeaders('152.0.7977.130', linux.platform, linux.platformVersion);
+  assert.equal(hints['Sec-CH-UA-Platform'], '"Linux"');
+  assert.equal(hints['Sec-CH-UA-Platform-Version'], '""');
+  assert.equal(userAgentProfile('win32').token, 'Windows NT 10.0; Win64; x64');
+  assert.equal(buildClientHintHeaders('152.0.7977.130')['Sec-CH-UA-Platform-Version'], '"10.0.0"');
+});

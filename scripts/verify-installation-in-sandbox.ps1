@@ -99,8 +99,8 @@ try {
   $work = 'C:\NacreWork'
   New-Item -ItemType Directory -Force -Path (Join-Path $work 'temp') | Out-Null
   $env:TEMP = $env:TMP = Join-Path $work 'temp'
-  $setup = Join-Path $work ("Nacre Setup $Version.exe")
-  Copy-Item -LiteralPath (Join-Path 'C:\NacreInput' ("Nacre Setup $Version.exe")) -Destination $setup
+  $setup = Join-Path $work ("Nacre-Setup-$Version.exe")
+  Copy-Item -LiteralPath (Join-Path 'C:\NacreInput' ("Nacre-Setup-$Version.exe")) -Destination $setup
   $report.setupSha256 = (Get-FileHash -LiteralPath $setup -Algorithm SHA256).Hash.ToLower()
   # Walk the wizard the way a user would and record every screen it shows.
   $install = Start-Process -FilePath $setup -PassThru

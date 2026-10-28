@@ -572,6 +572,27 @@ html[dir="rtl"] .tab-title {
 }
 .vpn-live-dot { display: none; }
 
+.update-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.update-button[hidden] { display: none; }
+.update-button svg { width: 14px; height: 14px; }
+.update-button.critical { background: var(--warn); }
+.update-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
 .downloads-button #downloads-count {
   position: absolute;
   top: 3px;

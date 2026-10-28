@@ -6,9 +6,19 @@
 ; and no automatic termination of another Nacre instance or another user's app.
 !macro customCheckAppRunning
   !define NacreProcessCheck ${__LINE__}
+  ; An automatic update (--updated) is started by Nacre just before it quits:
+  ; wait up to 60 s for it to exit instead of failing at once.
+  StrCpy $R1 0
   nacre_check_${NacreProcessCheck}:
     nsProcess::_FindProcess "${APP_EXECUTABLE_FILENAME}"
     Pop $R0
+    ${If} $R0 == 0
+    ${AndIf} ${isUpdated}
+    ${AndIf} $R1 < 120
+      IntOp $R1 $R1 + 1
+      Sleep 500
+      Goto nacre_check_${NacreProcessCheck}
+    ${EndIf}
     ${If} $R0 == 0
       MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION "Nacre is running. Close its windows and retry. No process will be stopped automatically." /SD IDCANCEL IDRETRY nacre_check_${NacreProcessCheck}
       SetErrorLevel 2
@@ -69,19 +79,23 @@ FunctionEnd
 !macroend
 
 !macro customInstall
-  ${If} $ProtectionMode == ""
-    StrCpy $ProtectionMode "tor"
-  ${EndIf}
-  System::Call 'ole32::CoCreateGuid(g .r0) i.r1'
-  ${If} $1 != 0
-    Abort "Unable to save the protection choice."
-  ${EndIf}
-  StrCpy $0 $0 36 1
-  ClearErrors
-  FileOpen $2 "$INSTDIR\startup-choice.json" w
-  FileWrite $2 '{$\"version$\":1,$\"id$\":$\"$0$\",$\"mode$\":$\"$ProtectionMode$\"}'
-  FileClose $2
-  ${If} ${Errors}
-    Abort "Unable to save the protection choice."
+  ; An automatic update keeps the existing choice and every preference: no new
+  ; startup-choice.json, so Nacre applies nothing again at its next start.
+  ${IfNot} ${isUpdated}
+    ${If} $ProtectionMode == ""
+      StrCpy $ProtectionMode "tor"
+    ${EndIf}
+    System::Call 'ole32::CoCreateGuid(g .r0) i.r1'
+    ${If} $1 != 0
+      Abort "Unable to save the protection choice."
+    ${EndIf}
+    StrCpy $0 $0 36 1
+    ClearErrors
+    FileOpen $2 "$INSTDIR\startup-choice.json" w
+    FileWrite $2 '{$\"version$\":1,$\"id$\":$\"$0$\",$\"mode$\":$\"$ProtectionMode$\"}'
+    FileClose $2
+    ${If} ${Errors}
+      Abort "Unable to save the protection choice."
+    ${EndIf}
   ${EndIf}
 !macroend

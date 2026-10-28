@@ -47,7 +47,7 @@ test('sources are found per profile and described without paths', () => {
     const opera = path.join(env.APPDATA, 'Opera Software', 'Opera Stable');
     fs.mkdirSync(opera, { recursive: true });
     fs.writeFileSync(path.join(opera, 'Bookmarks'), JSON.stringify(chromeData));
-    const sources = findBrowserSources(env);
+    const sources = findBrowserSources(env, 'win32');
     assert.deepEqual(describeSources(sources), [
       { id: 'chrome:Default', browser: 'Google Chrome', profile: 'Default', kind: 'chromium' },
       { id: 'chrome:Profile 2', browser: 'Google Chrome', profile: 'Travail', kind: 'chromium' },
@@ -74,7 +74,7 @@ test('Firefox bookmarks are read from a copy, skipping tags', () => {
         (10, 2, NULL, 3, 0, 'Docs'), (11, 1, 1, 3, 1, 'Mozilla'), (12, 1, 2, 10, 0, 'Wiki'), (13, 1, 3, 3, 2, 'Smart'),
         (20, 2, NULL, 4, 0, 'mytag'), (21, 1, 2, 20, 0, NULL);`);
     db.close();
-    const [source] = findBrowserSources(env);
+    const [source] = findBrowserSources(env, 'win32');
     assert.deepEqual(describeSources([source]), [{ id: 'firefox:abcd.default-release', browser: 'Mozilla Firefox', profile: 'default-release', kind: 'firefox' }]);
     const items = readSourceBookmarks(source, safeURL).sort((a, b) => a.url.localeCompare(b.url));
     assert.deepEqual(items, [

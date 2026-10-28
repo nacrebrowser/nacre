@@ -9,7 +9,11 @@ permissions:
 
 jobs:
   test:
-    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v5
 
@@ -22,14 +26,26 @@ jobs:
           corepack enable
           corepack prepare pnpm@12.11.2 --activate
 
+      - name: Install Linux libraries for Electron
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y xvfb libnss3 libnspr4 libatk1.0-0t64 libatk-bridge2.0-0t64 libcups2t64 libgtk-3-0t64 libgbm1 libasound2t64
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Download and verify Tor
         run: pnpm run prepare:tor
 
-      - name: Run tests
+      - name: Verify the Tor configuration with the real binary
+        run: node scripts/verify-tor-config.cjs
+
+      - name: Run tests (Windows)
+        if: runner.os == 'Windows'
         run: pnpm test
+
+      - name: Run tests (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a pnpm test
 
       - name: Check for personal paths and secrets
         run: node scripts/audit-publication.cjs

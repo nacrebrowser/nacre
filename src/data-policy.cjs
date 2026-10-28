@@ -16,7 +16,8 @@ function clearDataTypesForSelection(selection) {
 }
 
 function sanitizeDownloadFilename(input) {
-  let filename = path.basename(String(input || ''));
+  // Drop any directory part, with either separator, whatever the platform.
+  let filename = String(input || '').replace(/^.*[\\/]/, '');
   filename = filename
     .replace(/[<>:"/\\|?*\u0000-\u001f\u007f\u061c\u200b-\u200f\u202a-\u202e\u2060-\u2069\ufeff]/g, '_')
     .replace(/[. ]+$/g, '')

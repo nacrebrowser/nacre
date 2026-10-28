@@ -116,6 +116,7 @@ api.getPhishingFeedStatus().then(feed => {
 function applySnapshot(next) {
   state = next;
   const prefs = next.settings;
+  renderUpdates();
   const languageSelect = $('#language');
   if (languageSelect) syncCustomLanguages(languageSelect, prefs.customLanguages);
   if (languageSelect && document.activeElement !== languageSelect) languageSelect.value = prefs.language || 'en';
@@ -367,25 +368,59 @@ $('#security-check').addEventListener('click', () => {
   const torActive = (prefs.proxy.mode === 'tor' && !prefs.proxy.torError) || Boolean(prefs.proxy.torConnectingCountry);
   $('#security-result').textContent = t('settings.securityReport').replace('{dns}', prefs.proxy.enabled ? t('settings.dnsDisabledProxy') : prefs.secureDnsMode === 'strict' ? t('settings.dnsQuad9Active') : t('settings.dnsQuad9Automatic')).replace('{webrtc}', torActive ? t('settings.webrtcTor') : t('settings.webrtcDirect')).replace('{blocker}', prefs.blockerReady ? t('settings.easylistLoaded') : t('settings.filterEngineUnavailable')).replace('{tor}', torActive ? t('settings.active') : prefs.proxy.torError ? t('settings.unavailableBlocked') : t('settings.inactive'));
 });
+// Text for the updater state sent by Nacre (settings.update.status).
+function updateStatusText(status) {
+  if (!status) return '';
+  const version = status.version || '';
+  switch (status.state) {
+    case 'checking': return t('update.checking');
+    case 'downloading': return t('update.downloading').replace('{version}', version);
+    case 'ready': return t('update.readyNote').replace('{version}', version);
+    case 'available': return t(status.error === 'install-failed' ? 'update.failedNote' : 'update.availableNote').replace('{version}', version);
+    case 'current': return t('update.current').replace('{version}', status.currentVersion || '');
+    case 'updated': return t('update.updated').replace('{version}', version);
+    case 'consent': return t('update.consentNote');
+    case 'disabled': return t('update.disabledNote');
+    case 'error': {
+      // Codes are kebab-case; catalogue keys are camelCase.
+      const key = 'update.error.' + String(status.error || 'offline').replace(/-([a-z])/g, (_match, letter) => letter.toUpperCase());
+      return (t(key) === key ? t('update.error.offline') : t(key)).replace('{version}', version);
+    }
+    default: return status.installKind === 'none' ? t('update.devBuild') : '';
+  }
+}
+
+function renderUpdates() {
+  const update = state?.settings?.update;
+  if (!update) return;
+  $('#update-auto').checked = update.auto !== false;
+  // The choice stays visible and can be changed (or withdrawn) at any time
+  // while Nacre is not on Tor; the current answer is shown as pressed.
+  $('#update-consent').hidden = state.settings.proxy?.mode === 'tor' && update.directConsent === 'unset';
+  for (const [id, value] of [['#update-consent-allow', 'allow'], ['#update-consent-deny', 'deny']]) {
+    $(id).setAttribute('aria-pressed', String(update.directConsent === value));
+    $(id).classList.toggle('primary', update.directConsent === value || (update.directConsent === 'unset' && value === 'allow'));
+  }
+  $('#update-result').textContent = updateStatusText(update.status);
+  const status = update.status || {};
+  const release = $('#update-release');
+  release.hidden = !status.releaseUrl || !['available', 'error'].includes(status.state);
+  release.textContent = t('update.available').replace('{version}', status.version || '');
+}
+
+$('#update-auto').addEventListener('change', (event) => { api.updateAction(event.target.checked ? 'auto-on' : 'auto-off').catch(() => {}); });
+const reportUpdateError = (error) => { $('#update-result').textContent = api.localizeText(error?.message) || t('update.error.state'); };
+$('#update-consent-allow').addEventListener('click', () => { api.updateAction('consent-allow').catch(reportUpdateError); });
+$('#update-consent-deny').addEventListener('click', () => { api.updateAction('consent-deny').catch(reportUpdateError); });
+$('#update-release').addEventListener('click', () => { api.updateAction('open-release').catch(() => {}); });
 $('#check-updates').addEventListener('click', async () => {
   const button = $('#check-updates');
-  const output = $('#update-result');
   button.disabled = true;
-  output.textContent = state?.settings?.proxy?.mode === 'tor' && !state.settings.proxy.torError
-    ? t('settings.githubCheckingTor')
-    : t('settings.connectTorFirst');
+  $('#update-result').textContent = t('update.checking');
   try {
-    const result = await api.checkUpdates($('#release-repository').value.trim());
-    const statusLine = (label, item) => {
-      if (item.unconfigured) return t('settings.releaseUnconfigured').replace('{label}', label).replace('{current}', item.current);
-      if (item.error) return t('settings.releaseCheckFailed').replace('{label}', label).replace('{current}', item.current).replace('{error}', api.localizeText(item.error));
-      return item.updateAvailable
-        ? t('settings.releaseUpdateAvailable').replace('{label}', label).replace('{current}', item.current).replace('{latest}', item.latest)
-        : t('settings.releaseUpToDate').replace('{label}', label).replace('{current}', item.current).replace('{latest}', item.latest);
-    };
-    output.textContent = [statusLine('Nacre', result.nacre), statusLine('Electron', result.electron)].join('\n');
+    $('#update-result').textContent = updateStatusText(await api.checkUpdates());
   } catch (error) {
-    output.textContent = api.localizeText(error?.message) || t('settings.updatesFailed');
+    $('#update-result').textContent = api.localizeText(error?.message) || t('update.error.offline');
   } finally {
     button.disabled = false;
   }

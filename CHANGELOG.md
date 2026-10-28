@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.0
+
+- Automatic updates, signed with Nacre's own key: Nacre checks once a day, downloads in the background and installs when you restart. With Tor on, everything goes through Tor; without Tor, Nacre asks first. Portable and Linux copies are told when a version is out.
+- Linux version (beta): a `.deb` package for Ubuntu and Debian, with the Linux Tor bundle and bookmark import from Linux browsers, including snap and Flatpak Firefox.
+- The user agent now names the real operating system family (Windows or Linux).
+- Downloaded file names are cleaned of Windows-style folder names on every system.
+- Release files no longer contain spaces: `Nacre-Setup-1.1.0.exe`, `Nacre-1.1.0-Portable.zip`.
+- A profile can no longer be moved inside the installation folder, which updates replace.
+- Tor now stops by itself when Nacre ends abruptly (crash, forced close, session end) instead of staying in the background.
+
+Version 1.0.0 has no updater: install 1.1.0 by hand once.
+
 ## 1.0.0
 
 First public release.

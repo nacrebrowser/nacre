@@ -6,15 +6,16 @@ Thanks for trying Nacre. It is a young browser: please don't rely on it yet for 
 
 Download one of these from the [releases page](https://github.com/nacrebrowser/nacre/releases):
 
-- **Installer:** `Nacre.Setup.1.0.0.exe`. You can choose the folder and whether Tor is on by default.
-- **Portable:** unzip **all** of `Nacre.1.0.0.Portable.zip` into a folder you can write to, then run **`Nacre Portable.cmd`**. Don't start `Nacre.exe` directly, or it would use the profile of an installed copy. Your data stays in the `NacreData` folder next to it.
+- **Installer:** `Nacre-Setup-1.1.0.exe`. You can choose the folder and whether Tor is on by default.
+- **Linux (beta):** `nacre_1.1.0_amd64.deb` for Ubuntu and Debian: `sudo apt install ./nacre_1.1.0_amd64.deb`.
+- **Portable:** unzip **all** of `Nacre-1.1.0-Portable.zip` into a folder you can write to, then run **`Nacre Portable.cmd`**. Don't start `Nacre.exe` directly, or it would use the profile of an installed copy. Your data stays in the `NacreData` folder next to it.
 
 ### "Windows protected your PC"
 
-This is expected: the installer is not signed yet. Click **More info**, then **Run anyway**. To check that the file was not modified, compare its hash with `SHA256SUMS-1.0.0.txt`:
+This is expected: the installer is not signed yet. Click **More info**, then **Run anyway**. To check that the file was not modified, compare its hash with `SHA256SUMS-1.1.0.txt`:
 
 ```powershell
-Get-FileHash .\Nacre.Setup.1.0.0.exe
+Get-FileHash .\Nacre-Setup-1.1.0.exe
 ```
 
 ## What to look at first

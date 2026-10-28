@@ -8,7 +8,7 @@ if(!report.startsWith(path.join(root,'.cache')+path.sep))throw Error('Evidence m
 fs.mkdirSync(path.dirname(report),{recursive:true});
 if(fs.existsSync(report))throw Error('Refuse evidence overwrite');
 const digest=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
-const setup=path.join(dir,'Nacre Setup '+version+'.exe'),portable=path.join(dir,'Nacre '+version+' Portable.zip');
+const names=require('./artifact-names.cjs').artifactNames(version),setup=path.join(dir,names.nsis),portable=path.join(dir,names.portable);
 const result={status:'RUNNING',installation:'NOT_TESTED',results:[]};
 function check(name,fn){fn();result.results.push({name,status:'PASS'});}
 function zipHashes(file){

@@ -109,7 +109,7 @@ function cdp(url) {
     const chrome = cdp((await target('nacre://app/')).webSocketDebuggerUrl);
     sessions.push(chrome);
     await until(() => chrome.evaluate('!!window.nacre'), 'privileged preload');
-    assert.equal(await chrome.evaluate('document.querySelector(".footer-version").textContent.trim()'), '1.0.0 · BETA');
+    assert.equal(await chrome.evaluate('document.querySelector(".footer-version").textContent.trim()'), '1.1.0 · BETA');
     await chrome.evaluate('window.__smokeState=null; window.nacre.onState((s)=>{window.__smokeState=s})');
     // Subscribe after renderer initialization, then explicitly request a state
     // producing action rather than depending on an unrelated timed UI event.

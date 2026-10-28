@@ -35,7 +35,18 @@ function buildChromeUserAgentMetadata(version, platform = 'Windows', platformVer
   };
 }
 
-function buildClientHintHeaders(version, platform = 'Windows') {
+// The user agent names the real operating system family: claiming Windows on
+// Linux would contradict fonts, navigator.platform and other signals.
+const USER_AGENT_PROFILES = Object.freeze({
+  win32: Object.freeze({ token: 'Windows NT 10.0; Win64; x64', platform: 'Windows', platformVersion: '10.0.0' }),
+  linux: Object.freeze({ token: 'X11; Linux x86_64', platform: 'Linux', platformVersion: '' })
+});
+
+function userAgentProfile(platform = process.platform) {
+  return USER_AGENT_PROFILES[platform] || USER_AGENT_PROFILES.win32;
+}
+
+function buildClientHintHeaders(version, platform = 'Windows', platformVersion = '10.0.0') {
   const major = String(chromeMajor(version));
   const brands = `"Not_A Brand";v="99", "Chromium";v="${major}", "Google Chrome";v="${major}"`;
   const fullBrands = `"Not_A Brand";v="99.0.0.0", "Chromium";v="${major}.0.0.0", "Google Chrome";v="${major}.0.0.0"`;
@@ -45,7 +56,7 @@ function buildClientHintHeaders(version, platform = 'Windows') {
     'Sec-CH-UA-Platform': `"${platform}"`,
     'Sec-CH-UA-Full-Version': `"${major}.0.0.0"`,
     'Sec-CH-UA-Full-Version-List': fullBrands,
-    'Sec-CH-UA-Platform-Version': '"10.0.0"',
+    'Sec-CH-UA-Platform-Version': `"${platformVersion}"`,
     'Sec-CH-UA-Arch': '"x86"',
     'Sec-CH-UA-Bitness': '"64"',
     'Sec-CH-UA-Model': '""',
@@ -63,4 +74,4 @@ function applyPrivacySignals(headers, preferences = {}) {
   return headers;
 }
 
-module.exports = { chromeMajor, buildChromeUserAgent, buildChromeUserAgentMetadata, buildClientHintHeaders, applyPrivacySignals };
+module.exports = { chromeMajor, userAgentProfile, buildChromeUserAgent, buildChromeUserAgentMetadata, buildClientHintHeaders, applyPrivacySignals };

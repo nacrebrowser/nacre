@@ -13,3 +13,12 @@ translation-work.zip
 /vendor/tor/pluggable_transports/lyrebird.exe
 /vendor/tor/pluggable_transports/conjure-client.exe
 /vendor/tor/pt_config.json
+/vendor/tor-linux/tor
+/vendor/tor-linux/*.so.*
+/vendor/tor-linux/geoip
+/vendor/tor-linux/geoip6
+/vendor/tor-linux/pluggable_transports/
+/vendor/tor-linux/pt_config.json
+
+# Release signing keys never belong in the repository.
+*.pem

@@ -7,7 +7,8 @@ assignees: ''
 ---
 
 **Nacre version:**
-**Windows version:**
+**System** (Windows version, or Linux distribution and version):
+**Installed with** (setup / portable / .deb):
 **Network mode** (Tor / direct / proxy):
 
 ## Steps to reproduce

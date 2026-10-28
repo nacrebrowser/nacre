@@ -1,6 +1,6 @@
 # Privacy
 
-This describes Nacre 1.0.0. Nacre is beta software: read the limits at the end before relying on it.
+This describes Nacre 1.1.0. Nacre is beta software: read the limits at the end before relying on it.
 
 ## The short version
 
@@ -16,6 +16,10 @@ Each profile has its own folder. In it, Nacre keeps:
 - settings, bookmarks, home page shortcuts and site icons;
 - cookies and site storage for normal tabs, until you clear them, until a "forget this site" rule removes them, or at exit if "Clear on quit" is on;
 - your downloads, which stay where you saved them.
+
+Next to your profiles, Nacre keeps a small update file (the newest version it has seen, and whether an update is waiting). A downloaded update waits in a temporary folder until it is installed, then it is deleted.
+
+Settings are signed with a key held by your system's own key storage (Windows data protection, or the desktop keyring on Linux), so a changed settings file is detected.
 
 Nacre does not keep a browsing history between launches. Recently closed tabs are kept in memory only, and are gone when Nacre closes. Private tabs use in-memory sessions that are discarded when they close.
 
@@ -52,7 +56,7 @@ The phishing list is bundled with the app. Nacre does not send the addresses you
 
 ## What Nacre sends to websites
 
-- A standard Chrome user agent, so Nacre looks like ordinary Chrome.
+- A standard Chrome user agent for your system (Windows or Linux), so Nacre looks like ordinary Chrome.
 - The Global Privacy Control signal (on by default).
 - Third-party cookies are blocked by default. HTTPS-only mode is on.
 - Fingerprinting protections are on by default, and WebGL is off.

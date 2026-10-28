@@ -1,6 +1,6 @@
 # Threat model
 
-Nacre is an Electron/Chromium browser for Windows. Web pages run in their own views. Nacre's own pages (`nacre://`) and the main process are privileged. A bundled Tor client routes browsing by default.
+Nacre is an Electron/Chromium browser for Windows and Linux. Web pages run in their own views. Nacre's own pages (`nacre://`) and the main process are privileged. A bundled Tor client routes browsing by default.
 
 ## Who we defend against
 
@@ -21,7 +21,7 @@ Nacre is an Electron/Chromium browser for Windows. Web pages run in their own vi
 2. Nacre's privileged pages and main-process functions, from web content.
 3. Proxy credentials and the Tor control cookie.
 4. Bookmarks, settings, permissions and site data on disk.
-5. The integrity of the Tor binaries, filter lists and the installer.
+5. The integrity of the Tor binaries, filter lists, the installer and automatic updates.
 
 ## Rules the code follows
 
@@ -31,12 +31,15 @@ Nacre is an Electron/Chromium browser for Windows. Web pages run in their own vi
 - Sessions set to Tor fail closed: if Tor stops, pages stop loading instead of falling back to a direct connection.
 - Network requests from the main process go through the browsing session's proxy.
 - Tor and filter downloads are checked against pinned hashes.
+- Automatic updates are installed only with a valid signature from Nacre's update key (see [SECURITY.md](../../SECURITY.md#update-signing)).
+- The bundled Tor exits by itself when Nacre's process is gone.
 - A protection is only described as working when code and a test show it.
 
 ## Known gaps
 
 - Fingerprinting protection does not cover workers, OffscreenCanvas or every frame. GPU details can leak when WebGL is turned on.
 - In test fixtures, Chromium has attempted an IPv6 UDP connection outside the proxy. No Windows packet capture of the full app has confirmed or ruled out a leak yet.
-- The installer is not signed.
+- The Windows installer is not signed with a code-signing certificate. Updates are signed with Nacre's own key instead.
+- The Linux version is newer and has been tested on fewer systems.
 
 Report problems as described in [SECURITY.md](../../SECURITY.md).

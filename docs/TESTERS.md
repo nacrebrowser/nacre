@@ -10,6 +10,10 @@ Download one of these from the [releases page](https://github.com/nacrebrowser/n
 - **Linux (beta):** `nacre_1.1.0_amd64.deb` for Ubuntu and Debian: `sudo apt install ./nacre_1.1.0_amd64.deb`.
 - **Portable:** unzip **all** of `Nacre-1.1.0-Portable.zip` into a folder you can write to, then run **`Nacre Portable.cmd`**. Don't start `Nacre.exe` directly, or it would use the profile of an installed copy. Your data stays in the `NacreData` folder next to it.
 
+If you already have 1.0.0, install 1.1.0 over it: your bookmarks and settings are kept. From then on, the installed Windows version updates itself; Settings › About shows the update status.
+
+On Linux, Nacre needs a desktop keyring (GNOME Keyring or KWallet, present on most desktops) to save its settings.
+
 ### "Windows protected your PC"
 
 This is expected: the installer is not signed yet. Click **More info**, then **Run anyway**. To check that the file was not modified, compare its hash with `SHA256SUMS-1.1.0.txt`:
@@ -40,12 +44,12 @@ Open an [issue](https://github.com/nacrebrowser/nacre/issues) with:
 
 - what you were doing and what you expected;
 - a screenshot or a short video;
-- your Windows version;
+- your system: Windows version, or Linux distribution and version;
 - for a browsing problem: the site address, and whether Tor was on;
 - if you can, the "Raw diagnostic data (JSON)" block from the diagnostics page. Your public IP address is partly hidden in it.
 
-Never send passwords or the contents of your profile folder (`NacreData` or `%APPDATA%\Nacre`): it holds your cookies and bookmarks.
+Never send passwords or the contents of your profile folder (`NacreData`, `%APPDATA%\Nacre` or `~/.config/Nacre`): it holds your cookies and bookmarks.
 
 ## Uninstall
 
-Windows Settings › Apps › Nacre › Uninstall. Your data (bookmarks, settings, cookies) stays in `%APPDATA%\Nacre`: delete that folder to remove everything. For the portable version, just delete its folder.
+Windows Settings › Apps › Nacre › Uninstall. Your data (bookmarks, settings, cookies) stays in `%APPDATA%\Nacre`: delete that folder to remove everything. For the portable version, just delete its folder. On Linux: `sudo apt remove nacre-browser`, then delete `~/.config/Nacre` to remove your data.

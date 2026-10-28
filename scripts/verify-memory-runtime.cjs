@@ -66,7 +66,10 @@ async function run() {
   assert.equal(nacre.blocker(), engine, 'one shared Ghostery engine throughout tab churn');
   nacre.activateTab(normal.id);
   assert.equal(nacre.snapshot().activeId, normal.id);
-  win.setSize(1100, 800); win.minimize(); assert.equal(win.isMinimized(), true); win.restore();
+  // On X11 the window manager minimizes asynchronously; Windows does it at once.
+  win.setSize(1100, 800);
+  const minimized = new Promise(resolve => { win.once('minimize', resolve); setTimeout(resolve, 5000); });
+  win.minimize(); await minimized; assert.equal(win.isMinimized(), true); win.restore();
   // Native auth prompt still accepts the renderer-free BaseWindow as parent.
   const auth = require(path.join(root, 'src/http-auth.cjs')).promptHttpAuth({ BrowserWindow, ipcMain, parent: win, contents: chrome, url: 'https://example.test/', realm: 'fixture', language: 'en' });
   await until(() => BrowserWindow.getAllWindows().length > 0);

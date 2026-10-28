@@ -52,7 +52,9 @@ sha256sum nacre_1.1.0_amd64.deb
 sudo apt install ./nacre_1.1.0_amd64.deb
 ```
 
-Compare the hash with `SHA256SUMS-1.1.0.txt`. Nacre then appears in your applications menu. Chromium's sandbox stays on: the package installs its helper the standard way.
+Compare the hash with `SHA256SUMS-1.1.0.txt`. Nacre then appears in your applications menu. Chromium's sandbox stays on: the package installs an AppArmor profile on Ubuntu 24.04 and later, and the standard sandbox helper elsewhere.
+
+Nacre needs a desktop keyring (GNOME Keyring or KWallet, present on most desktops) to save its settings. To uninstall: `sudo apt remove nacre-browser`. Your data stays in `~/.config/Nacre`.
 
 ### Updates
 

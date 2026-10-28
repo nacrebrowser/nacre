@@ -28,10 +28,19 @@ jobs:
 
       - name: Install Linux libraries for Electron
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y xvfb libnss3 libnspr4 libatk1.0-0t64 libatk-bridge2.0-0t64 libcups2t64 libgtk-3-0t64 libgbm1 libasound2t64
+        run: sudo apt-get update && sudo apt-get install -y xvfb libnss3 libnspr4 libatk1.0-0t64 libatk-bridge2.0-0t64 libcups2t64 libgtk-3-0t64 libgbm1 libasound2t64 openbox gnome-keyring
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      # Ubuntu 24.04 restricts user namespaces, so Chromium's sandbox needs
+      # its setuid helper here (the .deb package uses an AppArmor profile).
+      - name: Keep Electron's sandbox on (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          helper="$(node -p "require('path').join(require('path').dirname(require('electron')), 'chrome-sandbox')")"
+          sudo chown root:root "$helper"
+          sudo chmod 4755 "$helper"
 
       - name: Download and verify Tor
         run: pnpm run prepare:tor
@@ -45,7 +54,12 @@ jobs:
 
       - name: Run tests (Linux)
         if: runner.os == 'Linux'
-        run: xvfb-run -a pnpm test
+        # Like a desktop session: a window manager, a session bus and an
+        # unlocked keyring, which Nacre needs to protect its settings key.
+        env:
+          XDG_CURRENT_DESKTOP: GNOME
+        run: |
+          dbus-run-session -- bash -c 'echo -n ci | gnome-keyring-daemon --unlock --components=secrets > /dev/null && xvfb-run -a bash -c "openbox > /dev/null 2>&1 & sleep 1; pnpm test"'
 
       - name: Check for personal paths and secrets
         run: node scripts/audit-publication.cjs

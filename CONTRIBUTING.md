@@ -12,7 +12,7 @@ pnpm test
 pnpm run security-check
 ```
 
-If you touch Tor or the network code, also run `pnpm run verify:tor`. If you touch packaging, run `pnpm run build:windows`.
+If you touch Tor or the network code, also run `pnpm run verify:tor`. If you touch packaging, run `pnpm run build:windows`, or `pnpm run build:linux` on Linux.
 
 In the pull request, say what changes for the user and whether it affects privacy (new connections, new stored data).
 

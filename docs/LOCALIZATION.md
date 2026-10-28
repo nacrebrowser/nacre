@@ -12,13 +12,13 @@ The authoritative codes are in `SUPPORTED_LANGUAGES`; tests verify selector pari
 
 ## Custom languages
 
-Settings › Appearance › "Create a custom language…" writes `languages/customN.json` in the profile folder (`%APPDATA%\Nacre\languages`, or `NacreData\languages` for the portable version) and shows it in Explorer. The template holds every text of the current interface language (English for another one), plus `_name` (shown in the list), `_locale` (a language tag such as `sw`) and `_instructions`. Each file is offered as the private-use tag `<_locale>-x-<id>`, `id` being the first eight letters and digits of the file name, so `Intl`, the `lang` attribute and right-to-left detection work as for built-in languages.
+Settings › Appearance › "Create a custom language…" writes `languages/customN.json` in the profile folder (`%APPDATA%\Nacre\languages`, `NacreData\languages` for the portable version, or `~/.config/Nacre/languages` on Linux) and opens that folder. The template holds every text of the current interface language (English for another one), plus `_name` (shown in the list), `_locale` (a language tag such as `sw`) and `_instructions`. Each file is offered as the private-use tag `<_locale>-x-<id>`, `id` being the first eight letters and digits of the file name, so `Intl`, the `lang` attribute and right-to-left detection work as for built-in languages.
 
 These files are local input of unknown quality. At most 20 files of 2 MiB are read; symbolic links are ignored. Only texts whose key exists in English and whose placeholders match are used, at most 4,000 characters each, rendered as plain text like every message; anything else stays in English. An edited file is read again the next time the language is selected. A profile whose custom file was removed falls back to the closest built-in language of its `_locale`, otherwise English.
 
 ## First-run language
 
-After installation Nacre takes the first language of the Windows preference list it supports (`preferredLanguage`), then the display language: "Swahili, French" gives French. No network request is made to guess a country.
+After installation Nacre takes the first language of the system's preference list it supports (`preferredLanguage`), then the display language: "Swahili, French" gives French. No network request is made to guess a country.
 
 ## Rendering rules
 

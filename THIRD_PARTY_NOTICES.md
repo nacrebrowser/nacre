@@ -13,9 +13,9 @@ Nacre's own code is released under the [MPL-2.0](LICENSE.md). The MPL applies fi
 | `@ghostery/adblocker` and `@ghostery/adblocker-electron-preload` | 2.20.1 | MPL-2.0 | Blocking engine dependencies |
 | `tldts-experimental` | 7.4.18 | MIT | Registrable domain parsing |
 | `qrcode-generator` | 2.0.4 | MIT | Local QR codes for sharing, in `src/vendor/` with `QRCODE_LICENSE.txt` |
-| Tor Expert Bundle | 15.0.25 / Tor 0.4.9.14 | BSD-3-Clause for Tor; other notices included in the bundle | Tor network |
-| Lyrebird | Included in the Tor bundle | See `vendor/tor/licenses/lyrebird.txt` | obfs4 and Snowflake bridges |
-| Conjure client | Included in the Tor bundle | See `vendor/tor/licenses/conjure.txt` | Conjure bridges |
+| Tor Expert Bundle (Windows and Linux) | 15.0.25 / Tor 0.4.9.14 | BSD-3-Clause for Tor; other notices included in the bundle | Tor network |
+| Lyrebird | Included in the Tor bundle | See `vendor/tor/licenses/lyrebird.txt` (Linux: `vendor/tor-linux/licenses/`) | obfs4 and Snowflake bridges |
+| Conjure client | Included in the Tor bundle | See `vendor/tor/licenses/conjure.txt` (Linux: `vendor/tor-linux/licenses/`) | Conjure bridges |
 
 Build tools only, not shipped in the app: `electron-builder` 26.17.0 (MIT) and `@electron/fuses` 1.8.0 (MIT).
 

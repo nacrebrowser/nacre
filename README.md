@@ -67,14 +67,14 @@ The build writes the installer, the portable zip and the checksums to `dist\`.
 - [Profiles](docs/LOCAL_PROFILES.md), [diagnostics](docs/DIAGNOSTICS.md), [phishing list](docs/phishing-feed.md)
 - [Changelog](CHANGELOG.md)
 
-## Code signing policy
+## Code signing
 
-Free code signing provided by [SignPath.io](https://about.signpath.io/), certificate by [SignPath Foundation](https://signpath.org/). Until signing is active, Windows builds are unsigned.
+Windows builds are not signed yet. Every release ships with a `SHA256SUMS` file, so you can check that your download matches the published build (see [Install](#install)), and you can build the same version yourself (see [Build from source](#build-from-source)). Signing will be added when a certificate is available, and this section will say so.
 
 - Committers and reviewers: [NacreDev](https://github.com/nacrebrowser)
 - Approvers: [NacreDev](https://github.com/nacrebrowser)
 
-Signed builds are produced by GitHub Actions from this repository. What Nacre stores and sends over the network is described in the [privacy policy](PRIVACY.md).
+What Nacre stores and sends over the network is described in the [privacy policy](PRIVACY.md).
 
 ## Support Nacre
 
